@@ -38,12 +38,37 @@ const roleProfiles = {
 export default function Login() {
   const router = useRouter();
   const { login } = useAuth();
-  const [selectedRole, setSelectedRole] = useState('LECTURER');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState(null);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    login(roleProfiles[selectedRole]);
-    router.push('/dashboard');
+    setError(null);
+    try {
+      const base = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost:5000';
+      const resp = await fetch(`${base}/api/auth/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+        credentials: 'include',
+      });
+      const body = await resp.json();
+      if (!body.success) {
+        setError(body.message || 'Login failed');
+        return;
+      }
+      const { user, accessToken } = body.data;
+      // store token and user
+      if (accessToken) {
+        localStorage.setItem('accessToken', accessToken);
+        user.accessToken = accessToken;
+      }
+      login(user);
+      router.push('/dashboard');
+    } catch (e) {
+      setError('Login failed');
+    }
   };
 
   return (
@@ -59,21 +84,10 @@ export default function Login() {
           <Card title="Sign in" description="Choose a demo role to explore the unified dashboard experience.">
             <Alert title="Demo mode" tone="info" className="mb-5">This preview uses a simulated onboarding flow for design validation and role-based navigation.</Alert>
             <form onSubmit={handleSubmit} className="space-y-4">
-              <Input label="Email" type="email" defaultValue="demo@urmis.edu" />
-              <Input label="Password" type="password" defaultValue="password123" hint="Use any password in this demo" />
-              <label className="block text-sm font-medium text-[var(--color-text)]">
-                <span className="mb-2 block">Demo role</span>
-                <select
-                  value={selectedRole}
-                  onChange={(event) => setSelectedRole(event.target.value)}
-                  className="min-h-11 w-full rounded-xl border border-[var(--color-border)] bg-[var(--color-background)] px-3 py-2.5 text-sm text-[var(--color-text)] shadow-sm outline-none transition focus:border-[var(--color-primary)] focus:ring-2 focus:ring-[color:var(--color-primary)]/20"
-                >
-                  <option value="LECTURER">Lecturer</option>
-                  <option value="UNIVERSITY_ADMIN">University Admin</option>
-                  <option value="STUDENT">Student</option>
-                </select>
-              </label>
-              <Button type="submit" className="w-full">Continue to dashboard</Button>
+              {error && <div className="text-sm text-red-600">{error}</div>}
+              <Input label="Email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+              <Input label="Password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} hint="Your account password" />
+              <Button type="submit" className="w-full">Sign in</Button>
             </form>
           </Card>
         </div>

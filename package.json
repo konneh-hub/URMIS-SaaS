@@ -1,25 +1,41 @@
 {
   "name": "urmis",
+  "type": "module",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "seed": "node backend/src/seeders/seed.js",
+    "backend:start": "node backend/src/server.js"
   },
   "dependencies": {
     "@prisma/client": "^7.9.1",
     "@tailwindcss/forms": "^0.5.11",
     "@tailwindcss/typography": "^0.5.20",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "csv-parse": "^5.3.0",
+    "cuid": "^2.1.8",
+    "express": "^4.18.2",
+    "express-validator": "^7.0.1",
+    "jsonwebtoken": "^9.0.0",
     "lucide-react": "^1.28.0",
+    "multer": "^1.4.5-lts.1",
     "next": "16.3.0",
     "next-auth": "^4.24.15",
+    "pg": "^8.11.0",
+    "pino": "^8.14.0",
+    "pino-http": "^8.5.0",
+    "pino-pretty": "^9.0.0",
     "react": "19.2.8",
     "react-dom": "19.2.8",
     "react-hook-form": "^7.84.0",
     "recharts": "^3.10.1",
-    "zod": "^4.4.3"
+    "zod": "^4.4.3",
+    "@prisma/adapter-pg": "^7.9.1"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",

@@ -31,13 +31,15 @@ model User {
   name           String
   password       String?
   role           UserRole  @default(STUDENT)
-  institutionId  String
+  institutionId  String?
   permissions    String[]  @default([])
   createdAt      DateTime  @default(now())
   updatedAt      DateTime  @updatedAt
 
-  institution    Institution @relation(fields: [institutionId], references: [id], onDelete: Cascade)
+  institution    Institution? @relation(fields: [institutionId], references: [id], onDelete: Cascade)
   approvedResults Result[]   @relation("ApprovedResults")
+  refreshTokens   RefreshToken[]
+  inviteTokens    InviteToken[]
 }
 
 enum UserRole {
@@ -197,4 +199,24 @@ enum ResultStatus {
   APPROVED
   PUBLISHED
   REJECTED
+}
+
+model RefreshToken {
+  id        String   @id @default(cuid())
+  token     String   @unique
+  userId    String
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model InviteToken {
+  id        String   @id @default(cuid())
+  token     String   @unique
+  userId    String
+  expiresAt DateTime
+  used      Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
