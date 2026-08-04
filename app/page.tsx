@@ -1,6 +1,12 @@
-import MainLayout from "../frontend/src/shared/layouts/MainLayout";
+"use client";
+
+import Link from "next/link";
+import MainLayout from "../src/shared/layouts/MainLayout";
+import { useAuth } from "../src/shared/auth/AuthProvider";
 
 export default function Home() {
+  const { isAuthenticated } = useAuth();
+
   return (
     <MainLayout>
       <div className="mx-auto flex max-w-5xl flex-col gap-8 rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
@@ -15,6 +21,21 @@ export default function Home() {
             URMIS is designed to help institutions manage students, courses, results,
             approvals, and academic reporting in a secure, scalable, and multi-tenant environment.
           </p>
+        </div>
+
+        <div className="flex flex-wrap gap-3">
+          <Link
+            href={isAuthenticated ? "/dashboard" : "/login"}
+            className="rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-medium text-white hover:bg-blue-700"
+          >
+            {isAuthenticated ? "Open dashboard" : "Sign in"}
+          </Link>
+          <Link
+            href="/dashboard"
+            className="rounded-lg border border-slate-300 px-4 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-100"
+          >
+            Explore demo dashboard
+          </Link>
         </div>
 
         <div className="grid gap-4 md:grid-cols-3">

@@ -1,0 +1,13 @@
+import React from 'react';
+import DashboardLayout from '../../../shared/layouts/DashboardLayout';
+
+export default function Profile() {
+  return (
+    <DashboardLayout>
+      <div className="rounded-xl border bg-white p-6 shadow-sm">
+        <h1 className="text-xl font-semibold">Profile</h1>
+        <p className="mt-2 text-sm text-slate-600">Student profile placeholder.</p>
+      </div>
+    </DashboardLayout>
+  );
+}
