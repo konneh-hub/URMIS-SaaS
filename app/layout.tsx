@@ -23,8 +23,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col">
+      <body className="min-h-full flex flex-col bg-[var(--background)] text-[var(--foreground)]">
+        <script dangerouslySetInnerHTML={{ __html: `try{const stored=localStorage.getItem('urmis-theme');const system=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';const theme=stored||'system';const resolved=theme==='system'?system:theme;document.documentElement.setAttribute('data-theme', resolved);document.documentElement.style.colorScheme=resolved;}catch(e){}` }} />
         <AuthProvider>{children}</AuthProvider>
       </body>
     </html>

@@ -4,7 +4,13 @@ import React from 'react';
 import { useParams } from 'next/navigation';
 import { useAuth } from '../../../src/shared/auth/AuthProvider';
 import DashboardLayout from '../../../src/shared/layouts/DashboardLayout';
-import { getMenuForRole, formatRoleLabel } from '../../../src/shared/layouts/sidebarConfig';
+import { getMenuForRole } from '../../../src/shared/layouts/sidebarConfig';
+import PageHeader from '../../../src/shared/components/ui/PageHeader';
+import Card from '../../../src/shared/components/ui/Card';
+import Button from '../../../src/shared/components/ui/Button';
+import Badge from '../../../src/shared/components/ui/Badge';
+import Tabs from '../../../src/shared/components/ui/Tabs';
+import Table from '../../../src/shared/components/ui/Table';
 
 const sectionMeta = {
   dashboard: { title: 'Dashboard Overview', description: 'Overview of the current academic workspace.' },
@@ -87,20 +93,99 @@ export default function DashboardSlugPage() {
   const currentItem = menuItems.find((item: { slug?: string }) => item.slug === slug) || menuItems[0];
   const meta = sectionMeta[slug as keyof typeof sectionMeta] || sectionMeta.dashboard;
 
+  const tabs = [
+    {
+      value: 'overview',
+      label: 'Overview',
+      badge: 'Live',
+      badgeTone: 'info',
+      content: (
+        <div className="grid gap-4 xl:grid-cols-[0.65fr_0.35fr]">
+          <Card title="Section summary" description={meta.description}>
+            <div className="grid gap-3 md:grid-cols-2">
+              <div className="rounded-2xl bg-[var(--color-muted)] p-4 text-sm text-[var(--color-text)]">
+                <p className="font-semibold text-[var(--color-text)]">Current focus</p>
+                <p className="mt-2 text-[var(--color-muted-text)]">Keep your workflows aligned with compliance and operational requests.</p>
+              </div>
+              <div className="rounded-2xl bg-[var(--color-muted)] p-4 text-sm text-[var(--color-text)]">
+                <p className="font-semibold text-[var(--color-text)]">Guideline</p>
+                <p className="mt-2 text-[var(--color-muted-text)]">Actions in this section are synced to the role permissions in real time.</p>
+              </div>
+            </div>
+          </Card>
+
+          <Card title="Status" description="Current health for this section.">
+            <div className="space-y-3">
+              <div className="rounded-2xl bg-[var(--color-background)] p-4">
+                <p className="text-sm text-[var(--color-muted-text)]">Pending workload</p>
+                <p className="mt-2 text-lg font-semibold text-[var(--color-text)]">12 items</p>
+              </div>
+              <div className="rounded-2xl bg-[var(--color-background)] p-4">
+                <p className="text-sm text-[var(--color-muted-text)]">Actionable alerts</p>
+                <p className="mt-2 text-lg font-semibold text-[var(--color-text)]">3 high priority</p>
+              </div>
+            </div>
+          </Card>
+        </div>
+      ),
+    },
+    {
+      value: 'data',
+      label: 'Data table',
+      badge: 'Report',
+      badgeTone: 'info',
+      content: (
+        <div className="space-y-4">
+          <p className="text-sm text-[var(--color-muted-text)]">Review the latest data rows for this section and use quick actions to update or export.</p>
+          <Table
+            columns={[
+              { header: 'Item', accessor: 'item' },
+              { header: 'Status', accessor: 'status' },
+              { header: 'Updated', accessor: 'updated' },
+              { header: 'Action', accessor: 'action', render: (value) => <Button variant="secondary" size="sm">{value}</Button> },
+            ]}
+            rows={[
+              { item: 'Academic session', status: 'Published', updated: 'Today', action: 'Edit' },
+              { item: 'Result approval', status: 'Pending', updated: '2h ago', action: 'Review' },
+              { item: 'User provisioning', status: 'In progress', updated: '1d ago', action: 'Open' },
+            ]}
+          />
+        </div>
+      ),
+    },
+    {
+      value: 'actions',
+      label: 'Actions',
+      badge: 'Ready',
+      badgeTone: 'success',
+      content: (
+        <div className="grid gap-4 md:grid-cols-3">
+          <Button variant="primary" size="sm">Create new item</Button>
+          <Button variant="secondary" size="sm">Run compliance check</Button>
+          <Button variant="ghost" size="sm">Export summary</Button>
+        </div>
+      ),
+    },
+  ];
+
   return (
     <DashboardLayout>
       <div className="space-y-6">
-        <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
-          <p className="text-sm font-semibold uppercase tracking-[0.3em] text-blue-600">URMIS</p>
-          <h1 className="mt-2 text-2xl font-bold text-slate-900">{meta.title}</h1>
-          <p className="mt-2 text-sm text-slate-600">{meta.description}</p>
-          <p className="mt-4 text-sm text-slate-500">Role: {formatRoleLabel(user?.role)} · Active section: {currentItem?.label || 'Dashboard'}</p>
-        </div>
+        <PageHeader
+          eyebrow="Section workspace"
+          title={meta.title}
+          description={meta.description}
+          badge={<Badge tone="info">{currentItem?.label || 'Dashboard'}</Badge>}
+          actions={(
+            <Button variant="secondary" size="sm">Switch section</Button>
+          )}
+        />
 
-        <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
-          <h2 className="font-semibold text-slate-900">Section access</h2>
-          <p className="mt-2 text-sm text-slate-600">This page is routed for the {currentItem?.label || 'dashboard'} section and is ready for detailed module content.</p>
-        </div>
+        <Tabs tabs={tabs} />
+
+        <Card title="Section access" description={`This page is routed for the ${currentItem?.label || 'dashboard'} section and is ready for detailed module content.`}>
+          <p className="text-sm text-[var(--color-muted-text)]">Choose the right workflow above to continue.</p>
+        </Card>
       </div>
     </DashboardLayout>
   );

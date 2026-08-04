@@ -3,60 +3,40 @@
 import Link from "next/link";
 import MainLayout from "../src/shared/layouts/MainLayout";
 import { useAuth } from "../src/shared/auth/AuthProvider";
+import Button from "../src/shared/components/ui/Button";
+import Card from "../src/shared/components/ui/Card";
+import PageHeader from "../src/shared/components/ui/PageHeader";
 
 export default function Home() {
   const { isAuthenticated } = useAuth();
 
   return (
     <MainLayout>
-      <div className="mx-auto flex max-w-5xl flex-col gap-8 rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
-        <div className="space-y-3">
-          <p className="text-sm font-semibold uppercase tracking-[0.3em] text-blue-600">
-            University Result Management Information System
-          </p>
-          <h1 className="text-4xl font-bold tracking-tight text-slate-900">
-            A modern platform for academic result management
-          </h1>
-          <p className="max-w-3xl text-lg text-slate-600">
-            URMIS is designed to help institutions manage students, courses, results,
-            approvals, and academic reporting in a secure, scalable, and multi-tenant environment.
-          </p>
-        </div>
+      <div className="space-y-6">
+        <PageHeader
+          eyebrow="Enterprise academic platform"
+          title="Modern multi-tenant SaaS for higher education operations"
+          description="URMIS unifies student records, course administration, assessment workflows, approvals, transcripts, and reporting in a single responsive experience."
+          actions={[
+            <Link key="signin" href={isAuthenticated ? "/dashboard" : "/login"}>
+              <Button variant="primary">{isAuthenticated ? "Open dashboard" : "Sign in"}</Button>
+            </Link>,
+            <Link key="explore" href="/dashboard">
+              <Button variant="secondary">Explore demo dashboard</Button>
+            </Link>,
+          ]}
+        />
 
-        <div className="flex flex-wrap gap-3">
-          <Link
-            href={isAuthenticated ? "/dashboard" : "/login"}
-            className="rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-medium text-white hover:bg-blue-700"
-          >
-            {isAuthenticated ? "Open dashboard" : "Sign in"}
-          </Link>
-          <Link
-            href="/dashboard"
-            className="rounded-lg border border-slate-300 px-4 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-100"
-          >
-            Explore demo dashboard
-          </Link>
-        </div>
-
-        <div className="grid gap-4 md:grid-cols-3">
-          <div className="rounded-xl border border-slate-200 bg-slate-50 p-5">
-            <h2 className="font-semibold text-slate-900">Role-based access</h2>
-            <p className="mt-2 text-sm text-slate-600">
-              Support for system admins, university admins, exam officers, deans, HODs, lecturers, and students.
-            </p>
-          </div>
-          <div className="rounded-xl border border-slate-200 bg-slate-50 p-5">
-            <h2 className="font-semibold text-slate-900">Result workflow</h2>
-            <p className="mt-2 text-sm text-slate-600">
-              Manage marks entry, validation, approval, publishing, and student result visibility.
-            </p>
-          </div>
-          <div className="rounded-xl border border-slate-200 bg-slate-50 p-5">
-            <h2 className="font-semibold text-slate-900">Scalable foundation</h2>
-            <p className="mt-2 text-sm text-slate-600">
-              Built with Next.js and structured for future growth into a full institutional management suite.
-            </p>
-          </div>
+        <div className="grid gap-4 lg:grid-cols-3">
+          <Card title="Role-based access" description="Support for system admins, university admins, exam officers, deans, HODs, lecturers, and students.">
+            <p className="text-sm text-[var(--color-muted-text)]">Every role can access the modules and workflows that matter to their responsibilities.</p>
+          </Card>
+          <Card title="Result workflow" description="Manage marks entry, validation, approval, publishing, and student result visibility.">
+            <p className="text-sm text-[var(--color-muted-text)]">The experience adapts from mobile to large screens without losing clarity or control.</p>
+          </Card>
+          <Card title="Scalable foundation" description="Built with Next.js and structured for future growth into a full institutional management suite.">
+            <p className="text-sm text-[var(--color-muted-text)]">A design system, responsive layout, and token-driven UI keep the platform consistent as it scales.</p>
+          </Card>
         </div>
       </div>
     </MainLayout>
