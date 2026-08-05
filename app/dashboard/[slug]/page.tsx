@@ -12,7 +12,6 @@ import Badge from '../../../src/shared/components/ui/Badge';
 import Tabs from '../../../src/shared/components/ui/Tabs';
 import Table from '../../../src/shared/components/ui/Table';
 
-// System-admin dedicated page components
 import UniversityManagement from '../../../src/modules/system-admin/pages/UniversityManagement';
 import UniversityAdministrators from '../../../src/modules/system-admin/pages/UniversityAdministrators';
 import PlatformUsers from '../../../src/modules/system-admin/pages/PlatformUsers';
@@ -23,13 +22,72 @@ import ReportsAnalytics from '../../../src/modules/system-admin/pages/ReportsAna
 import Monitoring from '../../../src/modules/system-admin/pages/Monitoring';
 import AuditLogs from '../../../src/modules/system-admin/pages/AuditLogs';
 import SecurityCenter from '../../../src/modules/system-admin/pages/SecurityCenter';
-import Notifications from '../../../src/modules/system-admin/pages/Notifications';
+import SystemNotifications from '../../../src/modules/system-admin/pages/Notifications';
 import Backups from '../../../src/modules/system-admin/pages/Backups';
 import GlobalSettings from '../../../src/modules/system-admin/pages/GlobalSettings';
 import Integrations from '../../../src/modules/system-admin/pages/Integrations';
 import HelpDocumentation from '../../../src/modules/system-admin/pages/HelpDocumentation';
 import Profile from '../../../src/modules/system-admin/pages/Profile';
 import Logout from '../../../src/modules/system-admin/pages/Logout';
+
+import UniversityAdminFacultyManagement from '../../../src/modules/university-admin/pages/FacultyManagement';
+import UniversityAdminDepartmentManagement from '../../../src/modules/university-admin/pages/DepartmentManagement';
+import UniversityAdminProgrammeManagement from '../../../src/modules/university-admin/pages/ProgrammeManagement';
+import UniversityAdminCourseManagement from '../../../src/modules/university-admin/pages/CourseManagement';
+import UniversityAdminAcademicSessions from '../../../src/modules/university-admin/pages/AcademicSessions';
+import UniversityAdminSemesters from '../../../src/modules/university-admin/pages/Semesters';
+import UniversityAdminLevels from '../../../src/modules/university-admin/pages/Levels';
+import UniversityAdminStudentManagement from '../../../src/modules/university-admin/pages/StudentManagement';
+import UniversityAdminStaffManagement from '../../../src/modules/university-admin/pages/StaffManagement';
+import UniversityAdminUserManagement from '../../../src/modules/university-admin/pages/UserManagement';
+import UniversityAdminRoleManagement from '../../../src/modules/university-admin/pages/RoleManagement';
+import UniversityAdminCourseRegistration from '../../../src/modules/university-admin/pages/CourseRegistration';
+import UniversityAdminAssessmentManagement from '../../../src/modules/university-admin/pages/AssessmentManagement';
+import UniversityAdminResultManagement from '../../../src/modules/university-admin/pages/ResultManagement';
+import UniversityAdminResultApprovalWorkflow from '../../../src/modules/university-admin/pages/ResultApprovalWorkflow';
+import UniversityAdminTranscriptManagement from '../../../src/modules/university-admin/pages/TranscriptManagement';
+import UniversityAdminGraduationManagement from '../../../src/modules/university-admin/pages/GraduationManagement';
+import UniversityAdminReports from '../../../src/modules/university-admin/pages/Reports';
+import UniversityAdminDocuments from '../../../src/modules/university-admin/pages/Documents';
+import UniversityAdminCommunication from '../../../src/modules/university-admin/pages/Communication';
+import UniversityAdminNotifications from '../../../src/modules/university-admin/pages/Notifications';
+import UniversityAdminUniversitySettings from '../../../src/modules/university-admin/pages/UniversitySettings';
+import UniversityAdminAuditLogs from '../../../src/modules/university-admin/pages/AuditLogs';
+import UniversityAdminProfile from '../../../src/modules/university-admin/pages/Profile';
+import UniversityAdminLogout from '../../../src/modules/university-admin/pages/Logout';
+
+import {
+  DeanDashboard,
+  FacultyOverview,
+  Departments,
+  Lecturers,
+  Students,
+  CourseManagement,
+  AssessmentReview,
+  ResultApproval,
+  FacultyReports,
+  FacultyStatistics,
+  Communication,
+  DeanNotifications,
+  DeanProfile,
+  DeanLogout,
+} from '../../../src/modules/dean/pages';
+
+import {
+  LecturerDashboard,
+  MyCourses,
+  CourseAllocation,
+  StudentLists,
+  AssessmentManagement,
+  ScoreEntry,
+  ResultSubmission,
+  Attendance,
+  Reports as LecturerReports,
+  Communication as LecturerCommunication,
+  Notifications as LecturerNotifications,
+  Profile as LecturerProfile,
+  Logout as LecturerLogout,
+} from '../../../src/modules/lecturer/pages';
 
 const sectionMeta: Record<string, { title: string; description: string }> = {
   dashboard: { title: 'Dashboard Overview', description: 'Overview of the current academic workspace.' },
@@ -79,32 +137,14 @@ const sectionMeta: Record<string, { title: string; description: string }> = {
   'result-approval': { title: 'Result Approval', description: 'Approve results before publishing.' },
   'faculty-reports': { title: 'Faculty Reports', description: 'Faculty-level reports and analytics.' },
   'faculty-statistics': { title: 'Faculty Statistics', description: 'Faculty performance and enrollment statistics.' },
-  'department-overview': { title: 'Department Overview', description: 'Departmental summaries and activities.' },
-  'course-allocation': { title: 'Course Allocation', description: 'Assign courses to lecturers and departments.' },
-  'result-verification': { title: 'Result Verification', description: 'Verify results for accuracy and compliance.' },
-  'department-reports': { title: 'Department Reports', description: 'Department-specific reports.' },
-  'my-courses': { title: 'My Courses', description: 'Courses assigned to you.' },
-  'student-lists': { title: 'Student Lists', description: 'View student rosters for your courses.' },
-  'score-entry': { title: 'Score Entry', description: 'Enter and update assessment scores.' },
-  'result-submission': { title: 'Result Submission', description: 'Submit verified results for review.' },
-  attendance: { title: 'Attendance', description: 'Manage student attendance records.' },
-  'result-processing': { title: 'Result Processing', description: 'Process raw marks into official results.' },
-  'result-publication': { title: 'Result Publication', description: 'Publish approved results to students.' },
-  'result-corrections': { title: 'Result Corrections', description: 'Correct published or pending results.' },
-  'transcript-requests': { title: 'Transcript Requests', description: 'Manage transcript and certificate requests.' },
-  'graduation-clearance': { title: 'Graduation Clearance', description: 'Clear candidates for graduation.' },
-  'academic-records': { title: 'Academic Records', description: 'Access student academic records.' },
-  'my-profile': { title: 'My Profile', description: 'View and update your personal profile.' },
-  'registered-courses': { title: 'Registered Courses', description: 'View your current registered courses.' },
-  assessments: { title: 'Assessments', description: 'Review your assessment deadlines and grades.' },
-  results: { title: 'Results', description: 'View your published academic results.' },
-  'academic-history': { title: 'Academic History', description: 'Track your academic progress and history.' },
-  'fee-status': { title: 'Fee Status', description: 'Review your financial status and invoices.' },
-  support: { title: 'Support', description: 'Raise support requests and get help.' },
-  'profile-settings': { title: 'Profile Settings', description: 'Update your student account settings.' },
+  'my-courses': { title: 'My Courses', description: 'Courses assigned to you for the current session.' },
+  'course-allocation': { title: 'Course Allocation', description: 'Course allocations linked to your lecturer profile.' },
+  'student-lists': { title: 'Student Lists', description: 'Student rosters for your courses and class groups.' },
+  'score-entry': { title: 'Score Entry', description: 'Enter and update assessment scores for your students.' },
+  'result-submission': { title: 'Result Submission', description: 'Submit verified results for review and approval.' },
+  attendance: { title: 'Attendance', description: 'Record and track student attendance for class sessions.' },
 };
 
-// Map each SYSTEM_ADMIN slug to its dedicated page component
 const systemAdminSlugComponents: Record<string, React.ComponentType> = {
   'university-management': UniversityManagement,
   'university-administrators': UniversityAdministrators,
@@ -116,13 +156,98 @@ const systemAdminSlugComponents: Record<string, React.ComponentType> = {
   monitoring: Monitoring,
   'audit-logs': AuditLogs,
   'security-center': SecurityCenter,
-  notifications: Notifications,
+  notifications: SystemNotifications,
   backups: Backups,
   'global-settings': GlobalSettings,
   integrations: Integrations,
   'help-documentation': HelpDocumentation,
   profile: Profile,
   logout: Logout,
+};
+
+const deanSlugComponents: Record<string, React.ComponentType> = {
+  dashboard: DeanDashboard,
+  'faculty-overview': FacultyOverview,
+  departments: Departments,
+  lecturers: Lecturers,
+  students: Students,
+  'course-management': CourseManagement,
+  'assessment-review': AssessmentReview,
+  'result-approval': ResultApproval,
+  'faculty-reports': FacultyReports,
+  'faculty-statistics': FacultyStatistics,
+  communication: Communication,
+  notifications: DeanNotifications,
+  profile: DeanProfile,
+  logout: DeanLogout,
+};
+
+const universityAdminSlugComponents: Record<string, React.ComponentType> = {
+  'faculty-management': UniversityAdminFacultyManagement,
+  'department-management': UniversityAdminDepartmentManagement,
+  'programme-management': UniversityAdminProgrammeManagement,
+  'course-management': UniversityAdminCourseManagement,
+  'academic-sessions': UniversityAdminAcademicSessions,
+  semesters: UniversityAdminSemesters,
+  levels: UniversityAdminLevels,
+  'student-management': UniversityAdminStudentManagement,
+  'staff-management': UniversityAdminStaffManagement,
+  'user-management': UniversityAdminUserManagement,
+  'role-management': UniversityAdminRoleManagement,
+  'course-registration': UniversityAdminCourseRegistration,
+  'assessment-management': UniversityAdminAssessmentManagement,
+  'result-management': UniversityAdminResultManagement,
+  'result-approval-workflow': UniversityAdminResultApprovalWorkflow,
+  'transcript-management': UniversityAdminTranscriptManagement,
+  'graduation-management': UniversityAdminGraduationManagement,
+  reports: UniversityAdminReports,
+  documents: UniversityAdminDocuments,
+  communication: UniversityAdminCommunication,
+  notifications: UniversityAdminNotifications,
+  'university-settings': UniversityAdminUniversitySettings,
+  'audit-logs': UniversityAdminAuditLogs,
+  profile: UniversityAdminProfile,
+  logout: UniversityAdminLogout,
+};
+
+import {
+  HodDashboard,
+  Courses as HodCourses,
+  Lecturers as HodLecturers,
+  ReviewResults as HodReviewResults,
+} from '../../../src/modules/hod/pages';
+
+const hodSlugComponents: Record<string, React.ComponentType> = {
+  dashboard: HodDashboard,
+  'department-overview': HodDashboard,
+  lecturers: HodLecturers,
+  students: HodDashboard,
+  courses: HodCourses,
+  'course-allocation': HodCourses,
+  'assessment-review': HodReviewResults,
+  'result-verification': HodReviewResults,
+  'result-approval': HodReviewResults,
+  'department-reports': HodDashboard,
+  communication: HodDashboard,
+  notifications: HodDashboard,
+  profile: HodDashboard,
+  logout: HodDashboard,
+};
+
+const lecturerSlugComponents: Record<string, React.ComponentType> = {
+  dashboard: LecturerDashboard,
+  'my-courses': MyCourses,
+  'course-allocation': CourseAllocation,
+  'student-lists': StudentLists,
+  'assessment-management': AssessmentManagement,
+  'score-entry': ScoreEntry,
+  'result-submission': ResultSubmission,
+  attendance: Attendance,
+  reports: LecturerReports,
+  communication: LecturerCommunication,
+  notifications: LecturerNotifications,
+  profile: LecturerProfile,
+  logout: LecturerLogout,
 };
 
 export default function DashboardSlugPage() {
@@ -134,9 +259,28 @@ export default function DashboardSlugPage() {
   const currentItem = menuItems.find((item: { slug?: string }) => item.slug === slug) || menuItems[0];
   const meta = sectionMeta[slug as keyof typeof sectionMeta] || sectionMeta.dashboard;
 
-  // For System Administrators, render the dedicated page component when available.
   if (role === 'SYSTEM_ADMIN' && systemAdminSlugComponents[slug]) {
     const PageComponent = systemAdminSlugComponents[slug];
+    return <PageComponent />;
+  }
+
+  if (role === 'DEAN' && deanSlugComponents[slug]) {
+    const PageComponent = deanSlugComponents[slug];
+    return <PageComponent />;
+  }
+
+  if (role === 'HOD' && hodSlugComponents[slug]) {
+    const PageComponent = hodSlugComponents[slug];
+    return <PageComponent />;
+  }
+
+if (role === 'UNIVERSITY_ADMIN' && universityAdminSlugComponents[slug]) {
+    const PageComponent = universityAdminSlugComponents[slug];
+    return <PageComponent />;
+  }
+
+  if (role === 'LECTURER' && lecturerSlugComponents[slug]) {
+    const PageComponent = lecturerSlugComponents[slug];
     return <PageComponent />;
   }
 
@@ -223,9 +367,7 @@ export default function DashboardSlugPage() {
           title={meta.title}
           description={meta.description}
           badge={<Badge tone="info">{currentItem?.label || 'Dashboard'}</Badge>}
-          actions={(
-            <Button variant="secondary" size="sm">Switch section</Button>
-          )}
+          actions={<Button variant="secondary" size="sm">Switch section</Button>}
         />
 
         <Tabs tabs={tabs} />

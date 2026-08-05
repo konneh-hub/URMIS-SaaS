@@ -11,8 +11,8 @@ import Alert from '../../../shared/components/ui/Alert';
 
 const API_BASE = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost:5000';
 
-export default function Lecturers() {
-  const [lecturers, setLecturers] = useState([]);
+export default function Students() {
+  const [students, setStudents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -21,16 +21,13 @@ export default function Lecturers() {
     (async () => {
       try {
         const token = localStorage.getItem('accessToken');
-        const resp = await fetch(`${API_BASE}/api/admin/staff`, {
+        const resp = await fetch(`${API_BASE}/api/admin/students`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         const body = await resp.json();
         if (!cancelled) {
-          if (body.success) {
-            setLecturers(body.data.filter((person) => person.role === 'LECTURER' || person.role === 'HOD'));
-          } else {
-            setError(body.message || 'Failed to load lecturers');
-          }
+          if (body.success) setStudents(body.data);
+          else setError(body.message || 'Failed to load students');
         }
       } catch (e) {
         if (!cancelled) setError('Could not reach the platform API.');
@@ -45,33 +42,33 @@ export default function Lecturers() {
     <DashboardLayout>
       <div className="space-y-6">
         <PageHeader
-          eyebrow="Department staff"
-          title="Lecturers"
-          description="Review the teaching staff active within the department."
-          badge={<Badge tone="info">{lecturers.length} staff</Badge>}
+          eyebrow="Academic records"
+          title="Students"
+          description="Review enrolled students and departmental student population."
+          badge={<Badge tone="info">{students.length} students</Badge>}
         />
 
         {error ? <Alert title="Error" tone="danger">{error}</Alert> : null}
 
         <div className="grid gap-4 md:grid-cols-3">
-          <MetricTile title="Lecturers" value={lecturers.length} description="Active academic staff" badge="Staff" />
-          <MetricTile title="HODs" value={lecturers.filter((l) => l.role === 'HOD').length} description="Department leaders" badgeTone="info" badge="Leads" />
-          <MetricTile title="Teaching" value={lecturers.filter((l) => l.role === 'LECTURER').length} description="Course facilitators" badgeTone="success" badge="Teach" />
+          <MetricTile title="Students" value={students.length} description="Registered students" badge="All" />
+          <MetricTile title="Active" value={students.filter((s) => s.status === 'ACTIVE').length} description="Currently enrolled" badgeTone="success" badge="Live" />
+          <MetricTile title="Pending" value={students.filter((s) => s.status !== 'ACTIVE').length} description="Awaiting enrollment" badgeTone="warning" badge="Queue" />
         </div>
 
-        <Card title="Staff roster" description="Lecturers and academic leaders available for course oversight.">
+        <Card title="Student directory" description="Student list under the department's institutions.">
           {loading ? (
-            <p className="text-sm text-[var(--color-muted-text)]">Loading lecturers...</p>
+            <p className="text-sm text-[var(--color-muted-text)]">Loading students...</p>
           ) : (
             <Table
               columns={[
-                { header: 'Name', accessor: 'name' },
+                { header: 'Name', accessor: 'name', render: (value, row) => `${row.firstName || ''} ${row.lastName || ''}`.trim() || value || '—' },
                 { header: 'Email', accessor: 'email' },
-                { header: 'Role', accessor: 'role', render: (value) => <Badge tone="info">{value || 'LECTURER'}</Badge> },
-                { header: 'Department', accessor: 'departmentName', render: (value) => value || '—' },
+                { header: 'Matric', accessor: 'matricNumber', render: (value) => value || studentNumberFallback },
+                { header: 'Programme', accessor: 'programme', render: (value) => value || '—' },
               ]}
-              rows={lecturers}
-              emptyText="No lecturers are registered for this department."
+              rows={students}
+              emptyText="No students available in the department directory."
             />
           )}
         </Card>
@@ -79,4 +76,6 @@ export default function Lecturers() {
     </DashboardLayout>
   );
 }
+
+const studentNumberFallback = '—';
 </content>
