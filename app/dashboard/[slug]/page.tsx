@@ -12,7 +12,26 @@ import Badge from '../../../src/shared/components/ui/Badge';
 import Tabs from '../../../src/shared/components/ui/Tabs';
 import Table from '../../../src/shared/components/ui/Table';
 
-const sectionMeta = {
+// System-admin dedicated page components
+import UniversityManagement from '../../../src/modules/system-admin/pages/UniversityManagement';
+import UniversityAdministrators from '../../../src/modules/system-admin/pages/UniversityAdministrators';
+import PlatformUsers from '../../../src/modules/system-admin/pages/PlatformUsers';
+import RolesPermissions from '../../../src/modules/system-admin/pages/RolesPermissions';
+import SubscriptionManagement from '../../../src/modules/system-admin/pages/SubscriptionManagement';
+import BillingPayments from '../../../src/modules/system-admin/pages/BillingPayments';
+import ReportsAnalytics from '../../../src/modules/system-admin/pages/ReportsAnalytics';
+import Monitoring from '../../../src/modules/system-admin/pages/Monitoring';
+import AuditLogs from '../../../src/modules/system-admin/pages/AuditLogs';
+import SecurityCenter from '../../../src/modules/system-admin/pages/SecurityCenter';
+import Notifications from '../../../src/modules/system-admin/pages/Notifications';
+import Backups from '../../../src/modules/system-admin/pages/Backups';
+import GlobalSettings from '../../../src/modules/system-admin/pages/GlobalSettings';
+import Integrations from '../../../src/modules/system-admin/pages/Integrations';
+import HelpDocumentation from '../../../src/modules/system-admin/pages/HelpDocumentation';
+import Profile from '../../../src/modules/system-admin/pages/Profile';
+import Logout from '../../../src/modules/system-admin/pages/Logout';
+
+const sectionMeta: Record<string, { title: string; description: string }> = {
   dashboard: { title: 'Dashboard Overview', description: 'Overview of the current academic workspace.' },
   'university-management': { title: 'University Management', description: 'Manage institutions and platform-wide academic operations.' },
   'university-administrators': { title: 'University Administrators', description: 'Manage university-level admin accounts and access.' },
@@ -85,13 +104,41 @@ const sectionMeta = {
   'profile-settings': { title: 'Profile Settings', description: 'Update your student account settings.' },
 };
 
+// Map each SYSTEM_ADMIN slug to its dedicated page component
+const systemAdminSlugComponents: Record<string, React.ComponentType> = {
+  'university-management': UniversityManagement,
+  'university-administrators': UniversityAdministrators,
+  'platform-users': PlatformUsers,
+  'roles-permissions': RolesPermissions,
+  'subscription-management': SubscriptionManagement,
+  'billing-payments': BillingPayments,
+  'reports-analytics': ReportsAnalytics,
+  monitoring: Monitoring,
+  'audit-logs': AuditLogs,
+  'security-center': SecurityCenter,
+  notifications: Notifications,
+  backups: Backups,
+  'global-settings': GlobalSettings,
+  integrations: Integrations,
+  'help-documentation': HelpDocumentation,
+  profile: Profile,
+  logout: Logout,
+};
+
 export default function DashboardSlugPage() {
   const params = useParams();
   const slug = params?.slug as string;
   const { user } = useAuth() as { user?: { role?: string } };
-  const menuItems = getMenuForRole(user?.role);
+  const role = user?.role || 'STUDENT';
+  const menuItems = getMenuForRole(role);
   const currentItem = menuItems.find((item: { slug?: string }) => item.slug === slug) || menuItems[0];
   const meta = sectionMeta[slug as keyof typeof sectionMeta] || sectionMeta.dashboard;
+
+  // For System Administrators, render the dedicated page component when available.
+  if (role === 'SYSTEM_ADMIN' && systemAdminSlugComponents[slug]) {
+    const PageComponent = systemAdminSlugComponents[slug];
+    return <PageComponent />;
+  }
 
   const tabs = [
     {

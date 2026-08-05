@@ -16,8 +16,18 @@ import universityRoutes from './university/university.routes.js';
 import institutionRoutes from './institution/institution.routes.js';
 import errorHandler from './middleware/errorHandler.js';
 import { PORT } from './config/index.js';
+import { ensureDefaultSystemAdmin } from './admin/system.service.js';
 
 const app = express();
+
+async function bootstrap() {
+  try {
+    const result = await ensureDefaultSystemAdmin();
+    logger.info({ created: result.created, email: result.user?.email }, 'System admin bootstrap complete');
+  } catch (error) {
+    logger.error({ err: error }, 'System admin bootstrap failed');
+  }
+}
 
 app.use(pinoHttp({ logger }));
 app.use(cors({ origin: true, credentials: true }));
@@ -39,6 +49,8 @@ app.use('/api/institutions', institutionRoutes);
 app.get('/health', (req, res) => res.json({ ok: true }));
 
 app.use(errorHandler);
+
+bootstrap();
 
 app.listen(PORT, () => {
   logger.info({ port: PORT }, 'Backend server listening');

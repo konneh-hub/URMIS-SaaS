@@ -1,103 +1,122 @@
 import express from 'express';
 import auth from '../middleware/auth.js';
 import authorize from '../middleware/authorize.js';
+import requestValidator from '../middleware/requestValidator.js';
 import * as ctrl from './platform.controller.js';
+import {
+  assessmentTypeValidation,
+  assessmentTypeUpdateValidation,
+  assessmentValidation,
+  assessmentUpdateValidation,
+  assessmentScoreValidation,
+  registrationWindowValidation,
+  registrationWindowUpdateValidation,
+  resultValidation,
+  resultUpdateValidation,
+  transcriptRequestValidation,
+  transcriptRequestIdParamValidation,
+  graduationClearanceValidation,
+  graduationClearanceUpdateValidation,
+  graduationListValidation,
+  certificateValidation,
+  notificationTemplateValidation,
+  notificationTemplateUpdateValidation,
+  notificationValidation,
+  scheduleNotificationValidation,
+  planValidation,
+  couponValidation,
+  invoiceValidation,
+  paymentValidation,
+  healthCheckValidation,
+  securityAlertValidation,
+  sessionQueryValidation,
+  reportTypeValidation,
+} from './platform.validation.js';
 
 const router = express.Router();
 router.use(auth, authorize(['SYSTEM_ADMIN', 'UNIVERSITY_ADMIN']));
 
-// Assessment type management
 router.get('/assessment-types', ctrl.listAssessmentTypes);
-router.post('/assessment-types', ctrl.createAssessmentType);
-router.put('/assessment-types/:typeId', ctrl.updateAssessmentType);
+router.post('/assessment-types', assessmentTypeValidation, requestValidator, ctrl.createAssessmentType);
+router.put('/assessment-types/:typeId', assessmentTypeUpdateValidation, requestValidator, ctrl.updateAssessmentType);
 router.delete('/assessment-types/:typeId', ctrl.deleteAssessmentType);
 
-// Assessments
 router.get('/assessments', ctrl.listAssessments);
-router.post('/assessments', ctrl.createAssessment);
-router.put('/assessments/:assessmentId', ctrl.updateAssessment);
+router.post('/assessments', assessmentValidation, requestValidator, ctrl.createAssessment);
+router.put('/assessments/:assessmentId', assessmentUpdateValidation, requestValidator, ctrl.updateAssessment);
 router.delete('/assessments/:assessmentId', ctrl.deleteAssessment);
 
-// Assessment scores
 router.get('/assessments/:assessmentId/scores', ctrl.listAssessmentScores);
-router.post('/assessments/:assessmentId/scores', ctrl.createAssessmentScore);
-router.put('/scores/:scoreId', ctrl.updateAssessmentScore);
+router.post('/assessments/:assessmentId/scores', assessmentScoreValidation, requestValidator, ctrl.createAssessmentScore);
+router.put('/scores/:scoreId', assessmentScoreValidation, requestValidator, ctrl.updateAssessmentScore);
 router.delete('/scores/:scoreId', ctrl.deleteAssessmentScore);
 
-// Registration windows
 router.get('/registration-windows', ctrl.listRegistrationWindows);
-router.post('/registration-windows', ctrl.createRegistrationWindow);
-router.put('/registration-windows/:windowId', ctrl.updateRegistrationWindow);
+router.post('/registration-windows', registrationWindowValidation, requestValidator, ctrl.createRegistrationWindow);
+router.put('/registration-windows/:windowId', registrationWindowUpdateValidation, requestValidator, ctrl.updateRegistrationWindow);
 router.delete('/registration-windows/:windowId', ctrl.deleteRegistrationWindow);
 router.post('/registration-windows/:windowId/open', ctrl.openRegistrationWindow);
 router.post('/registration-windows/:windowId/close', ctrl.closeRegistrationWindow);
 
-// Results and approvals
 router.get('/results', ctrl.listResults);
-router.post('/results', ctrl.createResult);
-router.put('/results/:resultId', ctrl.updateResult);
+router.post('/results', resultValidation, requestValidator, ctrl.createResult);
+router.put('/results/:resultId', resultUpdateValidation, requestValidator, ctrl.updateResult);
 router.post('/results/:resultId/approve', ctrl.approveResult);
 router.post('/results/:resultId/publish', ctrl.publishResult);
 router.post('/results/:resultId/lock', ctrl.lockResult);
-router.post('/results/:resultId/correct', ctrl.correctResult);
+router.post('/results/:resultId/correct', resultUpdateValidation, requestValidator, ctrl.correctResult);
 router.get('/results/summary/:studentId/:sessionId?', ctrl.getAcademicSummary);
 
-// Transcript requests
 router.get('/transcript-requests', ctrl.listTranscriptRequests);
-router.post('/transcript-requests', ctrl.createTranscriptRequest);
-router.post('/transcript-requests/:requestId/approve', ctrl.approveTranscriptRequest);
-router.post('/transcript-requests/:requestId/reject', ctrl.rejectTranscriptRequest);
-router.post('/transcript-requests/:requestId/generate', ctrl.generateTranscript);
-router.get('/transcript-requests/:requestId/verify', ctrl.verifyTranscript);
+router.post('/transcript-requests', transcriptRequestValidation, requestValidator, ctrl.createTranscriptRequest);
+router.post('/transcript-requests/:requestId/approve', transcriptRequestIdParamValidation, requestValidator, ctrl.approveTranscriptRequest);
+router.post('/transcript-requests/:requestId/reject', transcriptRequestIdParamValidation, requestValidator, ctrl.rejectTranscriptRequest);
+router.post('/transcript-requests/:requestId/generate', transcriptRequestIdParamValidation, requestValidator, ctrl.generateTranscript);
+router.get('/transcript-requests/:requestId/verify', transcriptRequestIdParamValidation, requestValidator, ctrl.verifyTranscript);
 
-// Graduation and certification
 router.get('/graduation-clearances', ctrl.listGraduationClearances);
-router.post('/graduation-clearances', ctrl.createGraduationClearance);
-router.put('/graduation-clearances/:clearanceId', ctrl.updateGraduationClearance);
+router.post('/graduation-clearances', graduationClearanceValidation, requestValidator, ctrl.createGraduationClearance);
+router.put('/graduation-clearances/:clearanceId', graduationClearanceUpdateValidation, requestValidator, ctrl.updateGraduationClearance);
 router.get('/graduation-lists', ctrl.listGraduationLists);
-router.post('/graduation-lists', ctrl.createGraduationList);
+router.post('/graduation-lists', graduationListValidation, requestValidator, ctrl.createGraduationList);
 router.get('/certificates', ctrl.listCertificates);
-router.post('/certificates', ctrl.createCertificate);
+router.post('/certificates', certificateValidation, requestValidator, ctrl.createCertificate);
 router.get('/graduation-eligibility/:studentId', ctrl.calculateGraduationEligibility);
 
-// Notifications
 router.get('/notification-templates', ctrl.listNotificationTemplates);
-router.post('/notification-templates', ctrl.createNotificationTemplate);
-router.put('/notification-templates/:templateId', ctrl.updateNotificationTemplate);
+router.post('/notification-templates', notificationTemplateValidation, requestValidator, ctrl.createNotificationTemplate);
+router.put('/notification-templates/:templateId', notificationTemplateUpdateValidation, requestValidator, ctrl.updateNotificationTemplate);
 router.delete('/notification-templates/:templateId', ctrl.deleteNotificationTemplate);
 router.get('/notifications', ctrl.listNotifications);
-router.post('/notifications', ctrl.sendNotification);
+router.post('/notifications', notificationValidation, requestValidator, ctrl.sendNotification);
 router.get('/scheduled-notifications', ctrl.listScheduledNotifications);
-router.post('/scheduled-notifications', ctrl.scheduleNotification);
+router.post('/scheduled-notifications', scheduleNotificationValidation, requestValidator, ctrl.scheduleNotification);
 
-// Billing & subscription
 router.get('/plans', ctrl.listPlans);
-router.post('/plans', ctrl.createPlan);
-router.put('/plans/:planId', ctrl.updatePlan);
+router.post('/plans', planValidation, requestValidator, ctrl.createPlan);
+router.put('/plans/:planId', planValidation, requestValidator, ctrl.updatePlan);
 router.get('/coupons', ctrl.listCoupons);
-router.post('/coupons', ctrl.createCoupon);
+router.post('/coupons', couponValidation, requestValidator, ctrl.createCoupon);
 router.get('/invoices', ctrl.listInvoices);
-router.post('/invoices', ctrl.createInvoice);
+router.post('/invoices', invoiceValidation, requestValidator, ctrl.createInvoice);
 router.get('/payments', ctrl.listPayments);
-router.post('/payments', ctrl.createPayment);
+router.post('/payments', paymentValidation, requestValidator, ctrl.createPayment);
 
-// Monitoring & security
 router.get('/health-checks', ctrl.listHealthChecks);
-router.post('/health-checks', ctrl.createHealthCheck);
+router.post('/health-checks', healthCheckValidation, requestValidator, ctrl.createHealthCheck);
 router.get('/security-alerts', ctrl.listSecurityAlerts);
-router.post('/security-alerts', ctrl.createSecurityAlert);
+router.post('/security-alerts', securityAlertValidation, requestValidator, ctrl.createSecurityAlert);
 router.post('/security-alerts/:alertId/resolve', ctrl.resolveSecurityAlert);
-router.get('/sessions', ctrl.listUserSessions);
+router.get('/sessions', sessionQueryValidation, requestValidator, ctrl.listUserSessions);
 router.delete('/sessions/:sessionId', ctrl.revokeSession);
-router.get('/login-history', ctrl.listLoginHistory);
+router.get('/login-history', sessionQueryValidation, requestValidator, ctrl.listLoginHistory);
 
-// Reports and export
 router.get('/reports/academic', ctrl.getAcademicReport);
 router.get('/reports/student', ctrl.getStudentReport);
 router.get('/reports/staff', ctrl.getStaffReport);
 router.get('/reports/results', ctrl.getResultReport);
 router.get('/reports/institution', ctrl.getInstitutionReport);
 router.get('/reports/analytics', ctrl.getAnalyticsReport);
-router.get('/export/:type', ctrl.exportReport);
+router.get('/export/:type', reportTypeValidation, requestValidator, ctrl.exportReport);
 
 export default router;

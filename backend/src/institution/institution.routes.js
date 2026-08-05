@@ -22,6 +22,7 @@ import {
   cloneInstitutionConfiguration,
 } from './institution.controller.js';
 import backupRoutes from './backup.routes.js';
+import requireTenantAccess from '../middleware/tenant.js';
 import {
   institutionIdParamValidation,
   createInstitutionValidation,
@@ -34,22 +35,22 @@ import {
 const router = express.Router({ mergeParams: true });
 
 router.get('/', auth, authorize(['SYSTEM_ADMIN', 'UNIVERSITY_ADMIN']), getInstitutions);
-router.get('/:institutionId', auth, authorize(['SYSTEM_ADMIN', 'UNIVERSITY_ADMIN']), institutionIdParamValidation, requestValidator, getInstitutionById);
+router.get('/:institutionId', auth, authorize(['SYSTEM_ADMIN', 'UNIVERSITY_ADMIN']), institutionIdParamValidation, requestValidator, requireTenantAccess, getInstitutionById);
 router.post('/', auth, authorize(['SYSTEM_ADMIN']), createInstitutionValidation, requestValidator, createInstitution);
-router.put('/:institutionId', auth, authorize(['SYSTEM_ADMIN']), institutionIdParamValidation, updateInstitutionValidation, requestValidator, updateInstitution);
-router.delete('/:institutionId', auth, authorize(['SYSTEM_ADMIN']), institutionIdParamValidation, requestValidator, deleteInstitution);
-router.post('/:institutionId/restore', auth, authorize(['SYSTEM_ADMIN']), institutionIdParamValidation, requestValidator, restoreInstitution);
-router.get('/:institutionId/settings', auth, authorize(['SYSTEM_ADMIN', 'UNIVERSITY_ADMIN']), institutionIdParamValidation, requestValidator, getInstitutionSettings);
-router.put('/:institutionId/settings', auth, authorize(['SYSTEM_ADMIN', 'UNIVERSITY_ADMIN']), institutionIdParamValidation, updateInstitutionSettingsValidation, requestValidator, updateInstitutionSettings);
-router.get('/:institutionId/statistics', auth, authorize(['SYSTEM_ADMIN', 'UNIVERSITY_ADMIN']), institutionIdParamValidation, requestValidator, getInstitutionStatistics);
-router.patch('/:institutionId/status', auth, authorize(['SYSTEM_ADMIN']), institutionIdParamValidation, updateInstitutionStatusValidation, requestValidator, updateInstitutionStatus);
-router.get('/:institutionId/profile', auth, authorize(['SYSTEM_ADMIN', 'UNIVERSITY_ADMIN']), institutionIdParamValidation, requestValidator, getInstitutionProfile);
-router.get('/:institutionId/subscription', auth, authorize(['SYSTEM_ADMIN', 'UNIVERSITY_ADMIN']), institutionIdParamValidation, requestValidator, getInstitutionSubscription);
-router.get('/:institutionId/storage', auth, authorize(['SYSTEM_ADMIN', 'UNIVERSITY_ADMIN']), institutionIdParamValidation, requestValidator, getInstitutionStorage);
-router.get('/:institutionId/activity-logs', auth, authorize(['SYSTEM_ADMIN', 'UNIVERSITY_ADMIN']), institutionIdParamValidation, requestValidator, getInstitutionActivityLogs);
-router.get('/:institutionId/audit-logs', auth, authorize(['SYSTEM_ADMIN', 'UNIVERSITY_ADMIN']), institutionIdParamValidation, requestValidator, getInstitutionAuditLogs);
-router.post('/:institutionId/clone', auth, authorize(['SYSTEM_ADMIN']), institutionIdParamValidation, cloneInstitutionConfigurationValidation, requestValidator, cloneInstitutionConfiguration);
-router.post('/:institutionId/reset', auth, authorize(['SYSTEM_ADMIN']), institutionIdParamValidation, requestValidator, resetInstitution);
+router.put('/:institutionId', auth, authorize(['SYSTEM_ADMIN']), institutionIdParamValidation, updateInstitutionValidation, requestValidator, requireTenantAccess, updateInstitution);
+router.delete('/:institutionId', auth, authorize(['SYSTEM_ADMIN']), institutionIdParamValidation, requestValidator, requireTenantAccess, deleteInstitution);
+router.post('/:institutionId/restore', auth, authorize(['SYSTEM_ADMIN']), institutionIdParamValidation, requestValidator, requireTenantAccess, restoreInstitution);
+router.get('/:institutionId/settings', auth, authorize(['SYSTEM_ADMIN', 'UNIVERSITY_ADMIN']), institutionIdParamValidation, requestValidator, requireTenantAccess, getInstitutionSettings);
+router.put('/:institutionId/settings', auth, authorize(['SYSTEM_ADMIN', 'UNIVERSITY_ADMIN']), institutionIdParamValidation, updateInstitutionSettingsValidation, requestValidator, requireTenantAccess, updateInstitutionSettings);
+router.get('/:institutionId/statistics', auth, authorize(['SYSTEM_ADMIN', 'UNIVERSITY_ADMIN']), institutionIdParamValidation, requestValidator, requireTenantAccess, getInstitutionStatistics);
+router.patch('/:institutionId/status', auth, authorize(['SYSTEM_ADMIN']), institutionIdParamValidation, updateInstitutionStatusValidation, requestValidator, requireTenantAccess, updateInstitutionStatus);
+router.get('/:institutionId/profile', auth, authorize(['SYSTEM_ADMIN', 'UNIVERSITY_ADMIN']), institutionIdParamValidation, requestValidator, requireTenantAccess, getInstitutionProfile);
+router.get('/:institutionId/subscription', auth, authorize(['SYSTEM_ADMIN', 'UNIVERSITY_ADMIN']), institutionIdParamValidation, requestValidator, requireTenantAccess, getInstitutionSubscription);
+router.get('/:institutionId/storage', auth, authorize(['SYSTEM_ADMIN', 'UNIVERSITY_ADMIN']), institutionIdParamValidation, requestValidator, requireTenantAccess, getInstitutionStorage);
+router.get('/:institutionId/activity-logs', auth, authorize(['SYSTEM_ADMIN', 'UNIVERSITY_ADMIN']), institutionIdParamValidation, requestValidator, requireTenantAccess, getInstitutionActivityLogs);
+router.get('/:institutionId/audit-logs', auth, authorize(['SYSTEM_ADMIN', 'UNIVERSITY_ADMIN']), institutionIdParamValidation, requestValidator, requireTenantAccess, getInstitutionAuditLogs);
+router.post('/:institutionId/clone', auth, authorize(['SYSTEM_ADMIN']), institutionIdParamValidation, cloneInstitutionConfigurationValidation, requestValidator, requireTenantAccess, cloneInstitutionConfiguration);
+router.post('/:institutionId/reset', auth, authorize(['SYSTEM_ADMIN']), institutionIdParamValidation, requestValidator, requireTenantAccess, resetInstitution);
 router.use('/:institutionId/backups', backupRoutes);
 
 export default router;

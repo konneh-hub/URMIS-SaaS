@@ -31,7 +31,12 @@ function signToken(payload, expiresIn) {
 }
 
 export function signAccessToken(user) {
-  return signToken({ sub: user.id, role: user.role }, JWT_ACCESS_EXPIRES);
+  return signToken({
+    sub: user.id,
+    role: user.role,
+    institutionId: user.institutionId ?? null,
+    permissions: Array.isArray(user.permissions) ? user.permissions : [],
+  }, JWT_ACCESS_EXPIRES);
 }
 
 export function signRefreshToken(userOrId) {
