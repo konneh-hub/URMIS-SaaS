@@ -14,14 +14,15 @@ export async function registerUser({ email, password, role = 'STUDENT', institut
 
 export async function validateUser(email, password) {
   const user = await prisma.user.findUnique({ where: { email } });
-  if (!user) return null;
+  if (!user || !user.password || user.deletedAt || user.isActive === false) return null;
   const ok = await comparePassword(password, user.password);
   if (!ok) return null;
   return sanitizeUser(user);
 }
 
 function sanitizeUser(user) {
-  const { password, ...rest } = user;
+  const rest = { ...user };
+  delete rest.password;
   return rest;
 }
 
@@ -41,7 +42,7 @@ export function signRefreshToken(userOrId) {
 export async function saveRefreshToken(userId, token) {
   try {
     await prisma.refreshToken.create({ data: { userId, token } });
-  } catch (err) {
+  } catch {
     // ignore duplicates
   }
 }
@@ -59,7 +60,7 @@ export async function rotateRefreshToken(oldToken, userId) {
 
 export async function createInviteForUser({ email, name, role, institutionId }) {
   // create user without password, create invite token
-  const user = await prisma.user.create({ data: { email, name, role, institutionId } });
+  const user = await prisma.user.create({ data: { email, name, role, institutionId, isActive: true } });
   const token = generateToken(24);
   const expiresAt = tokenExpiresIn(7);
   await prisma.inviteToken.create({ data: { token, userId: user.id, expiresAt } });
@@ -72,15 +73,39 @@ export async function acceptInvite(token, password) {
   if (record.used) throw Object.assign(new Error('Token already used'), { status: 400 });
   if (record.expiresAt < new Date()) throw Object.assign(new Error('Token expired'), { status: 400 });
   const hashed = await hashPassword(password);
-  await prisma.user.update({ where: { id: record.userId }, data: { password: hashed } });
+  await prisma.user.update({ where: { id: record.userId }, data: { password: hashed, isActive: true, deletedAt: null } });
   await prisma.inviteToken.update({ where: { id: record.id }, data: { used: true } });
   return sanitizeUser(record.user);
 }
 
-export async function createUserByAdmin({ email, name, role, institutionId }) {
-  // create user with temporary password and return temp password
+export async function createUserByAdmin({ email, name, role, institutionId, permissions = [] }) {
   const temp = generateToken(8);
   const hashed = await hashPassword(temp);
-  const user = await prisma.user.create({ data: { email, name, role, institutionId, password: hashed } });
+  const user = await prisma.user.create({
+    data: {
+      email,
+      name,
+      role,
+      institutionId,
+      permissions,
+      password: hashed,
+      isActive: true,
+    },
+  });
   return { user: sanitizeUser(user), tempPassword: temp };
+}
+
+export async function resetUserPassword(userId) {
+  const temp = generateToken(8);
+  const hashed = await hashPassword(temp);
+  await prisma.user.update({ where: { id: userId }, data: { password: hashed, isActive: true, deletedAt: null } });
+  return temp;
+}
+
+export async function recordUserLoginHistory({ userId, ipAddress, userAgent, success = true, metadata = null }) {
+  await prisma.userLoginHistory.create({ data: { userId, ipAddress, userAgent, success, metadata } });
+}
+
+export async function recordUserAuditLog({ userId, action, details = null, performedBy = null, metadata = null }) {
+  await prisma.userAuditLog.create({ data: { userId, action, details, performedBy, metadata } });
 }

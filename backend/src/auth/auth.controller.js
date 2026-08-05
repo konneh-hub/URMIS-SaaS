@@ -1,4 +1,4 @@
-import { validateUser, signAccessToken, signRefreshToken, saveRefreshToken, registerUser, revokeRefreshToken } from './auth.service.js';
+import { validateUser, signAccessToken, signRefreshToken, saveRefreshToken, registerUser, revokeRefreshToken, recordUserLoginHistory } from './auth.service.js';
 import { JWT_REFRESH_EXPIRES, NODE_ENV } from '../config/index.js';
 import jwt from 'jsonwebtoken';
 import { JWT_SECRET } from '../config/index.js';
@@ -22,6 +22,12 @@ export async function login(req, res, next) {
     const accessToken = signAccessToken(user);
     const refreshToken = signRefreshToken(user);
     await saveRefreshToken(user.id, refreshToken);
+    await recordUserLoginHistory({
+      userId: user.id,
+      ipAddress: req.ip,
+      userAgent: req.headers['user-agent'] || null,
+      success: true,
+    });
     const days = parseDaysFromExpiry(JWT_REFRESH_EXPIRES);
     res.cookie('refreshToken', refreshToken, { httpOnly: true, secure: NODE_ENV === 'production', sameSite: 'lax', path: '/api/auth', maxAge: days * 24 * 60 * 60 * 1000 });
     res.json({ success: true, data: { user, accessToken } });
@@ -76,7 +82,7 @@ export async function refresh(req, res, next) {
     let payload;
     try {
       payload = jwt.verify(token, JWT_SECRET);
-    } catch (err) {
+    } catch (_err) {
       await revokeRefreshToken(token).catch(() => {});
       return res.status(401).json({ success: false, message: 'Invalid refresh token' });
     }
