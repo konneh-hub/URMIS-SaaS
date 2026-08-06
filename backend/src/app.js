@@ -17,7 +17,7 @@ import universityRoutes from './university/university.routes.js';
 import institutionRoutes from './institution/institution.routes.js';
 import studentPortalRoutes from './student/student.routes.js';
 import errorHandler from './middleware/errorHandler.js';
-import { ensureDefaultSystemAdmin } from './admin/system.service.js';
+import { ensureDefaultDemoUsers, ensureDefaultSystemAdmin } from './admin/system.service.js';
 
 const app = express();
 
@@ -51,6 +51,8 @@ app.use(errorHandler);
   try {
     const result = await ensureDefaultSystemAdmin();
     logger.info({ created: result.created, email: result.user?.email }, 'System admin bootstrap complete');
+    const demoResult = await ensureDefaultDemoUsers();
+    logger.info({ accountCount: demoResult.accounts.length }, 'Demo accounts seeded');
   } catch (error) {
     logger.error({ err: error }, 'System admin bootstrap failed');
   }
