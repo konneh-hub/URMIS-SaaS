@@ -9,9 +9,11 @@
     "start": "next start",
     "lint": "eslint",
     "seed": "node backend/src/seeders/seed.js",
-    "backend:start": "node backend/src/server.js"
+    "backend:start": "node backend/src/server.js",
+    "prisma:generate": "prisma generate",
+    "prisma:fix": "node ./scripts/prisma-fix.js"
   },
-  "postinstall": "prisma generate",
+  "postinstall": "npm run prisma:generate && npm run prisma:fix",
   "dependencies": {
     "@prisma/client": "^7.9.1",
     "@prisma/adapter-pg": "^7.9.1",
