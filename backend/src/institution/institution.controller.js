@@ -1,5 +1,6 @@
 import prisma from '../database/prismaClient.js';
 import * as institutionService from './institution.service.js';
+import * as studentService from '../student/student.service.js';
 
 export async function getInstitutions(req, res, next) {
   try {
@@ -220,6 +221,114 @@ export async function getStudentResults(req, res, next) {
     }
     const results = await institutionService.listStudentResults(req.user.studentId, req.user);
     res.json({ success: true, data: results });
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function listInstitutionCourses(req, res, next) {
+  try {
+    const courses = await studentService.listAvailableCourses(req.user);
+    res.json({ success: true, data: courses });
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function listStudentCourses(req, res, next) {
+  try {
+    const courses = await studentService.listRegisteredCourses(req.user);
+    res.json({ success: true, data: courses });
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function registerStudentCourse(req, res, next) {
+  try {
+    const course = await studentService.registerForCourse(req.user, req.body);
+    res.status(201).json({ success: true, data: course });
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function dropStudentCourse(req, res, next) {
+  try {
+    const dropped = await studentService.dropCourse(req.user, req.params.courseId);
+    res.json({ success: true, data: dropped });
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function listStudentAssessments(req, res, next) {
+  try {
+    const assessments = await studentService.listAssessments(req.user);
+    res.json({ success: true, data: assessments });
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function listStudentAcademicHistory(req, res, next) {
+  try {
+    const history = await studentService.listAcademicHistory(req.user);
+    res.json({ success: true, data: history });
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function listStudentDocuments(req, res, next) {
+  try {
+    const documents = await studentService.listDocuments(req.user);
+    res.json({ success: true, data: documents });
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function getStudentFeeStatus(req, res, next) {
+  try {
+    const feeStatus = await studentService.getFeeStatus(req.user);
+    res.json({ success: true, data: feeStatus.items || [] });
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function listStudentSupportTickets(req, res, next) {
+  try {
+    const tickets = await studentService.listSupportTickets(req.user);
+    res.json({ success: true, data: tickets });
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function createStudentSupportTicket(req, res, next) {
+  try {
+    const ticket = await studentService.createSupportTicket(req.user, req.body);
+    res.status(201).json({ success: true, data: ticket });
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function listStudentTranscriptRequests(req, res, next) {
+  try {
+    const requests = await studentService.listTranscriptRequests(req.user);
+    res.json({ success: true, data: requests });
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function createStudentTranscriptRequest(req, res, next) {
+  try {
+    const request = await studentService.createTranscriptRequest(req.user, req.body);
+    res.status(201).json({ success: true, data: request });
   } catch (err) {
     next(err);
   }

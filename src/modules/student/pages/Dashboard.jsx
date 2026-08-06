@@ -28,10 +28,10 @@ export default function StudentDashboard() {
       try {
         const token = localStorage.getItem('accessToken');
         const headers = { Authorization: `Bearer ${token}` };
-        const [coursesResp, resultsResp, notificationsResp] = await Promise.all([
-          fetch(`${API_BASE}/api/institution/student/courses`, { headers }),
-          fetch(`${API_BASE}/api/institution/student/results`, { headers }),
-          fetch(`${API_BASE}/api/admin/platform/notifications`, { headers }),
+const [coursesResp, resultsResp, notificationsResp] = await Promise.all([
+          fetch(`${API_BASE}/api/student/registered-courses`, { headers }),
+          fetch(`${API_BASE}/api/student/results`, { headers }),
+          fetch(`${API_BASE}/api/student/notifications`, { headers }),
         ]);
         const coursesBody = await coursesResp.json();
         const resultsBody = await resultsResp.json();

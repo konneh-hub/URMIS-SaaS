@@ -1,4 +1,4 @@
-import { validateUser, signAccessToken, signRefreshToken, saveRefreshToken, registerUser, revokeRefreshToken, recordUserLoginHistory } from './auth.service.js';
+import { validateUser, signAccessToken, signRefreshToken, saveRefreshToken, registerUser, revokeRefreshToken, recordUserLoginHistory, acceptInvite as acceptInviteToken } from './auth.service.js';
 import { JWT_REFRESH_EXPIRES, NODE_ENV } from '../config/index.js';
 import jwt from 'jsonwebtoken';
 import { JWT_SECRET } from '../config/index.js';
@@ -65,6 +65,27 @@ export async function register(req, res, next) {
   }
 }
 
+export async function acceptInvite(req, res, next) {
+  try {
+    const { token, password } = req.body;
+    const user = await acceptInviteToken(token, password);
+    const accessToken = signAccessToken(user);
+    const refreshToken = signRefreshToken(user);
+    await saveRefreshToken(user.id, refreshToken);
+    await recordUserLoginHistory({
+      userId: user.id,
+      ipAddress: req.ip,
+      userAgent: req.headers['user-agent'] || null,
+      success: true,
+    });
+    const days = parseDaysFromExpiry(JWT_REFRESH_EXPIRES);
+    res.cookie('refreshToken', refreshToken, { httpOnly: true, secure: NODE_ENV === 'production', sameSite: 'lax', path: '/api/auth', maxAge: days * 24 * 60 * 60 * 1000 });
+    res.json({ success: true, data: { user, accessToken } });
+  } catch (err) {
+    next(err);
+  }
+}
+
 export async function logout(req, res, next) {
   try {
     // clear cookie and optionally revoke DB token if provided in body
@@ -81,6 +102,30 @@ export async function me(req, res, next) {
   try {
     if (!req.user) return res.status(401).json({ success: false, message: 'Unauthenticated' });
     res.json({ success: true, data: req.user });
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function updateProfileHandler(req, res, next) {
+  try {
+    if (!req.user) return res.status(401).json({ success: false, message: 'Unauthenticated' });
+    const user = await updateProfile(req.user.id, req.body);
+    res.json({ success: true, data: user });
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function changePasswordHandler(req, res, next) {
+  try {
+    if (!req.user) return res.status(401).json({ success: false, message: 'Unauthenticated' });
+    const { currentPassword, newPassword } = req.body || {};
+    if (!currentPassword || !newPassword) {
+      return res.status(400).json({ success: false, message: 'currentPassword and newPassword are required' });
+    }
+await changePassword(req.user.id, currentPassword, newPassword);
+    res.json({ success: true, message: 'Password updated' });
   } catch (err) {
     next(err);
   }

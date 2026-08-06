@@ -36,9 +36,9 @@ export default function CourseRegistration() {
       try {
         const token = localStorage.getItem('accessToken');
         const headers = { Authorization: `Bearer ${token}` };
-        const [availableResp, registeredResp] = await Promise.all([
-          fetch(`${API_BASE}/api/institution/courses`, { headers }),
-          fetch(`${API_BASE}/api/institution/student/courses`, { headers }),
+const [availableResp, registeredResp] = await Promise.all([
+          fetch(`${API_BASE}/api/student/courses`, { headers }),
+          fetch(`${API_BASE}/api/student/registered-courses`, { headers }),
         ]);
         const availableBody = await availableResp.json();
         const registeredBody = await registeredResp.json();
@@ -58,7 +58,7 @@ export default function CourseRegistration() {
   async function registerCourse(courseId) {
     try {
       const token = localStorage.getItem('accessToken');
-      const resp = await fetch(`${API_BASE}/api/institution/student/courses`, {
+const resp = await fetch(`${API_BASE}/api/student/courses`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
         body: JSON.stringify({ courseId }),

@@ -21,17 +21,14 @@ export default function MyProfile() {
     let cancelled = false;
     (async () => {
       try {
-        const token = localStorage.getItem('accessToken');
-        const resp = await fetch(`${API_BASE}/api/admin/students`, {
+const token = localStorage.getItem('accessToken');
+        const resp = await fetch(`${API_BASE}/api/student/profile`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         const body = await resp.json();
         if (!cancelled) {
           if (body.success) {
-            const students = body.data || [];
-            const current = students.find((s) => s.email === user?.email) || students[0];
-            if (current) setStudent(current);
-            else setError('No student profile found for this account.');
+            setStudent(body.data);
           } else {
             setError(body.message || 'Failed to load student profile');
           }

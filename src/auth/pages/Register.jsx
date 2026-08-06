@@ -2,7 +2,7 @@
 
 import React, { useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useAuth } from '../../shared/auth/AuthProvider';
 import Button from '../../shared/components/ui/Button';
 import Card from '../../shared/components/ui/Card';
@@ -21,10 +21,14 @@ const steps = ['Role & university', 'University details', 'Personal info'];
 
 export default function Register() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const inviteToken = searchParams.get('token') || '';
+  const inviteEmail = searchParams.get('email') || '';
+  const inviteMode = Boolean(inviteToken);
   const { login } = useAuth();
   const [step, setStep] = useState(0);
   const [institutions, setInstitutions] = useState([]);
-  const [loadingInstitutions, setLoadingInstitutions] = useState(true);
+  const [loadingInstitutions, setLoadingInstitutions] = useState(inviteMode ? false : true);
   const [error, setError] = useState(null);
   const [form, setForm] = useState({
     role: 'STUDENT',
@@ -35,13 +39,17 @@ export default function Register() {
     studentNumber: '',
     admissionYear: new Date().getFullYear(),
     name: '',
-    email: '',
+    email: inviteEmail,
     password: '',
     phone: '',
   });
 
   useEffect(() => {
     let canceled = false;
+    if (inviteMode) {
+      return () => { canceled = true; };
+    }
+
     async function loadInstitutions() {
       try {
         const resp = await fetch(`${API_BASE}/api/institutions`);
@@ -57,12 +65,13 @@ export default function Register() {
     }
     loadInstitutions();
     return () => { canceled = true; };
-  }, []);
+  }, [inviteMode]);
 
   const isStudent = form.role === 'STUDENT';
   const isStaff = !isStudent;
 
   const stepDescription = useMemo(() => {
+    if (inviteMode) return 'Use your invitation token to complete registration with a secure password.';
     if (step === 0) return 'Choose your role and the university you belong to.';
     if (step === 1) {
       return isStudent
@@ -70,9 +79,12 @@ export default function Register() {
         : 'Provide your staff role, department, and faculty information.';
     }
     return 'Enter the personal details you will use to sign in.';
-  }, [isStudent, step]);
+  }, [inviteMode, isStudent, step]);
 
   const canContinue = useMemo(() => {
+    if (inviteMode) {
+      return Boolean(form.password.length >= 6 && form.email);
+    }
     if (step === 0) {
       return Boolean(form.role && form.institutionId);
     }
@@ -86,10 +98,14 @@ export default function Register() {
       return Boolean(form.name && form.email && form.password.length >= 6);
     }
     return false;
-  }, [form, isStudent, step]);
+  }, [form, isStudent, step, inviteMode]);
 
   const handleNext = (e) => {
     e.preventDefault();
+    if (inviteMode) {
+      handleSubmit();
+      return;
+    }
     if (step < steps.length - 1) {
       setStep(step + 1);
       return;
@@ -100,23 +116,30 @@ export default function Register() {
   const handleSubmit = async () => {
     setError(null);
     try {
-      const resp = await fetch(`${API_BASE}/api/auth/register`, {
+      const endpoint = inviteMode ? '/accept-invite' : '/register';
+      const bodyPayload = inviteMode
+        ? {
+            token: inviteToken,
+            password: form.password,
+          }
+        : {
+            email: form.email,
+            password: form.password,
+            name: form.name,
+            role: form.role,
+            institutionId: form.institutionId || undefined,
+            facultyName: form.facultyName || undefined,
+            departmentName: form.departmentName || undefined,
+            studentNumber: form.studentNumber || undefined,
+            admissionYear: form.admissionYear ? Number(form.admissionYear) : undefined,
+            phone: form.phone || undefined,
+            profile: isStaff ? { title: form.title || undefined } : undefined,
+          };
+      const resp = await fetch(`${API_BASE}/api/auth${endpoint}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
-        body: JSON.stringify({
-          email: form.email,
-          password: form.password,
-          name: form.name,
-          role: form.role,
-          institutionId: form.institutionId || undefined,
-          facultyName: form.facultyName || undefined,
-          departmentName: form.departmentName || undefined,
-          studentNumber: form.studentNumber || undefined,
-          admissionYear: form.admissionYear ? Number(form.admissionYear) : undefined,
-          phone: form.phone || undefined,
-          profile: isStaff ? { title: form.title || undefined } : undefined,
-        }),
+        body: JSON.stringify(bodyPayload),
       });
       const body = await resp.json();
       if (!body.success) {
@@ -140,125 +163,17 @@ export default function Register() {
       <div className="w-full max-w-lg">
         <Card title="Create account">
           <div className="mb-4 rounded-2xl bg-[var(--surface)] px-4 py-3 text-sm text-[var(--color-muted-text)] shadow-sm">
-            <div className="font-semibold text-[var(--color-text)]">Step {step + 1} of {steps.length}</div>
-            <div>{steps[step]}</div>
+            <div className="font-semibold text-[var(--color-text)]">{inviteMode ? 'Invitation registration' : `Step ${step + 1} of ${steps.length}`}</div>
+            <div>{inviteMode ? 'Complete your invitation with a password.' : steps[step]}</div>
             <div className="mt-2 text-xs text-[var(--color-muted-text)]">{stepDescription}</div>
           </div>
 
           <form onSubmit={handleNext} className="space-y-4">
             {error && <Alert title="Error" tone="danger">{error}</Alert>}
 
-            {step === 0 && (
+            {inviteMode ? (
               <>
-                <label className="block text-sm font-medium text-[var(--color-text)]">
-                  <span className="mb-2 block">Role</span>
-                  <select
-                    className="min-h-11 w-full rounded-xl border border-[var(--color-border)] bg-[var(--color-background)] px-3 py-2.5 text-sm text-[var(--color-text)] shadow-sm outline-none transition focus:border-[var(--color-primary)]"
-                    value={form.role}
-                    onChange={(e) => setForm({ ...form, role: e.target.value })}
-                  >
-                    {roleOptions.map((role) => (
-                      <option key={role.value} value={role.value}>{role.label}</option>
-                    ))}
-                  </select>
-                </label>
-
-                <label className="block text-sm font-medium text-[var(--color-text)]">
-                  <span className="mb-2 block">University</span>
-                  <select
-                    className="min-h-11 w-full rounded-xl border border-[var(--color-border)] bg-[var(--color-background)] px-3 py-2.5 text-sm text-[var(--color-text)] shadow-sm outline-none transition focus:border-[var(--color-primary)]"
-                    value={form.institutionId}
-                    onChange={(e) => setForm({ ...form, institutionId: e.target.value })}
-                    disabled={loadingInstitutions}
-                  >
-                    <option value="">Select university</option>
-                    {institutions.map((institution) => (
-                      <option key={institution.id} value={institution.id}>{institution.name}</option>
-                    ))}
-                  </select>
-                </label>
-              </>
-            )}
-
-            {step === 1 && (
-              <>
-                {isStudent ? (
-                  <>
-                    <Input
-                      label="Student number"
-                      value={form.studentNumber}
-                      onChange={(e) => setForm({ ...form, studentNumber: e.target.value })}
-                      placeholder="Optional"
-                    />
-                    <div className="grid gap-4 md:grid-cols-2">
-                      <Input
-                        label="Admission year"
-                        type="number"
-                        value={form.admissionYear}
-                        onChange={(e) => setForm({ ...form, admissionYear: e.target.value })}
-                        required
-                      />
-                      <Input
-                        label="Phone"
-                        value={form.phone}
-                        onChange={(e) => setForm({ ...form, phone: e.target.value })}
-                      />
-                    </div>
-                    <Input
-                      label="Department"
-                      value={form.departmentName}
-                      onChange={(e) => setForm({ ...form, departmentName: e.target.value })}
-                      placeholder="e.g. Computer Science"
-                      required
-                    />
-                    <Input
-                      label="Faculty"
-                      value={form.facultyName}
-                      onChange={(e) => setForm({ ...form, facultyName: e.target.value })}
-                      placeholder="Optional"
-                    />
-                  </>
-                ) : (
-                  <>
-                    <Input
-                      label="Job title"
-                      value={form.title}
-                      onChange={(e) => setForm({ ...form, title: e.target.value })}
-                      placeholder="e.g. Lecturer, HOD, Dean"
-                      required
-                    />
-                    <div className="grid gap-4 md:grid-cols-2">
-                      <Input
-                        label="Phone"
-                        value={form.phone}
-                        onChange={(e) => setForm({ ...form, phone: e.target.value })}
-                      />
-                      <Input
-                        label="Department"
-                        value={form.departmentName}
-                        onChange={(e) => setForm({ ...form, departmentName: e.target.value })}
-                        placeholder="Optional"
-                      />
-                    </div>
-                    <Input
-                      label="Faculty"
-                      value={form.facultyName}
-                      onChange={(e) => setForm({ ...form, facultyName: e.target.value })}
-                      placeholder="Optional"
-                    />
-                  </>
-                )}
-              </>
-            )}
-
-            {step === 2 && (
-              <>
-                <Input
-                  label="Full name"
-                  value={form.name}
-                  onChange={(e) => setForm({ ...form, name: e.target.value })}
-                  required
-                />
+                <p className="text-sm text-[var(--color-muted-text)]">Enter a password to complete your invitation. If your email is known from the invitation, leave it as shown.</p>
                 <Input
                   label="Email"
                   type="email"
@@ -274,15 +189,145 @@ export default function Register() {
                   required
                 />
               </>
+            ) : (
+              <>
+                {step === 0 && (
+                  <>
+                    <label className="block text-sm font-medium text-[var(--color-text)]">
+                      <span className="mb-2 block">Role</span>
+                      <select
+                        className="min-h-11 w-full rounded-xl border border-[var(--color-border)] bg-[var(--color-background)] px-3 py-2.5 text-sm text-[var(--color-text)] shadow-sm outline-none transition focus:border-[var(--color-primary)]"
+                        value={form.role}
+                        onChange={(e) => setForm({ ...form, role: e.target.value })}
+                      >
+                        {roleOptions.map((role) => (
+                          <option key={role.value} value={role.value}>{role.label}</option>
+                        ))}
+                      </select>
+                    </label>
+
+                    <label className="block text-sm font-medium text-[var(--color-text)]">
+                      <span className="mb-2 block">University</span>
+                      <select
+                        className="min-h-11 w-full rounded-xl border border-[var(--color-border)] bg-[var(--color-background)] px-3 py-2.5 text-sm text-[var(--color-text)] shadow-sm outline-none transition focus:border-[var(--color-primary)]"
+                        value={form.institutionId}
+                        onChange={(e) => setForm({ ...form, institutionId: e.target.value })}
+                        disabled={loadingInstitutions}
+                      >
+                        <option value="">Select university</option>
+                        {institutions.map((institution) => (
+                          <option key={institution.id} value={institution.id}>{institution.name}</option>
+                        ))}
+                      </select>
+                    </label>
+                  </>
+                )}
+
+                {step === 1 && (
+                  <>
+                    {isStudent ? (
+                      <>
+                        <Input
+                          label="Student number"
+                          value={form.studentNumber}
+                          onChange={(e) => setForm({ ...form, studentNumber: e.target.value })}
+                          placeholder="Optional"
+                        />
+                        <div className="grid gap-4 md:grid-cols-2">
+                          <Input
+                            label="Admission year"
+                            type="number"
+                            value={form.admissionYear}
+                            onChange={(e) => setForm({ ...form, admissionYear: e.target.value })}
+                            required
+                          />
+                          <Input
+                            label="Phone"
+                            value={form.phone}
+                            onChange={(e) => setForm({ ...form, phone: e.target.value })}
+                          />
+                        </div>
+                        <Input
+                          label="Department"
+                          value={form.departmentName}
+                          onChange={(e) => setForm({ ...form, departmentName: e.target.value })}
+                          placeholder="e.g. Computer Science"
+                          required
+                        />
+                        <Input
+                          label="Faculty"
+                          value={form.facultyName}
+                          onChange={(e) => setForm({ ...form, facultyName: e.target.value })}
+                          placeholder="Optional"
+                        />
+                      </>
+                    ) : (
+                      <>
+                        <Input
+                          label="Job title"
+                          value={form.title}
+                          onChange={(e) => setForm({ ...form, title: e.target.value })}
+                          placeholder="e.g. Lecturer, HOD, Dean"
+                          required
+                        />
+                        <div className="grid gap-4 md:grid-cols-2">
+                          <Input
+                            label="Phone"
+                            value={form.phone}
+                            onChange={(e) => setForm({ ...form, phone: e.target.value })}
+                          />
+                          <Input
+                            label="Department"
+                            value={form.departmentName}
+                            onChange={(e) => setForm({ ...form, departmentName: e.target.value })}
+                            placeholder="Optional"
+                          />
+                        </div>
+                        <Input
+                          label="Faculty"
+                          value={form.facultyName}
+                          onChange={(e) => setForm({ ...form, facultyName: e.target.value })}
+                          placeholder="Optional"
+                        />
+                      </>
+                    )}
+                  </>
+                )}
+
+                {step === 2 && (
+                  <>
+                    <Input
+                      label="Full name"
+                      value={form.name}
+                      onChange={(e) => setForm({ ...form, name: e.target.value })}
+                      required
+                    />
+                    <Input
+                      label="Email"
+                      type="email"
+                      value={form.email}
+                      onChange={(e) => setForm({ ...form, email: e.target.value })}
+                      required
+                    />
+                    <Input
+                      label="Password"
+                      type="password"
+                      value={form.password}
+                      onChange={(e) => setForm({ ...form, password: e.target.value })}
+                      required
+                    />
+                  </>
+                )}
+              </>
             )}
 
             <div className="flex items-center justify-between gap-2">
-              {step > 0 ? (
+              {!inviteMode && step > 0 ? (
                 <Button type="button" variant="ghost" onClick={() => setStep(step - 1)}>Back</Button>
               ) : <div />}
               <div className="flex flex-col items-end gap-2 sm:flex-row sm:items-center">
                 <Button type="submit" className="min-w-[10rem]" disabled={!canContinue}>
-                  {step < steps.length - 1 ? 'Continue' : 'Create account'}
+                  {inviteMode ? 'Complete invitation' : step < steps.length - 1 ? 'Continue' : 'Create account'}
                 </Button>
               </div>
             </div>

@@ -20,6 +20,7 @@ export default function StaffManagement() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
+  const [inviteDetails, setInviteDetails] = useState(null);
   const [form, setForm] = useState({ name: '', email: '', title: '', departmentId: '', facultyId: '', phone: '', firstName: '', lastName: '' });
 
   useEffect(() => {
@@ -105,6 +106,10 @@ export default function StaffManagement() {
       });
       const body = await resp.json();
       if (body.success) {
+        const inviteToken = body.data?.inviteToken;
+        const expiresAt = body.data?.expiresAt;
+        const registrationLink = inviteToken ? `${window.location.origin}/register?token=${encodeURIComponent(inviteToken)}` : null;
+        setInviteDetails(inviteToken ? { email: body.data.email, inviteToken, expiresAt, registrationLink } : null);
         setIsOpen(false);
         setForm({ name: '', email: '', title: '', departmentId: '', facultyId: '', phone: '', firstName: '', lastName: '' });
         refresh();
@@ -137,6 +142,25 @@ export default function StaffManagement() {
           <MetricTile title="Academic staff" value={staff.filter((s) => s.role === 'LECTURER' || s.role === 'HOD' || s.role === 'DEAN').length} description="Teaching roles" badgeTone="success" badge="Teach" />
         </div>
 
+        {inviteDetails ? (
+          <Card title="Invite token generated" description="Share this token with the invited staff member so they can complete registration.">
+            <div className="space-y-3">
+              <div className="rounded-xl bg-[var(--background)] p-4 text-sm text-[var(--color-text)] shadow-sm">
+                <div className="font-medium">Invite token</div>
+                <div className="mt-2 break-all text-[var(--color-muted-text)]">{inviteDetails.inviteToken}</div>
+              </div>
+              {inviteDetails.registrationLink ? (
+                <div className="rounded-xl bg-[var(--background)] p-4 text-sm text-[var(--color-text)] shadow-sm">
+                  <div className="font-medium">Registration link</div>
+                  <div className="mt-2 break-all text-[var(--color-muted-text)]">{inviteDetails.registrationLink}</div>
+                </div>
+              ) : null}
+              {inviteDetails.expiresAt ? (
+                <p className="text-sm text-[var(--color-muted-text)]">Expires at: {new Date(inviteDetails.expiresAt).toLocaleString()}</p>
+              ) : null}
+            </div>
+          </Card>
+        ) : null}
         <Card title="Staff" description="All staff within your institution.">
           {loading ? (
             <p className="text-sm text-[var(--color-muted-text)]">Loading staff...</p>

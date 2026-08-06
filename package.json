@@ -11,8 +11,10 @@
     "seed": "node backend/src/seeders/seed.js",
     "backend:start": "node backend/src/server.js"
   },
+  "postinstall": "prisma generate",
   "dependencies": {
     "@prisma/client": "^7.9.1",
+    "@prisma/adapter-pg": "^7.9.1",
     "@tailwindcss/forms": "^0.5.11",
     "@tailwindcss/typography": "^0.5.20",
     "cookie-parser": "^1.4.6",
@@ -34,8 +36,8 @@
     "react-dom": "19.2.8",
     "react-hook-form": "^7.84.0",
     "recharts": "^3.10.1",
-    "zod": "^4.4.3",
-    "@prisma/adapter-pg": "^7.9.1"
+    "serverless-http": "^3.0.0",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",

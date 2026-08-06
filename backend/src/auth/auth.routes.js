@@ -1,5 +1,5 @@
 import express from 'express';
-import { login, register, logout, refresh } from './auth.controller.js';
+import { login, register, logout, refresh, acceptInvite, updateProfileHandler, changePasswordHandler } from './auth.controller.js';
 import requestValidator from '../middleware/requestValidator.js';
 import { body } from 'express-validator';
 import authMiddleware from '../middleware/auth.js';
@@ -29,17 +29,11 @@ router.post(
   register
 );
 router.post('/logout', logout);
-router.post('/accept-invite', [body('token').isString(), body('password').isLength({ min: 6 }), requestValidator], async (req, res, next) => {
-	try {
-		const { token, password } = req.body;
-		const user = await (await import('./auth.service.js')).acceptInvite(token, password);
-		res.json({ success: true, data: user });
-	} catch (err) {
-		next(err);
-	}
-});
+router.post('/accept-invite', [body('token').isString(), body('password').isLength({ min: 6 }), requestValidator], acceptInvite);
 
 router.get('/me', authMiddleware, me);
+router.put('/profile', authMiddleware, updateProfileHandler);
+router.post('/change-password', authMiddleware, changePasswordHandler);
 router.post('/refresh', refresh);
 
 export default router;

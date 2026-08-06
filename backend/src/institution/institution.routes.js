@@ -21,6 +21,18 @@ import {
   resetInstitution,
   cloneInstitutionConfiguration,
   getStudentResults,
+  listInstitutionCourses,
+  listStudentCourses,
+  registerStudentCourse,
+  dropStudentCourse,
+  listStudentAssessments,
+  listStudentAcademicHistory,
+  listStudentDocuments,
+  getStudentFeeStatus,
+  listStudentSupportTickets,
+  createStudentSupportTicket,
+  listStudentTranscriptRequests,
+  createStudentTranscriptRequest,
 } from './institution.controller.js';
 import backupRoutes from './backup.routes.js';
 import requireTenantAccess from '../middleware/tenant.js';
@@ -36,6 +48,18 @@ import {
 const router = express.Router({ mergeParams: true });
 
 router.get('/', getInstitutions);
+router.get('/courses', auth, authorize(['STUDENT']), async (req, res, next) => { try { await listInstitutionCourses(req, res, next); } catch (err) { next(err); } });
+router.get('/student/courses', auth, authorize(['STUDENT']), async (req, res, next) => { try { await listStudentCourses(req, res, next); } catch (err) { next(err); } });
+router.post('/student/courses', auth, authorize(['STUDENT']), async (req, res, next) => { try { await registerStudentCourse(req, res, next); } catch (err) { next(err); } });
+router.delete('/student/courses/:courseId', auth, authorize(['STUDENT']), async (req, res, next) => { try { await dropStudentCourse(req, res, next); } catch (err) { next(err); } });
+router.get('/student/assessments', auth, authorize(['STUDENT']), async (req, res, next) => { try { await listStudentAssessments(req, res, next); } catch (err) { next(err); } });
+router.get('/student/academic-history', auth, authorize(['STUDENT']), async (req, res, next) => { try { await listStudentAcademicHistory(req, res, next); } catch (err) { next(err); } });
+router.get('/student/documents', auth, authorize(['STUDENT']), async (req, res, next) => { try { await listStudentDocuments(req, res, next); } catch (err) { next(err); } });
+router.get('/student/fees', auth, authorize(['STUDENT']), async (req, res, next) => { try { await getStudentFeeStatus(req, res, next); } catch (err) { next(err); } });
+router.get('/student/support-tickets', auth, authorize(['STUDENT']), async (req, res, next) => { try { await listStudentSupportTickets(req, res, next); } catch (err) { next(err); } });
+router.post('/student/support-tickets', auth, authorize(['STUDENT']), async (req, res, next) => { try { await createStudentSupportTicket(req, res, next); } catch (err) { next(err); } });
+router.get('/student/transcript-requests', auth, authorize(['STUDENT']), async (req, res, next) => { try { await listStudentTranscriptRequests(req, res, next); } catch (err) { next(err); } });
+router.post('/student/transcript-requests', auth, authorize(['STUDENT']), async (req, res, next) => { try { await createStudentTranscriptRequest(req, res, next); } catch (err) { next(err); } });
 router.get('/student/results', auth, authorize(['STUDENT']), async (req, res, next) => { try { await getStudentResults(req, res, next); } catch (err) { next(err); } });
 router.get('/:institutionId', auth, authorize(['SYSTEM_ADMIN', 'UNIVERSITY_ADMIN']), institutionIdParamValidation, requestValidator, requireTenantAccess, getInstitutionById);
 router.post('/', auth, authorize(['SYSTEM_ADMIN']), createInstitutionValidation, requestValidator, createInstitution);

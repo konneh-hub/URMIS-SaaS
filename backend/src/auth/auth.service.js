@@ -232,3 +232,39 @@ export async function recordUserLoginHistory({ userId, ipAddress, userAgent, suc
 export async function recordUserAuditLog({ userId, action, details = null, performedBy = null, metadata = null }) {
   await prisma.userAuditLog.create({ data: { userId, action, details, performedBy, metadata } });
 }
+
+export async function updateProfile(userId, data) {
+  const { phone, address, name } = data || {};
+  const updateData = {};
+  if (name !== undefined) updateData.name = name;
+  const user = await prisma.user.update({ where: { id: userId }, data: updateData });
+
+  // For student accounts, update the linked Student record (phone + address in profile JSON).
+  if (user.role === 'STUDENT') {
+    const student = await prisma.student.findFirst({ where: { email: user.email } });
+    if (student) {
+      const profile = { ...(student.profile || {}) };
+      if (address !== undefined) profile.address = address;
+      await prisma.student.update({
+        where: { id: student.id },
+        data: {
+          ...(phone !== undefined ? { phone } : {}),
+          profile,
+        },
+      });
+    }
+  }
+
+  return sanitizeUser(user);
+}
+
+export async function changePassword(userId, currentPassword, newPassword) {
+  const user = await prisma.user.findUnique({ where: { id: userId } });
+  if (!user) throw Object.assign(new Error('User not found'), { status: 404 });
+  if (!user.password) throw Object.assign(new Error('Cannot change password for this account type'), { status: 400 });
+  const ok = await comparePassword(currentPassword, user.password);
+  if (!ok) throw Object.assign(new Error('Current password is incorrect'), { status: 400 });
+  const hashed = await hashPassword(newPassword);
+  await prisma.user.update({ where: { id: userId }, data: { password: hashed } });
+  return true;
+}
