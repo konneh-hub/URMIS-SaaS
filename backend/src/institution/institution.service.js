@@ -23,3 +23,14 @@ export async function updateInstitution(institutionId, data) {
     include: { settings: true, statistics: true },
   });
 }
+
+export async function listStudentResults(studentId, user) {
+  const where = { studentId, status: 'PUBLISHED' };
+  if (user.role !== 'SYSTEM_ADMIN' && user.role !== 'UNIVERSITY_ADMIN') {
+    where.institutionId = user.institutionId;
+  }
+  return prisma.result.findMany({
+    where,
+    include: { course: true, session: true, semester: true },
+  });
+}

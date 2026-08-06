@@ -1,39 +1,13 @@
 "use client";
 
 import React, { useState } from 'react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '../../shared/auth/AuthProvider';
 import Button from '../../shared/components/ui/Button';
 import Card from '../../shared/components/ui/Card';
 import Input from '../../shared/components/ui/Input';
 import Alert from '../../shared/components/ui/Alert';
-
-const roleProfiles = {
-  LECTURER: {
-    id: 'lecturer-demo',
-    name: 'Amina Yusuf',
-    email: 'amina@urmis.edu',
-    role: 'LECTURER',
-    institution_id: 'inst-demo',
-    permissions: ['VIEW_ASSIGNED_COURSES', 'ENTER_RESULTS', 'SUBMIT_RESULTS', 'VIEW_RESULTS'],
-  },
-  UNIVERSITY_ADMIN: {
-    id: 'admin-demo',
-    name: 'Grace Okafor',
-    email: 'grace@urmis.edu',
-    role: 'UNIVERSITY_ADMIN',
-    institution_id: 'inst-demo',
-    permissions: ['MANAGE_STUDENTS', 'MANAGE_COURSES', 'MANAGE_DEPARTMENTS', 'MANAGE_FACULTIES', 'VIEW_RESULTS'],
-  },
-  STUDENT: {
-    id: 'student-demo',
-    name: 'Bola Ade',
-    email: 'bola@student.urmis.edu',
-    role: 'STUDENT',
-    institution_id: 'inst-demo',
-    permissions: ['VIEW_RESULTS', 'VIEW_TRANSCRIPT', 'VIEW_PROFILE'],
-  },
-};
 
 export default function Login() {
   const router = useRouter();
@@ -66,7 +40,7 @@ export default function Login() {
       }
       login(user);
       router.push('/dashboard');
-    } catch (e) {
+    } catch {
       setError('Login failed');
     }
   };
@@ -88,6 +62,12 @@ export default function Login() {
               <Input label="Email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
               <Input label="Password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} hint="Your account password" />
               <Button type="submit" className="w-full">Sign in</Button>
+              <div className="text-center text-sm text-[var(--color-muted-text)]">
+                Don&apos;t have an account?{' '}
+                <Link href="/register" className="font-semibold text-[var(--color-primary)] hover:underline">
+                  Create one
+                </Link>
+              </div>
             </form>
           </Card>
         </div>

@@ -95,4 +95,3 @@ export default function DepartmentOverview() {
     </DashboardLayout>
   );
 }
-</content>

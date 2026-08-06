@@ -130,5 +130,6 @@ export const layoutConfigByRole = {
 };
 
 export function getLayoutConfig(role) {
-  return layoutConfigByRole[role] || layoutConfigByRole.STUDENT;
+  const normalizedRole = String(role || 'STUDENT').toUpperCase().replace(/[-_ ]/g, '_');
+  return layoutConfigByRole[normalizedRole] || layoutConfigByRole.STUDENT;
 }

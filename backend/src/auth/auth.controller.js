@@ -38,8 +38,22 @@ export async function login(req, res, next) {
 
 export async function register(req, res, next) {
   try {
-    const { email, password, name } = req.body;
-    const user = await registerUser({ email, password, name });
+    const { email, password, name, role, institutionId, facultyId, facultyName, departmentId, departmentName, studentNumber, admissionYear, phone, profile } = req.body;
+    const user = await registerUser({
+      email,
+      password,
+      name,
+      role,
+      institutionId,
+      facultyId,
+      facultyName,
+      departmentId,
+      departmentName,
+      studentNumber,
+      admissionYear,
+      phone,
+      profile,
+    });
     const accessToken = signAccessToken(user);
     const refreshToken = signRefreshToken(user);
     await saveRefreshToken(user.id, refreshToken);

@@ -110,6 +110,22 @@ export const menuByRole = {
     { label: 'Profile', href: '/dashboard/profile', slug: 'profile' },
     { label: 'Logout', href: '/dashboard/logout', slug: 'logout' },
   ],
+  EXAMINATION_OFFICER: [
+    { label: 'Dashboard', href: '/dashboard', slug: 'dashboard' },
+    { label: 'Result Processing', href: '/dashboard/result-processing', slug: 'result-processing' },
+    { label: 'Result Verification', href: '/dashboard/result-verification', slug: 'result-verification' },
+    { label: 'Result Publication', href: '/dashboard/result-publication', slug: 'result-publication' },
+    { label: 'Result Corrections', href: '/dashboard/result-corrections', slug: 'result-corrections' },
+    { label: 'Transcript Requests', href: '/dashboard/transcript-requests', slug: 'transcript-requests' },
+    { label: 'Graduation Clearance', href: '/dashboard/graduation-clearance', slug: 'graduation-clearance' },
+    { label: 'Academic Records', href: '/dashboard/academic-records', slug: 'academic-records' },
+    { label: 'Reports', href: '/dashboard/reports', slug: 'reports' },
+    { label: 'Audit Logs', href: '/dashboard/audit-logs', slug: 'audit-logs' },
+    { label: 'Communication', href: '/dashboard/communication', slug: 'communication' },
+    { label: 'Notifications', href: '/dashboard/notifications', slug: 'notifications' },
+    { label: 'Profile', href: '/dashboard/profile', slug: 'profile' },
+    { label: 'Logout', href: '/dashboard/logout', slug: 'logout' },
+  ],
   STUDENT: [
     { label: 'Dashboard', href: '/dashboard', slug: 'dashboard' },
     { label: 'My Profile', href: '/dashboard/my-profile', slug: 'my-profile' },
@@ -129,10 +145,11 @@ export const menuByRole = {
 };
 
 export function getMenuForRole(role) {
-  return menuByRole[role] || menuByRole.STUDENT;
+  const normalizedRole = String(role || 'STUDENT').toUpperCase().replace(/[-_ ]/g, '_');
+  return menuByRole[normalizedRole] || menuByRole.STUDENT;
 }
 
 export function formatRoleLabel(role) {
   if (!role) return 'User';
-  return role.replace(/_/g, ' ').replace(/\b\w/g, (char) => char.toUpperCase());
+  return String(role).replace(/[-_]/g, ' ').replace(/\b\w/g, (char) => char.toUpperCase());
 }

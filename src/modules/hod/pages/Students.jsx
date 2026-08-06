@@ -64,7 +64,7 @@ export default function Students() {
               columns={[
                 { header: 'Name', accessor: 'name', render: (value, row) => `${row.firstName || ''} ${row.lastName || ''}`.trim() || value || '—' },
                 { header: 'Email', accessor: 'email' },
-                { header: 'Matric', accessor: 'matricNumber', render: (value) => value || studentNumberFallback },
+                { header: 'Matric', accessor: 'matricNumber', render: (value) => value || '—' },
                 { header: 'Programme', accessor: 'programme', render: (value) => value || '—' },
               ]}
               rows={students}
@@ -73,9 +73,6 @@ export default function Students() {
           )}
         </Card>
       </div>
-    </DashboardLayout>
+</DashboardLayout>
   );
 }
-
-const studentNumberFallback = '—';
-</content>

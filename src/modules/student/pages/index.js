@@ -1,4 +1,14 @@
 export { default as StudentDashboard } from './Dashboard';
-export { default as Profile } from './Profile';
+export { default as MyProfile } from './MyProfile';
+export { default as CourseRegistration } from './CourseRegistration';
+export { default as RegisteredCourses } from './RegisteredCourses';
+export { default as Assessments } from './Assessments';
 export { default as Results } from './Results';
-export { default as Transcript } from './Transcript';
+export { default as TranscriptRequests } from './TranscriptRequests';
+export { default as AcademicHistory } from './AcademicHistory';
+export { default as FeeStatus } from './FeeStatus';
+export { default as Documents } from './Documents';
+export { default as Notifications } from './Notifications';
+export { default as Support } from './Support';
+export { default as ProfileSettings } from './ProfileSettings';
+export { default as Logout } from './Logout';

@@ -10,6 +10,7 @@ import universityAdminRoutes from './admin/university-admin.routes.js';
 import usersRoutes from './admin/users.routes.js';
 import rbacRoutes from './admin/rbac.routes.js';
 import academicRoutes from './admin/academic.routes.js';
+import staffRoutes from './admin/staff.routes.js';
 import studentRoutes from './admin/student.routes.js';
 import platformRoutes from './admin/platform.routes.js';
 import universityRoutes from './university/university.routes.js';
@@ -41,10 +42,12 @@ app.use('/api/admin/university-admins', universityAdminRoutes);
 app.use('/api/admin/users', usersRoutes);
 app.use('/api/admin/rbac', rbacRoutes);
 app.use('/api/admin/academic', academicRoutes);
+app.use('/api/admin/staff', staffRoutes);
 app.use('/api/admin/students', studentRoutes);
 app.use('/api/admin/platform', platformRoutes);
 app.use('/api/university', universityRoutes);
 app.use('/api/institutions', institutionRoutes);
+app.use('/api/institution', institutionRoutes);
 
 app.get('/health', (req, res) => res.json({ ok: true }));
 

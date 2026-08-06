@@ -12,26 +12,18 @@ import Alert from '../../../shared/components/ui/Alert';
 
 const API_BASE = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost:5000';
 
-function gradeTone(grade) {
-  if (!grade) return 'neutral';
-  const g = String(grade).toUpperCase();
-  if (g.startsWith('A')) return 'success';
-  if (g.startsWith('B')) return 'info';
-  if (g.startsWith('C')) return 'warning';
-  return 'danger';
-}
-
 function statusTone(status) {
   switch (status) {
-    case 'PUBLISHED': return 'success';
+    case 'COMPLETED': return 'success';
+    case 'IN_PROGRESS': return 'info';
     case 'PENDING': return 'warning';
     default: return 'neutral';
   }
 }
 
-export default function Results() {
+export default function AcademicHistory() {
   const { user } = useAuth();
-  const [results, setResults] = useState([]);
+  const [history, setHistory] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -40,12 +32,12 @@ export default function Results() {
     (async () => {
       try {
         const token = localStorage.getItem('accessToken');
-        const resp = await fetch(`${API_BASE}/api/institution/student/results`, {
+        const resp = await fetch(`${API_BASE}/api/institution/student/academic-history`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         const body = await resp.json();
         if (!cancelled) {
-          setResults(Array.isArray(body) ? body : (body.data || []));
+          setHistory(Array.isArray(body) ? body : (body.data || []));
         }
       } catch (e) {
         if (!cancelled) setError('Could not reach the platform API.');
@@ -56,41 +48,42 @@ export default function Results() {
     return () => { cancelled = true; };
   }, [user?.email]);
 
-  const published = results.filter((r) => r.status === 'PUBLISHED').length;
-  const totalCredits = results.filter((r) => r.status === 'PUBLISHED').reduce((sum, r) => sum + (r.creditHours || r.credits || 0), 0);
+  const sessions = history.length;
+  const completed = history.filter((h) => h.status === 'COMPLETED').length;
+  const totalCredits = history.reduce((sum, h) => sum + (h.creditHours || h.credits || (h.courses || []).reduce((s, c) => s + (c.creditHours || 0), 0)), 0);
 
   return (
     <DashboardLayout>
       <div className="space-y-6">
         <PageHeader
           eyebrow="Academic"
-          title="Results"
-          description="Your published results and grades for registered courses."
-          badge={<Badge tone="info">{published} published results</Badge>}
+          title="Academic History"
+          description="Your academic progression across sessions and semesters."
+          badge={<Badge tone="info">{sessions} sessions</Badge>}
         />
 
         {error ? <Alert title="Error" tone="danger">{error}</Alert> : null}
 
         <div className="grid gap-4 md:grid-cols-3">
-          <MetricTile title="Results" value={results.length} description="Total result records" badge="All" />
-          <MetricTile title="Published" value={published} description="Available to view" badgeTone="success" badge="Published" />
-          <MetricTile title="Credits earned" value={totalCredits} description="Credit hours" badgeTone="info" badge="Credits" />
+          <MetricTile title="Sessions" value={sessions} description="Academic sessions" badge="All" />
+          <MetricTile title="Completed" value={completed} description="Finished sessions" badgeTone="success" badge="Done" />
+          <MetricTile title="Credit hours" value={totalCredits} description="Total credits" badgeTone="info" badge="Credits" />
         </div>
 
-        <Card title="Result sheet" description="Grades for your registered courses.">
+        <Card title="Academic history" description="Your progression record by academic session.">
           {loading ? (
-            <p className="text-sm text-[var(--color-muted-text)]">Loading results...</p>
+            <p className="text-sm text-[var(--color-muted-text)]">Loading history...</p>
           ) : (
             <Table
               columns={[
-                { header: 'Course', accessor: 'course', render: (_v, row) => row.course?.title || row.courseId || '—' },
-                { header: 'Code', accessor: 'code', render: (_v, row) => row.course?.code || '—' },
-                { header: 'Credits', accessor: 'creditHours', render: (v) => v ?? '—' },
-                { header: 'Grade', accessor: 'grade', render: (value) => <Badge tone={gradeTone(value)}>{value || '—'}</Badge> },
+                { header: 'Session', accessor: 'session', render: (_v, row) => row.session?.name || row.academicYear || row.session || '—' },
+                { header: 'Semester', accessor: 'semester', render: (v) => v?.name || v || '—' },
+                { header: 'Level', accessor: 'level', render: (v) => v ?? '—' },
+                { header: 'GPA', accessor: 'gpa', render: (v) => v ?? '—' },
                 { header: 'Status', accessor: 'status', render: (value) => <Badge tone={statusTone(value || 'PENDING')}>{value || 'PENDING'}</Badge> },
               ]}
-              rows={results}
-              emptyText="No results published yet."
+              rows={history}
+              emptyText="No academic history available yet."
             />
           )}
         </Card>

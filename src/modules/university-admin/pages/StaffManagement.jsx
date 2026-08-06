@@ -16,25 +16,28 @@ const API_BASE = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost:5000';
 
 export default function StaffManagement() {
   const [staff, setStaff] = useState([]);
+  const [departments, setDepartments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
-  const [form, setForm] = useState({ name: '', email: '', title: '', departmentId: '' });
+  const [form, setForm] = useState({ name: '', email: '', title: '', departmentId: '', facultyId: '', phone: '', firstName: '', lastName: '' });
 
   useEffect(() => {
     let cancelled = false;
     (async () => {
       try {
         const token = localStorage.getItem('accessToken');
-        const resp = await fetch(`${API_BASE}/api/admin/staff`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        const body = await resp.json();
+        const [staffResp, deptResp] = await Promise.all([
+          fetch(`${API_BASE}/api/admin/staff`, { headers: { Authorization: `Bearer ${token}` } }),
+          fetch(`${API_BASE}/api/admin/academic/departments`, { headers: { Authorization: `Bearer ${token}` } }),
+        ]);
+        const [staffBody, deptBody] = await Promise.all([staffResp.json(), deptResp.json()]);
         if (!cancelled) {
-          if (body.success) setStaff(body.data);
-          else setError(body.message || 'Failed to load staff');
+          if (staffBody.success) setStaff(staffBody.data);
+          else setError(staffBody.message || 'Failed to load staff');
+          if (deptBody.success) setDepartments(deptBody.data);
         }
-      } catch (e) {
+      } catch {
         if (!cancelled) setError('Could not reach the platform API.');
       } finally {
         if (!cancelled) setLoading(false);
@@ -52,7 +55,7 @@ export default function StaffManagement() {
       });
       const body = await resp.json();
       if (body.success) setStaff(body.data);
-    } catch (e) { /* ignore */ } finally {
+    } catch { /* ignore */ } finally {
       setLoading(false);
     }
   }
@@ -61,20 +64,54 @@ export default function StaffManagement() {
     e.preventDefault();
     try {
       const token = localStorage.getItem('accessToken');
+      const firstName = form.firstName || form.name.trim().split(/\s+/)[0] || '';
+      const lastName = form.lastName || form.name.trim().split(/\s+/).slice(1).join(' ') || '';
+      const normalizedTitle = (form.title || '').trim();
+      const role = normalizedTitle.toUpperCase() === 'HOD'
+        ? 'HOD'
+        : normalizedTitle.toUpperCase() === 'DEAN'
+          ? 'DEAN'
+          : normalizedTitle.toUpperCase() === 'EXAM_OFFICER'
+            ? 'EXAM_OFFICER'
+            : 'LECTURER';
+      const payload = {
+        name: form.name.trim(),
+        email: form.email.trim(),
+        role,
+        title: normalizedTitle,
+        departmentId: form.departmentId || undefined,
+        facultyId: form.facultyId || undefined,
+        phone: form.phone || undefined,
+        firstName,
+        lastName,
+        profile: {
+          title: normalizedTitle || undefined,
+          departmentId: form.departmentId || undefined,
+          facultyId: form.facultyId || undefined,
+          firstName,
+          lastName,
+          phone: form.phone || undefined,
+        },
+        employment: {
+          position: normalizedTitle || role,
+          departmentId: form.departmentId || undefined,
+          facultyId: form.facultyId || undefined,
+        },
+      };
       const resp = await fetch(`${API_BASE}/api/admin/staff`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
-        body: JSON.stringify(form),
+        body: JSON.stringify(payload),
       });
       const body = await resp.json();
       if (body.success) {
         setIsOpen(false);
-        setForm({ name: '', email: '', title: '', departmentId: '' });
+        setForm({ name: '', email: '', title: '', departmentId: '', facultyId: '', phone: '', firstName: '', lastName: '' });
         refresh();
       } else {
         alert(body.message || 'Failed to create staff');
       }
-    } catch (e) {
+    } catch {
       alert('Could not create staff');
     }
   }
@@ -132,8 +169,31 @@ export default function StaffManagement() {
       >
         <form onSubmit={handleCreate} className="space-y-4">
           <Input label="Full name" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} required />
+          <div className="grid gap-4 md:grid-cols-2">
+            <Input label="First name" value={form.firstName} onChange={(e) => setForm({ ...form, firstName: e.target.value })} />
+            <Input label="Last name" value={form.lastName} onChange={(e) => setForm({ ...form, lastName: e.target.value })} />
+          </div>
           <Input label="Email" type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} required />
+          <Input label="Phone" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} />
           <Input label="Title" value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} />
+          <div className="grid gap-4 md:grid-cols-2">
+            <div>
+              <label className="block text-sm font-medium text-[var(--color-text)]">
+                <span className="mb-2 block">Department</span>
+                <select
+                  className="min-h-11 w-full rounded-xl border border-[var(--color-border)] bg-[var(--color-background)] px-3 py-2.5 text-sm text-[var(--color-text)] shadow-sm outline-none transition focus:border-[var(--color-primary)]"
+                  value={form.departmentId}
+                  onChange={(e) => setForm({ ...form, departmentId: e.target.value })}
+                >
+                  <option value="">Select department</option>
+                  {departments.map((dept) => (
+                    <option key={dept.id} value={dept.id}>{dept.name}</option>
+                  ))}
+                </select>
+              </label>
+            </div>
+            <Input label="Faculty ID" value={form.facultyId} onChange={(e) => setForm({ ...form, facultyId: e.target.value })} />
+          </div>
           <div className="flex justify-end gap-2">
             <Button type="submit" variant="primary" size="sm">Add staff</Button>
           </div>

@@ -25,7 +25,8 @@ export const permissions = {
 };
 
 export function getRolePermissions(role) {
-  return permissions[role] || [];
+  const normalizedRole = String(role || 'STUDENT').toUpperCase().replace(/[-_ ]/g, '_');
+  return permissions[normalizedRole] || permissions.STUDENT;
 }
 
 export function hasPermission(user, permission) {

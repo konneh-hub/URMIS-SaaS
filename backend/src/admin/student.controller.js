@@ -22,7 +22,7 @@ export async function getStudent(req, res, next) {
 
 export async function createStudent(req, res, next) {
   try {
-    const student = await studentService.createStudent(req.body);
+    const student = await studentService.createStudent(req.body, req.user?.id);
     if (req.user?.id) {
       await recordUserAuditLog({ userId: req.user.id, action: 'create_student', details: student.id, performedBy: req.user.id });
     }

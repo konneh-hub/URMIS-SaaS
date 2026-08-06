@@ -103,17 +103,75 @@ export async function closeRegistrationWindow(windowId) {
   return prisma.registrationWindow.update({ where: { id: windowId }, data: { status: 'CLOSED' } });
 }
 
-export async function listResults() {
-  return prisma.result.findMany({ include: { student: true, course: true, session: true, semester: true, approvedBy: true } });
+function ensureTenantAccess(resourceInstitutionId, user) {
+  if (['SYSTEM_ADMIN', 'UNIVERSITY_ADMIN'].includes(user.role)) return;
+  if (!user.institutionId || user.institutionId !== resourceInstitutionId) {
+    const err = new Error('Forbidden');
+    err.status = 403;
+    throw err;
+  }
 }
 
-export async function createResult(data) {
+function ensureResultEditable(result) {
+  if (!result) {
+    const err = new Error('Result not found');
+    err.status = 404;
+    throw err;
+  }
+  if (result.locked) {
+    const err = new Error('Result is locked');
+    err.status = 400;
+    throw err;
+  }
+  if (result.status === 'PUBLISHED') {
+    const err = new Error('Published results cannot be modified');
+    err.status = 400;
+    throw err;
+  }
+}
+
+export async function listResults(user) {
+  const where = {};
+  if (!['SYSTEM_ADMIN', 'UNIVERSITY_ADMIN'].includes(user.role)) {
+    where.institutionId = user.institutionId;
+  }
+  return prisma.result.findMany({ where, include: { student: true, course: true, session: true, semester: true, approvedBy: true } });
+}
+
+export async function createResult(data, user) {
+  if (!user) {
+    const err = new Error('Unauthenticated');
+    err.status = 401;
+    throw err;
+  }
+
+  const institutionId = data.institutionId || user.institutionId;
+  if (!institutionId) {
+    const err = new Error('Institution is required');
+    err.status = 400;
+    throw err;
+  }
+  ensureTenantAccess(institutionId, user);
+
   const { score } = data;
   const { grade, gradePoint } = calculateGrade(score);
-  return prisma.result.create({ data: { ...data, grade, gradePoint, carryOver: grade === 'F' } });
+  return prisma.result.create({
+    data: {
+      ...data,
+      institutionId,
+      grade,
+      gradePoint,
+      carryOver: grade === 'F',
+      status: 'PENDING',
+    },
+  });
 }
 
-export async function updateResult(resultId, data) {
+export async function updateResult(resultId, data, user) {
+  const existing = await prisma.result.findUnique({ where: { id: resultId } });
+  ensureTenantAccess(existing?.institutionId, user);
+  ensureResultEditable(existing);
+
   if (data.score !== undefined) {
     const { grade, gradePoint } = calculateGrade(data.score);
     data.grade = grade;
@@ -123,19 +181,77 @@ export async function updateResult(resultId, data) {
   return prisma.result.update({ where: { id: resultId }, data });
 }
 
-export async function approveResult(resultId, userId) {
-  return prisma.result.update({ where: { id: resultId }, data: { status: 'APPROVED', approvedById: userId, approvedAt: new Date() } });
+export async function approveResult(resultId, user) {
+  const existing = await prisma.result.findUnique({ where: { id: resultId } });
+  ensureTenantAccess(existing?.institutionId, user);
+  if (!existing) {
+    const err = new Error('Result not found');
+    err.status = 404;
+    throw err;
+  }
+  if (existing.locked) {
+    const err = new Error('Result is locked');
+    err.status = 400;
+    throw err;
+  }
+  if (existing.status === 'PUBLISHED') {
+    const err = new Error('Result is already published');
+    err.status = 400;
+    throw err;
+  }
+  return prisma.result.update({ where: { id: resultId }, data: { status: 'APPROVED', approvedById: user.id, approvedAt: new Date() } });
 }
 
-export async function publishResult(resultId) {
+export async function publishResult(resultId, user) {
+  const existing = await prisma.result.findUnique({ where: { id: resultId } });
+  ensureTenantAccess(existing?.institutionId, user);
+  if (!existing) {
+    const err = new Error('Result not found');
+    err.status = 404;
+    throw err;
+  }
+  if (existing.locked) {
+    const err = new Error('Result is locked');
+    err.status = 400;
+    throw err;
+  }
+  if (existing.status !== 'APPROVED') {
+    const err = new Error('Only approved results can be published');
+    err.status = 400;
+    throw err;
+  }
   return prisma.result.update({ where: { id: resultId }, data: { status: 'PUBLISHED' } });
 }
 
-export async function lockResult(resultId) {
+export async function lockResult(resultId, user) {
+  const existing = await prisma.result.findUnique({ where: { id: resultId } });
+  ensureTenantAccess(existing?.institutionId, user);
+  if (!existing) {
+    const err = new Error('Result not found');
+    err.status = 404;
+    throw err;
+  }
+  if (existing.status !== 'PUBLISHED') {
+    const err = new Error('Only published results can be locked');
+    err.status = 400;
+    throw err;
+  }
   return prisma.result.update({ where: { id: resultId }, data: { locked: true } });
 }
 
-export async function correctResult(resultId, data) {
+export async function correctResult(resultId, data, user) {
+  const existing = await prisma.result.findUnique({ where: { id: resultId } });
+  ensureTenantAccess(existing?.institutionId, user);
+  if (!existing) {
+    const err = new Error('Result not found');
+    err.status = 404;
+    throw err;
+  }
+  if (existing.locked || existing.status === 'PUBLISHED') {
+    const err = new Error('Cannot correct a locked or published result');
+    err.status = 400;
+    throw err;
+  }
   if (data.score !== undefined) {
     const { grade, gradePoint } = calculateGrade(data.score);
     data.grade = grade;
@@ -145,9 +261,18 @@ export async function correctResult(resultId, data) {
   return prisma.result.update({ where: { id: resultId }, data });
 }
 
-export async function getAcademicSummary(studentId, sessionId) {
+export async function getAcademicSummary(studentId, sessionId, user) {
   const where = { studentId };
   if (sessionId) where.sessionId = sessionId;
+  if (user.role === 'STUDENT') {
+    if (user.studentId !== studentId) {
+      const err = new Error('Forbidden');
+      err.status = 403;
+      throw err;
+    }
+  } else if (!['SYSTEM_ADMIN', 'UNIVERSITY_ADMIN'].includes(user.role)) {
+    where.institutionId = user.institutionId;
+  }
   const results = await prisma.result.findMany({ where });
   const gpa = calculateGpa(results);
   const cgpa = calculateCgpa(results);

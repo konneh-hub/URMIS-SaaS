@@ -1,12 +1,25 @@
 import prisma from '../database/prismaClient.js';
 import { recordUserAuditLog } from '../auth/auth.service.js';
 
+async function resolveInstitutionId(data, performedBy) {
+  if (data?.institutionId) return data.institutionId;
+
+  if (performedBy) {
+    const actor = await prisma.user.findUnique({ where: { id: performedBy }, select: { institutionId: true } });
+    if (actor?.institutionId) return actor.institutionId;
+  }
+
+  const fallbackInstitution = await prisma.institution.findFirst({ select: { id: true } });
+  return fallbackInstitution?.id ?? null;
+}
+
 // Faculty
 export async function listFaculties() {
   return prisma.faculty.findMany({ include: { institution: true, departments: true, programmes: true } });
 }
 export async function createFaculty(data, performedBy) {
-  const faculty = await prisma.faculty.create({ data });
+  const institutionId = await resolveInstitutionId(data, performedBy);
+  const faculty = await prisma.faculty.create({ data: { ...data, institutionId } });
   await recordUserAuditLog({ userId: performedBy, action: 'create_faculty', details: faculty.id, performedBy });
   return faculty;
 }
@@ -25,7 +38,8 @@ export async function listDepartments() {
   return prisma.department.findMany({ include: { faculty: true, institution: true, programmes: true } });
 }
 export async function createDepartment(data, performedBy) {
-  const department = await prisma.department.create({ data });
+  const institutionId = await resolveInstitutionId(data, performedBy);
+  const department = await prisma.department.create({ data: { ...data, institutionId } });
   await recordUserAuditLog({ userId: performedBy, action: 'create_department', details: department.id, performedBy });
   return department;
 }
@@ -44,7 +58,8 @@ export async function listLevels() {
   return prisma.level.findMany({ include: { institution: true, programmes: true } });
 }
 export async function createLevel(data, performedBy) {
-  const level = await prisma.level.create({ data });
+  const institutionId = await resolveInstitutionId(data, performedBy);
+  const level = await prisma.level.create({ data: { ...data, institutionId } });
   await recordUserAuditLog({ userId: performedBy, action: 'create_level', details: level.id, performedBy });
   return level;
 }
@@ -63,7 +78,8 @@ export async function listProgrammes() {
   return prisma.programme.findMany({ include: { institution: true, faculty: true, department: true, level: true } });
 }
 export async function createProgramme(data, performedBy) {
-  const programme = await prisma.programme.create({ data });
+  const institutionId = await resolveInstitutionId(data, performedBy);
+  const programme = await prisma.programme.create({ data: { ...data, institutionId } });
   await recordUserAuditLog({ userId: performedBy, action: 'create_programme', details: programme.id, performedBy });
   return programme;
 }
@@ -82,7 +98,8 @@ export async function listAcademicSessions() {
   return prisma.academicSession.findMany({ include: { institution: true, semesters: true } });
 }
 export async function createAcademicSession(data, performedBy) {
-  const session = await prisma.academicSession.create({ data });
+  const institutionId = await resolveInstitutionId(data, performedBy);
+  const session = await prisma.academicSession.create({ data: { ...data, institutionId } });
   await recordUserAuditLog({ userId: performedBy, action: 'create_academic_session', details: session.id, performedBy });
   return session;
 }
@@ -120,7 +137,8 @@ export async function listCourseAllocations() {
   return prisma.courseAllocation.findMany({ include: { course: true, lecturer: true, semester: true, session: true, institution: true } });
 }
 export async function createCourseAllocation(data, performedBy) {
-  const allocation = await prisma.courseAllocation.create({ data });
+  const institutionId = await resolveInstitutionId(data, performedBy);
+  const allocation = await prisma.courseAllocation.create({ data: { ...data, institutionId } });
   await recordUserAuditLog({ userId: performedBy, action: 'create_course_allocation', details: allocation.id, performedBy });
   return allocation;
 }

@@ -20,6 +20,7 @@ import {
   getInstitutionAuditLogs,
   resetInstitution,
   cloneInstitutionConfiguration,
+  getStudentResults,
 } from './institution.controller.js';
 import backupRoutes from './backup.routes.js';
 import requireTenantAccess from '../middleware/tenant.js';
@@ -34,7 +35,8 @@ import {
 
 const router = express.Router({ mergeParams: true });
 
-router.get('/', auth, authorize(['SYSTEM_ADMIN', 'UNIVERSITY_ADMIN']), getInstitutions);
+router.get('/', getInstitutions);
+router.get('/student/results', auth, authorize(['STUDENT']), async (req, res, next) => { try { await getStudentResults(req, res, next); } catch (err) { next(err); } });
 router.get('/:institutionId', auth, authorize(['SYSTEM_ADMIN', 'UNIVERSITY_ADMIN']), institutionIdParamValidation, requestValidator, requireTenantAccess, getInstitutionById);
 router.post('/', auth, authorize(['SYSTEM_ADMIN']), createInstitutionValidation, requestValidator, createInstitution);
 router.put('/:institutionId', auth, authorize(['SYSTEM_ADMIN']), institutionIdParamValidation, updateInstitutionValidation, requestValidator, requireTenantAccess, updateInstitution);

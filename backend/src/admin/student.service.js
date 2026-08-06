@@ -1,4 +1,5 @@
 import prisma from '../database/prismaClient.js';
+import { createUserByAdmin } from '../auth/auth.service.js';
 
 function sanitizeStudent(student) {
   if (!student) return null;
@@ -18,23 +19,52 @@ export async function getStudentById(studentId) {
   return prisma.student.findUnique({ where: { id: studentId }, include: { department: true, institution: true, registrations: true, guardians: true, medicalRecords: true, documents: true, academicHistories: true } });
 }
 
-export async function createStudent(data) {
-  return prisma.student.create({
+export async function createStudent(data, performedBy) {
+  const actorInstitutionId = performedBy
+    ? (await prisma.user.findUnique({ where: { id: performedBy }, select: { institutionId: true } }))?.institutionId
+    : null;
+  const resolvedInstitutionId = data.institutionId || actorInstitutionId || (await prisma.institution.findFirst({ select: { id: true } }))?.id;
+  const guardianPayload = Array.isArray(data.guardian) ? data.guardian : data.guardian ? [data.guardian] : undefined;
+  const medicalPayload = Array.isArray(data.medical) ? data.medical : data.medical ? [data.medical] : undefined;
+  const documentPayload = Array.isArray(data.documents) ? data.documents : data.documents ? [data.documents] : undefined;
+  const normalizedDepartmentId = data.departmentId || undefined;
+  const normalizedAdmissionYear = data.admissionYear ? Number(data.admissionYear) : new Date().getFullYear();
+  const profilePayload = {
+    userId: null,
+    createdBy: performedBy || null,
+    ...data,
+    departmentId: normalizedDepartmentId,
+    admissionYear: normalizedAdmissionYear,
+  };
+
+  const { user, tempPassword, inviteToken, expiresAt } = await createUserByAdmin({
+    email: data.email,
+    name: `${data.firstName} ${data.lastName}`.trim(),
+    role: 'STUDENT',
+    institutionId: resolvedInstitutionId,
+    permissions: [],
+    sendInvite: true,
+  });
+
+  const student = await prisma.student.create({
     data: {
-      studentNumber: data.studentNumber,
+      studentNumber: data.studentNumber || `STU-${Date.now()}`,
       firstName: data.firstName,
       lastName: data.lastName,
       email: data.email,
       phone: data.phone,
-      admissionYear: data.admissionYear,
-      institutionId: data.institutionId,
-      departmentId: data.departmentId,
-      guardians: data.guardian ? { create: data.guardian } : undefined,
-      medicalRecords: data.medical ? { create: data.medical } : undefined,
-      documents: data.documents ? { create: data.documents } : undefined,
+      admissionYear: normalizedAdmissionYear,
+      institutionId: resolvedInstitutionId,
+      departmentId: normalizedDepartmentId,
+      profile: { ...profilePayload, userId: user.id },
+      guardians: guardianPayload ? { create: guardianPayload } : undefined,
+      medicalRecords: medicalPayload ? { create: medicalPayload } : undefined,
+      documents: documentPayload ? { create: documentPayload } : undefined,
     },
     include: { guardians: true, medicalRecords: true, documents: true, academicHistories: true },
   });
+
+  return { ...student, tempPassword, inviteToken, expiresAt, userId: user.id };
 }
 
 export async function updateStudent(studentId, data) {

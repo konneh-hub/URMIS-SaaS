@@ -25,6 +25,11 @@ export default async function authMiddleware(req, res, next) {
       return res.status(401).json({ success: false, message: 'Invalid token' });
     }
 
+    const student = await prisma.student.findUnique({
+      where: { email: user.email },
+      select: { id: true },
+    });
+
     req.user = {
       id: user.id,
       role: user.role,
@@ -34,6 +39,7 @@ export default async function authMiddleware(req, res, next) {
       permissions: Array.isArray(user.permissions) ? user.permissions : [],
       isActive: user.isActive,
       assignedRoles: user.assignedRoles?.map((entry) => entry.role?.name).filter(Boolean) ?? [],
+      studentId: student?.id ?? null,
     };
 
     return next();

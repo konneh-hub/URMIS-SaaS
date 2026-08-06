@@ -39,7 +39,7 @@ export default function StudentManagement() {
           if (deptBody.success) setDepartments(deptBody.data);
           if (!stuBody.success) setError(stuBody.message || 'Failed to load students');
         }
-      } catch (e) {
+      } catch {
         if (!cancelled) setError('Could not reach the platform API.');
       } finally {
         if (!cancelled) setLoading(false);
@@ -57,7 +57,7 @@ export default function StudentManagement() {
       });
       const body = await resp.json();
       if (body.success) setStudents(body.data);
-    } catch (e) { /* ignore */ } finally {
+    } catch { /* ignore */ } finally {
       setLoading(false);
     }
   }
@@ -69,7 +69,16 @@ export default function StudentManagement() {
       const resp = await fetch(`${API_BASE}/api/admin/students`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
-        body: JSON.stringify({ ...form, admissionYear: Number(form.admissionYear) }),
+        body: JSON.stringify({
+          ...form,
+          admissionYear: Number(form.admissionYear),
+          profile: {
+            firstName: form.firstName,
+            lastName: form.lastName,
+            phone: form.phone,
+            departmentId: form.departmentId,
+          },
+        }),
       });
       const body = await resp.json();
       if (body.success) {
@@ -79,7 +88,7 @@ export default function StudentManagement() {
       } else {
         alert(body.message || 'Failed to create student');
       }
-    } catch (e) {
+    } catch {
       alert('Could not create student');
     }
   }

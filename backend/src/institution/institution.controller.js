@@ -213,6 +213,18 @@ export async function getInstitutionProfile(req, res, next) {
   }
 }
 
+export async function getStudentResults(req, res, next) {
+  try {
+    if (!req.user?.studentId) {
+      return res.status(403).json({ success: false, message: 'Student access required' });
+    }
+    const results = await institutionService.listStudentResults(req.user.studentId, req.user);
+    res.json({ success: true, data: results });
+  } catch (err) {
+    next(err);
+  }
+}
+
 export async function getInstitutionSubscription(req, res, next) {
   try {
     const { institutionId } = req.params;

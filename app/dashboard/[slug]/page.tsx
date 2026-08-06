@@ -89,6 +89,55 @@ import {
   Logout as LecturerLogout,
 } from '../../../src/modules/lecturer/pages';
 
+import {
+  HodDashboard,
+  DepartmentOverview,
+  Lecturers as HodLecturers,
+  Students as HodStudents,
+  Courses as HodCourses,
+  CourseAllocation as HodCourseAllocation,
+  AssessmentReview as HodAssessmentReview,
+  ResultVerification as HodResultVerification,
+  ResultApproval as HodResultApproval,
+  DepartmentReports as HodDepartmentReports,
+  Communication as HodCommunication,
+  Notifications as HodNotifications,
+  Profile as HodProfile,
+  Logout as HodLogout,
+} from '../../../src/modules/hod/pages';
+
+import ExaminationOfficerDashboard from '../../../src/modules/examination-officer/pages/Dashboard';
+import AcademicRecords from '../../../src/modules/examination-officer/pages/AcademicRecords';
+import ExamOfficerAuditLogs from '../../../src/modules/examination-officer/pages/AuditLogs';
+import ExamOfficerCommunication from '../../../src/modules/examination-officer/pages/Communication';
+import ExamOfficerNotifications from '../../../src/modules/examination-officer/pages/Notifications';
+import ResultCorrections from '../../../src/modules/examination-officer/pages/ResultCorrections';
+import ResultProcessing from '../../../src/modules/examination-officer/pages/ResultProcessing';
+import ResultPublication from '../../../src/modules/examination-officer/pages/ResultPublication';
+import TranscriptRequests from '../../../src/modules/examination-officer/pages/TranscriptRequests';
+import ResultVerification from '../../../src/modules/examination-officer/pages/ResultVerification';
+import ExamOfficerReports from '../../../src/modules/examination-officer/pages/Reports';
+import GraduationClearance from '../../../src/modules/examination-officer/pages/GraduationClearance';
+import ExamOfficerProfile from '../../../src/modules/examination-officer/pages/Profile';
+import ExamOfficerLogout from '../../../src/modules/examination-officer/pages/Logout';
+
+import {
+  StudentDashboard,
+  MyProfile,
+  CourseRegistration as StudentCourseRegistration,
+  RegisteredCourses,
+  Assessments,
+Results as StudentResults,
+  TranscriptRequests as StudentTranscriptRequests,
+  AcademicHistory,
+  FeeStatus,
+  Documents as StudentDocuments,
+  Notifications as StudentNotifications,
+  Support,
+  ProfileSettings,
+  Logout as StudentLogout,
+} from '../../../src/modules/student/pages';
+
 const sectionMeta: Record<string, { title: string; description: string }> = {
   dashboard: { title: 'Dashboard Overview', description: 'Overview of the current academic workspace.' },
   'university-management': { title: 'University Management', description: 'Manage institutions and platform-wide academic operations.' },
@@ -143,6 +192,21 @@ const sectionMeta: Record<string, { title: string; description: string }> = {
   'score-entry': { title: 'Score Entry', description: 'Enter and update assessment scores for your students.' },
   'result-submission': { title: 'Result Submission', description: 'Submit verified results for review and approval.' },
   attendance: { title: 'Attendance', description: 'Record and track student attendance for class sessions.' },
+  'result-processing': { title: 'Result Processing', description: 'Process submitted results and move them through the exam workflow.' },
+  'result-verification': { title: 'Result Verification', description: 'Verify submitted results before publishing.' },
+  'result-publication': { title: 'Result Publication', description: 'Publish approved results for students and stakeholders.' },
+  'result-corrections': { title: 'Result Corrections', description: 'Apply corrections to published or approved result records.' },
+  'transcript-requests': { title: 'Transcript Requests', description: 'Review and manage student transcript requests.' },
+  'graduation-clearance': { title: 'Graduation Clearance', description: 'Manage graduation clearance status and ceremonies.' },
+'academic-records': { title: 'Academic Records', description: 'Review academic records and student result history.' },
+  'my-profile': { title: 'My Profile', description: 'Your personal and academic information.' },
+  'registered-courses': { title: 'Registered Courses', description: 'Courses you are registered for this session.' },
+  assessments: { title: 'Assessments', description: 'Scheduled and completed assessments.' },
+  results: { title: 'Results', description: 'Your published results and grades.' },
+  'academic-history': { title: 'Academic History', description: 'Your academic progression across sessions.' },
+  'fee-status': { title: 'Fee Status', description: 'Your fee obligations and payment status.' },
+  support: { title: 'Support', description: 'Submit and track support tickets.' },
+  'profile-settings': { title: 'Profile Settings', description: 'Manage your contact details and security.' },
 };
 
 const systemAdminSlugComponents: Record<string, React.ComponentType> = {
@@ -210,28 +274,21 @@ const universityAdminSlugComponents: Record<string, React.ComponentType> = {
   logout: UniversityAdminLogout,
 };
 
-import {
-  HodDashboard,
-  Courses as HodCourses,
-  Lecturers as HodLecturers,
-  ReviewResults as HodReviewResults,
-} from '../../../src/modules/hod/pages';
-
 const hodSlugComponents: Record<string, React.ComponentType> = {
   dashboard: HodDashboard,
-  'department-overview': HodDashboard,
+  'department-overview': DepartmentOverview,
   lecturers: HodLecturers,
-  students: HodDashboard,
+  students: HodStudents,
   courses: HodCourses,
-  'course-allocation': HodCourses,
-  'assessment-review': HodReviewResults,
-  'result-verification': HodReviewResults,
-  'result-approval': HodReviewResults,
-  'department-reports': HodDashboard,
-  communication: HodDashboard,
-  notifications: HodDashboard,
-  profile: HodDashboard,
-  logout: HodDashboard,
+  'course-allocation': HodCourseAllocation,
+  'assessment-review': HodAssessmentReview,
+  'result-verification': HodResultVerification,
+  'result-approval': HodResultApproval,
+  'department-reports': HodDepartmentReports,
+  communication: HodCommunication,
+  notifications: HodNotifications,
+  profile: HodProfile,
+  logout: HodLogout,
 };
 
 const lecturerSlugComponents: Record<string, React.ComponentType> = {
@@ -250,37 +307,82 @@ const lecturerSlugComponents: Record<string, React.ComponentType> = {
   logout: LecturerLogout,
 };
 
+const examOfficerSlugComponents: Record<string, React.ComponentType> = {
+  dashboard: ExaminationOfficerDashboard,
+  'result-processing': ResultProcessing,
+  'result-verification': ResultVerification,
+  'result-publication': ResultPublication,
+  'result-corrections': ResultCorrections,
+  'transcript-requests': TranscriptRequests,
+  'graduation-clearance': GraduationClearance,
+  'academic-records': AcademicRecords,
+  'audit-logs': ExamOfficerAuditLogs,
+  'communication': ExamOfficerCommunication,
+  'notifications': ExamOfficerNotifications,
+'profile': ExamOfficerProfile,
+  'logout': ExamOfficerLogout,
+  reports: ExamOfficerReports,
+};
+
+const studentSlugComponents: Record<string, React.ComponentType> = {
+  dashboard: StudentDashboard,
+  'my-profile': MyProfile,
+  'course-registration': StudentCourseRegistration,
+  'registered-courses': RegisteredCourses,
+  assessments: Assessments,
+  results: StudentResults,
+  'transcript-requests': StudentTranscriptRequests,
+  'academic-history': AcademicHistory,
+  'fee-status': FeeStatus,
+  documents: StudentDocuments,
+  notifications: StudentNotifications,
+  support: Support,
+  'profile-settings': ProfileSettings,
+  logout: StudentLogout,
+};
+
 export default function DashboardSlugPage() {
   const params = useParams();
   const slug = params?.slug as string;
   const { user } = useAuth() as { user?: { role?: string } };
   const role = user?.role || 'STUDENT';
-  const menuItems = getMenuForRole(role);
+  const normalizedRole = (role || 'STUDENT').toUpperCase().replace(/[- ]/g, '_');
+  const menuItems = getMenuForRole(normalizedRole);
   const currentItem = menuItems.find((item: { slug?: string }) => item.slug === slug) || menuItems[0];
   const meta = sectionMeta[slug as keyof typeof sectionMeta] || sectionMeta.dashboard;
 
-  if (role === 'SYSTEM_ADMIN' && systemAdminSlugComponents[slug]) {
+  if (normalizedRole === 'SYSTEM_ADMIN' && systemAdminSlugComponents[slug]) {
     const PageComponent = systemAdminSlugComponents[slug];
     return <PageComponent />;
   }
 
-  if (role === 'DEAN' && deanSlugComponents[slug]) {
+  if (normalizedRole === 'DEAN' && deanSlugComponents[slug]) {
     const PageComponent = deanSlugComponents[slug];
     return <PageComponent />;
   }
 
-  if (role === 'HOD' && hodSlugComponents[slug]) {
+  if (normalizedRole === 'HOD' && hodSlugComponents[slug]) {
     const PageComponent = hodSlugComponents[slug];
     return <PageComponent />;
   }
 
-if (role === 'UNIVERSITY_ADMIN' && universityAdminSlugComponents[slug]) {
+  if (normalizedRole === 'UNIVERSITY_ADMIN' && universityAdminSlugComponents[slug]) {
     const PageComponent = universityAdminSlugComponents[slug];
     return <PageComponent />;
   }
 
-  if (role === 'LECTURER' && lecturerSlugComponents[slug]) {
+  if (normalizedRole === 'LECTURER' && lecturerSlugComponents[slug]) {
     const PageComponent = lecturerSlugComponents[slug];
+    return <PageComponent />;
+  }
+
+if ((normalizedRole === 'EXAM_OFFICER' || normalizedRole === 'EXAMINATION_OFFICER') && examOfficerSlugComponents[slug]) {
+    const PageComponent = examOfficerSlugComponents[slug];
+    return <PageComponent />;
+  }
+
+  if (normalizedRole === 'STUDENT' && studentSlugComponents[slug]) {
+    const PageComponent = studentSlugComponents[slug];
     return <PageComponent />;
   }
 

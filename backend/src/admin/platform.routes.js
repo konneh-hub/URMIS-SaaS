@@ -34,38 +34,42 @@ import {
 } from './platform.validation.js';
 
 const router = express.Router();
-router.use(auth, authorize(['SYSTEM_ADMIN', 'UNIVERSITY_ADMIN']));
+router.use(auth);
+const adminOnly = authorize(['SYSTEM_ADMIN', 'UNIVERSITY_ADMIN']);
+const staffRoles = authorize(['SYSTEM_ADMIN', 'UNIVERSITY_ADMIN', 'EXAM_OFFICER', 'DEAN', 'HOD', 'LECTURER']);
+const lecturerRoles = authorize(['LECTURER', 'SYSTEM_ADMIN', 'UNIVERSITY_ADMIN']);
+const publicationRoles = authorize(['EXAM_OFFICER', 'SYSTEM_ADMIN', 'UNIVERSITY_ADMIN']);
 
-router.get('/assessment-types', ctrl.listAssessmentTypes);
-router.post('/assessment-types', assessmentTypeValidation, requestValidator, ctrl.createAssessmentType);
-router.put('/assessment-types/:typeId', assessmentTypeUpdateValidation, requestValidator, ctrl.updateAssessmentType);
-router.delete('/assessment-types/:typeId', ctrl.deleteAssessmentType);
+router.get('/assessment-types', adminOnly, ctrl.listAssessmentTypes);
+router.post('/assessment-types', adminOnly, assessmentTypeValidation, requestValidator, ctrl.createAssessmentType);
+router.put('/assessment-types/:typeId', adminOnly, assessmentTypeUpdateValidation, requestValidator, ctrl.updateAssessmentType);
+router.delete('/assessment-types/:typeId', adminOnly, ctrl.deleteAssessmentType);
 
-router.get('/assessments', ctrl.listAssessments);
-router.post('/assessments', assessmentValidation, requestValidator, ctrl.createAssessment);
-router.put('/assessments/:assessmentId', assessmentUpdateValidation, requestValidator, ctrl.updateAssessment);
-router.delete('/assessments/:assessmentId', ctrl.deleteAssessment);
+router.get('/assessments', adminOnly, ctrl.listAssessments);
+router.post('/assessments', adminOnly, assessmentValidation, requestValidator, ctrl.createAssessment);
+router.put('/assessments/:assessmentId', adminOnly, assessmentUpdateValidation, requestValidator, ctrl.updateAssessment);
+router.delete('/assessments/:assessmentId', adminOnly, ctrl.deleteAssessment);
 
-router.get('/assessments/:assessmentId/scores', ctrl.listAssessmentScores);
-router.post('/assessments/:assessmentId/scores', assessmentScoreValidation, requestValidator, ctrl.createAssessmentScore);
-router.put('/scores/:scoreId', assessmentScoreValidation, requestValidator, ctrl.updateAssessmentScore);
-router.delete('/scores/:scoreId', ctrl.deleteAssessmentScore);
+router.get('/assessments/:assessmentId/scores', adminOnly, ctrl.listAssessmentScores);
+router.post('/assessments/:assessmentId/scores', adminOnly, assessmentScoreValidation, requestValidator, ctrl.createAssessmentScore);
+router.put('/scores/:scoreId', adminOnly, assessmentScoreValidation, requestValidator, ctrl.updateAssessmentScore);
+router.delete('/scores/:scoreId', adminOnly, ctrl.deleteAssessmentScore);
 
-router.get('/registration-windows', ctrl.listRegistrationWindows);
-router.post('/registration-windows', registrationWindowValidation, requestValidator, ctrl.createRegistrationWindow);
-router.put('/registration-windows/:windowId', registrationWindowUpdateValidation, requestValidator, ctrl.updateRegistrationWindow);
-router.delete('/registration-windows/:windowId', ctrl.deleteRegistrationWindow);
-router.post('/registration-windows/:windowId/open', ctrl.openRegistrationWindow);
-router.post('/registration-windows/:windowId/close', ctrl.closeRegistrationWindow);
+router.get('/registration-windows', adminOnly, ctrl.listRegistrationWindows);
+router.post('/registration-windows', adminOnly, registrationWindowValidation, requestValidator, ctrl.createRegistrationWindow);
+router.put('/registration-windows/:windowId', adminOnly, registrationWindowUpdateValidation, requestValidator, ctrl.updateRegistrationWindow);
+router.delete('/registration-windows/:windowId', adminOnly, ctrl.deleteRegistrationWindow);
+router.post('/registration-windows/:windowId/open', adminOnly, ctrl.openRegistrationWindow);
+router.post('/registration-windows/:windowId/close', adminOnly, ctrl.closeRegistrationWindow);
 
-router.get('/results', ctrl.listResults);
-router.post('/results', resultValidation, requestValidator, ctrl.createResult);
-router.put('/results/:resultId', resultUpdateValidation, requestValidator, ctrl.updateResult);
-router.post('/results/:resultId/approve', ctrl.approveResult);
-router.post('/results/:resultId/publish', ctrl.publishResult);
-router.post('/results/:resultId/lock', ctrl.lockResult);
-router.post('/results/:resultId/correct', resultUpdateValidation, requestValidator, ctrl.correctResult);
-router.get('/results/summary/:studentId/:sessionId?', ctrl.getAcademicSummary);
+router.get('/results', staffRoles, ctrl.listResults);
+router.post('/results', lecturerRoles, resultValidation, requestValidator, ctrl.createResult);
+router.put('/results/:resultId', staffRoles, resultUpdateValidation, requestValidator, ctrl.updateResult);
+router.post('/results/:resultId/approve', staffRoles, ctrl.approveResult);
+router.post('/results/:resultId/publish', publicationRoles, ctrl.publishResult);
+router.post('/results/:resultId/lock', publicationRoles, ctrl.lockResult);
+router.post('/results/:resultId/correct', staffRoles, resultUpdateValidation, requestValidator, ctrl.correctResult);
+router.get('/results/summary/:studentId/:sessionId?', staffRoles, ctrl.getAcademicSummary);
 
 router.get('/transcript-requests', ctrl.listTranscriptRequests);
 router.post('/transcript-requests', transcriptRequestValidation, requestValidator, ctrl.createTranscriptRequest);

@@ -83,8 +83,8 @@ export default function Courses() {
               emptyText="No course records have been created yet."
             />
           )}
-        </Card>
-</div>
+</Card>
+      </div>
     </DashboardLayout>
   );
 }

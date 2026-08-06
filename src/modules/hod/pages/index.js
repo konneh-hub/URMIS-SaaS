@@ -1,4 +1,15 @@
 export { default as HodDashboard } from './Dashboard';
-export { default as Courses } from './Courses';
+export { default as DepartmentOverview } from './DepartmentOverview';
 export { default as Lecturers } from './Lecturers';
+export { default as Students } from './Students';
+export { default as Courses } from './Courses';
+export { default as CourseAllocation } from './CourseAllocation';
+export { default as AssessmentReview } from './AssessmentReview';
+export { default as ResultVerification } from './ResultVerification';
+export { default as ResultApproval } from './ResultApproval';
+export { default as DepartmentReports } from './DepartmentReports';
+export { default as Communication } from './Communication';
+export { default as Notifications } from './Notifications';
+export { default as Profile } from './Profile';
+export { default as Logout } from './Logout';
 export { default as ReviewResults } from './ReviewResults';

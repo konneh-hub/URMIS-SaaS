@@ -1,5 +1,16 @@
 export { default as ExaminationOfficerDashboard } from './Dashboard';
-export { default as Results } from './Results';
+export { default as AcademicRecords } from './AcademicRecords';
 export { default as ApproveResults } from './ApproveResults';
+export { default as AuditLogs } from './AuditLogs';
+export { default as Communication } from './Communication';
+export { default as Notifications } from './Notifications';
 export { default as PublishResults } from './PublishResults';
 export { default as Reports } from './Reports';
+export { default as GraduationClearance } from './GraduationClearance';
+export { default as ResultCorrections } from './ResultCorrections';
+export { default as ResultProcessing } from './ResultProcessing';
+export { default as ResultPublication } from './ResultPublication';
+export { default as ResultVerification } from './ResultVerification';
+export { default as TranscriptRequests } from './TranscriptRequests';
+export { default as Profile } from './Profile';
+export { default as Logout } from './Logout';
