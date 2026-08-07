@@ -29,7 +29,14 @@ export async function login(req, res, next) {
       success: true,
     });
     const days = parseDaysFromExpiry(JWT_REFRESH_EXPIRES);
-    res.cookie('refreshToken', refreshToken, { httpOnly: true, secure: NODE_ENV === 'production', sameSite: 'lax', path: '/api/auth', maxAge: days * 24 * 60 * 60 * 1000 });
+    const cookieOptions = {
+      httpOnly: true,
+      secure: NODE_ENV === 'production',
+      sameSite: NODE_ENV === 'production' ? 'none' : 'lax',
+      path: '/api/auth',
+      maxAge: days * 24 * 60 * 60 * 1000,
+    };
+    res.cookie('refreshToken', refreshToken, cookieOptions);
     res.json({ success: true, data: { user, accessToken } });
   } catch (err) {
     next(err);
@@ -58,7 +65,14 @@ export async function register(req, res, next) {
     const refreshToken = signRefreshToken(user);
     await saveRefreshToken(user.id, refreshToken);
     const days = parseDaysFromExpiry(JWT_REFRESH_EXPIRES);
-    res.cookie('refreshToken', refreshToken, { httpOnly: true, secure: NODE_ENV === 'production', sameSite: 'lax', path: '/api/auth', maxAge: days * 24 * 60 * 60 * 1000 });
+    const cookieOptions = {
+      httpOnly: true,
+      secure: NODE_ENV === 'production',
+      sameSite: NODE_ENV === 'production' ? 'none' : 'lax',
+      path: '/api/auth',
+      maxAge: days * 24 * 60 * 60 * 1000,
+    };
+    res.cookie('refreshToken', refreshToken, cookieOptions);
     res.status(201).json({ success: true, data: { user, accessToken } });
   } catch (err) {
     next(err);
@@ -79,7 +93,14 @@ export async function acceptInvite(req, res, next) {
       success: true,
     });
     const days = parseDaysFromExpiry(JWT_REFRESH_EXPIRES);
-    res.cookie('refreshToken', refreshToken, { httpOnly: true, secure: NODE_ENV === 'production', sameSite: 'lax', path: '/api/auth', maxAge: days * 24 * 60 * 60 * 1000 });
+    const cookieOptions = {
+      httpOnly: true,
+      secure: NODE_ENV === 'production',
+      sameSite: NODE_ENV === 'production' ? 'none' : 'lax',
+      path: '/api/auth',
+      maxAge: days * 24 * 60 * 60 * 1000,
+    };
+    res.cookie('refreshToken', refreshToken, cookieOptions);
     res.json({ success: true, data: { user, accessToken } });
   } catch (err) {
     next(err);
@@ -141,7 +162,7 @@ export async function refresh(req, res, next) {
     let payload;
     try {
       payload = jwt.verify(token, JWT_SECRET);
-    } catch (_err) {
+    } catch {
       await revokeRefreshToken(token).catch(() => {});
       return res.status(401).json({ success: false, message: 'Invalid refresh token' });
     }
@@ -151,7 +172,14 @@ export async function refresh(req, res, next) {
     const newRefresh = await rotateRefreshToken(token, user.id);
     const accessToken = signAccessToken({ id: user.id, role: user.role });
     const days = parseDaysFromExpiry(JWT_REFRESH_EXPIRES);
-    res.cookie('refreshToken', newRefresh, { httpOnly: true, secure: NODE_ENV === 'production', sameSite: 'lax', path: '/api/auth', maxAge: days * 24 * 60 * 60 * 1000 });
+    const cookieOptions = {
+      httpOnly: true,
+      secure: NODE_ENV === 'production',
+      sameSite: NODE_ENV === 'production' ? 'none' : 'lax',
+      path: '/api/auth',
+      maxAge: days * 24 * 60 * 60 * 1000,
+    };
+    res.cookie('refreshToken', newRefresh, cookieOptions);
     res.json({ success: true, data: { accessToken } });
   } catch (err) {
     next(err);

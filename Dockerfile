@@ -8,12 +8,12 @@ COPY backend ./backend
 COPY app ./app
 COPY src ./src
 COPY public ./public
-COPY tsconfig.json next.config.ts postcss.config.mjs prisma.config.ts ./
+COPY tsconfig.json next.config.ts postcss.config.mjs ./
 
 RUN npm ci
 RUN npx prisma generate
 RUN npm run build
 
-EXPOSE 3000 5000
+EXPOSE 3000
 
-CMD ["sh", "-c", "npm run dev -- --hostname 0.0.0.0"]
+CMD ["npm", "run", "start"]

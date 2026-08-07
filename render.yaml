@@ -1,0 +1,39 @@
+services:
+  - type: web
+    name: urmis-backend
+    runtime: node
+    plan: free
+    region: oregon
+    buildCommand: npm install
+    startCommand: npm run backend:start
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        value: postgresql://postgres:postgres@YOUR_POSTGRES_HOST:5432/urmis_dev?schema=public
+      - key: JWT_SECRET
+        value: supersecret
+      - key: JWT_ACCESS_EXPIRES
+        value: 15m
+      - key: JWT_REFRESH_EXPIRES
+        value: 7d
+      - key: SEED_ADMIN_EMAIL
+        value: admin@local.dev
+      - key: SEED_ADMIN_PASSWORD
+        value: password123
+  - type: web
+    name: urmis-frontend
+    runtime: node
+    plan: free
+    region: oregon
+    buildCommand: npm install && npm run build
+    startCommand: npm run start
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: NEXT_PUBLIC_API_BASE
+        value: https://urmis-backend.onrender.com
+      - key: NEXTAUTH_URL
+        value: https://urmis-frontend.onrender.com
