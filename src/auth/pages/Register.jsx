@@ -9,7 +9,6 @@ import Card from '../../shared/components/ui/Card';
 import Input from '../../shared/components/ui/Input';
 import Alert from '../../shared/components/ui/Alert';
 
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost:5000';
 const roleOptions = [
   { value: 'STUDENT', label: 'Student' },
   { value: 'LECTURER', label: 'Lecturer' },
@@ -18,6 +17,13 @@ const roleOptions = [
   { value: 'EXAM_OFFICER', label: 'Exam Officer' },
 ];
 const steps = ['Role & university', 'University details', 'Personal info'];
+
+function buildApiUrl(path) {
+  const rawBase = process.env.NEXT_PUBLIC_API_BASE || '';
+  const base = rawBase.endsWith('/') ? rawBase.slice(0, -1) : rawBase;
+  if (!base) return path.startsWith('/') ? path : `/${path}`;
+  return path.startsWith('/') ? `${base}${path}` : `${base}/${path}`;
+}
 
 export default function Register() {
   const router = useRouter();
@@ -52,10 +58,18 @@ export default function Register() {
 
     async function loadInstitutions() {
       try {
-        const resp = await fetch(`${API_BASE}/api/institutions`);
+        const resp = await fetch(buildApiUrl('/api/institutions'));
         const body = await resp.json();
-        if (!canceled && body.success) {
-          setInstitutions(body.data || []);
+        if (!canceled) {
+          if (!resp.ok) {
+            setError(body.message || 'Unable to load institutions.');
+            return;
+          }
+          if (body.success) {
+            setInstitutions(body.data || []);
+          } else {
+            setError(body.message || 'Unable to load institutions.');
+          }
         }
       } catch {
         if (!canceled) setError('Unable to load institutions.');
@@ -135,7 +149,7 @@ export default function Register() {
             phone: form.phone || undefined,
             profile: isStaff ? { title: form.title || undefined } : undefined,
           };
-      const resp = await fetch(`${API_BASE}/api/auth${endpoint}`, {
+      const resp = await fetch(buildApiUrl(`/api/auth${endpoint}`), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',

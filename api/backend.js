@@ -1,8 +1,1 @@
-import serverless from 'serverless-http';
-import app from '../backend/src/app.js';
-
-export const config = {
-  runtime: 'nodejs',
-};
-
-export default serverless(app);
+export { default, config } from '../backend/api/backend.js';
