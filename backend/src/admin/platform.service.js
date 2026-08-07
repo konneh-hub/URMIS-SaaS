@@ -367,8 +367,24 @@ export async function deleteNotificationTemplate(templateId) {
   return prisma.notificationTemplate.delete({ where: { id: templateId } });
 }
 
-export async function listNotifications() {
-  return prisma.notification.findMany({ include: { user: true, student: true, institution: true, template: true } });
+export async function listNotifications(user) {
+  if (!user) return [];
+  if (user.role === 'SYSTEM_ADMIN') {
+    return prisma.notification.findMany({ include: { user: true, student: true, institution: true, template: true }, orderBy: { createdAt: 'desc' } });
+  }
+
+  const conditions = [];
+  if (user.id) conditions.push({ userId: user.id });
+  if (user.studentId) conditions.push({ studentId: user.studentId });
+  if (user.institutionId) conditions.push({ institutionId: user.institutionId });
+
+  if (conditions.length === 0) return [];
+
+  return prisma.notification.findMany({
+    where: { OR: conditions },
+    include: { user: true, student: true, institution: true, template: true },
+    orderBy: { createdAt: 'desc' },
+  });
 }
 
 export async function sendNotification(data) {

@@ -16,6 +16,11 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "URMIS | University Result Management Information System",
   description: "A multi-tenant SaaS platform for academic result management.",
+  icons: {
+    icon: '/urmis.png',
+    shortcut: '/urmis.png',
+    apple: '/urmis.png',
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

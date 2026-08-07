@@ -42,6 +42,7 @@ export const menuByRole = {
     { label: 'Documents', href: '/dashboard/documents', slug: 'documents' },
     { label: 'Communication', href: '/dashboard/communication', slug: 'communication' },
     { label: 'Notifications', href: '/dashboard/notifications', slug: 'notifications' },
+    { label: 'Help & Documentation', href: '/dashboard/help-documentation', slug: 'help-documentation' },
     { label: 'University Settings', href: '/dashboard/university-settings', slug: 'university-settings' },
     { label: 'Audit Logs', href: '/dashboard/audit-logs', slug: 'audit-logs' },
     { label: 'Profile', href: '/dashboard/profile', slug: 'profile' },
@@ -138,6 +139,7 @@ export const menuByRole = {
     { label: 'Fee Status', href: '/dashboard/fee-status', slug: 'fee-status' },
     { label: 'Documents', href: '/dashboard/documents', slug: 'documents' },
     { label: 'Notifications', href: '/dashboard/notifications', slug: 'notifications' },
+    { label: 'Help & Documentation', href: '/dashboard/help-documentation', slug: 'help-documentation' },
     { label: 'Support', href: '/dashboard/support', slug: 'support' },
     { label: 'Profile Settings', href: '/dashboard/profile-settings', slug: 'profile-settings' },
     { label: 'Logout', href: '/dashboard/logout', slug: 'logout' },
@@ -146,7 +148,21 @@ export const menuByRole = {
 
 export function getMenuForRole(role) {
   const normalizedRole = String(role || 'STUDENT').toUpperCase().replace(/[-_ ]/g, '_');
-  return menuByRole[normalizedRole] || menuByRole.STUDENT;
+  const baseMenu = menuByRole[normalizedRole] || menuByRole.STUDENT;
+  const menu = [...baseMenu];
+
+  if (!menu.some((item) => item.slug === 'help-documentation')) {
+    const profileIndex = menu.findIndex((item) => item.slug === 'profile');
+    const helpItem = { label: 'Help & Documentation', href: '/dashboard/help-documentation', slug: 'help-documentation' };
+
+    if (profileIndex >= 0) {
+      menu.splice(profileIndex, 0, helpItem);
+    } else {
+      menu.push(helpItem);
+    }
+  }
+
+  return menu;
 }
 
 export function formatRoleLabel(role) {

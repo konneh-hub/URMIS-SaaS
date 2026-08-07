@@ -26,7 +26,7 @@ import SystemNotifications from '../../../modules/system-admin/pages/Notificatio
 import Backups from '../../../modules/system-admin/pages/Backups';
 import GlobalSettings from '../../../modules/system-admin/pages/GlobalSettings';
 import Integrations from '../../../modules/system-admin/pages/Integrations';
-import HelpDocumentation from '../../../modules/system-admin/pages/HelpDocumentation';
+import HelpCenter from '../../../shared/components/help/HelpCenter';
 import Profile from '../../../modules/system-admin/pages/Profile';
 import Logout from '../../../modules/system-admin/pages/Logout';
 
@@ -224,7 +224,6 @@ const systemAdminSlugComponents: Record<string, React.ComponentType> = {
   backups: Backups,
   'global-settings': GlobalSettings,
   integrations: Integrations,
-  'help-documentation': HelpDocumentation,
   profile: Profile,
   logout: Logout,
 };
@@ -350,6 +349,10 @@ export default function DashboardSlugPage() {
   const menuItems = getMenuForRole(normalizedRole);
   const currentItem = menuItems.find((item: { slug?: string }) => item.slug === slug) || menuItems[0];
   const meta = sectionMeta[slug as keyof typeof sectionMeta] || sectionMeta.dashboard;
+
+  if (slug === 'help-documentation') {
+    return <HelpCenter />;
+  }
 
   if (normalizedRole === 'SYSTEM_ADMIN' && systemAdminSlugComponents[slug]) {
     const PageComponent = systemAdminSlugComponents[slug];

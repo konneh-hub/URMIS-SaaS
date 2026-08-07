@@ -39,6 +39,7 @@ const adminOnly = authorize(['SYSTEM_ADMIN', 'UNIVERSITY_ADMIN']);
 const staffRoles = authorize(['SYSTEM_ADMIN', 'UNIVERSITY_ADMIN', 'EXAM_OFFICER', 'DEAN', 'HOD', 'LECTURER']);
 const lecturerRoles = authorize(['LECTURER', 'SYSTEM_ADMIN', 'UNIVERSITY_ADMIN']);
 const publicationRoles = authorize(['EXAM_OFFICER', 'SYSTEM_ADMIN', 'UNIVERSITY_ADMIN']);
+const notificationsRoles = authorize(['SYSTEM_ADMIN', 'UNIVERSITY_ADMIN', 'EXAM_OFFICER', 'DEAN', 'HOD', 'LECTURER']);
 
 router.get('/assessment-types', adminOnly, ctrl.listAssessmentTypes);
 router.post('/assessment-types', adminOnly, assessmentTypeValidation, requestValidator, ctrl.createAssessmentType);
@@ -91,7 +92,7 @@ router.get('/notification-templates', ctrl.listNotificationTemplates);
 router.post('/notification-templates', notificationTemplateValidation, requestValidator, ctrl.createNotificationTemplate);
 router.put('/notification-templates/:templateId', notificationTemplateUpdateValidation, requestValidator, ctrl.updateNotificationTemplate);
 router.delete('/notification-templates/:templateId', ctrl.deleteNotificationTemplate);
-router.get('/notifications', ctrl.listNotifications);
+router.get('/notifications', notificationsRoles, ctrl.listNotifications);
 router.post('/notifications', notificationValidation, requestValidator, ctrl.sendNotification);
 router.get('/scheduled-notifications', ctrl.listScheduledNotifications);
 router.post('/scheduled-notifications', scheduleNotificationValidation, requestValidator, ctrl.scheduleNotification);

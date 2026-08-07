@@ -44,7 +44,31 @@ export default function Register() {
     title: '',
     studentNumber: '',
     admissionYear: new Date().getFullYear(),
+    // personal
+    firstName: '',
+    middleName: '',
+    lastName: '',
     name: '',
+    gender: '',
+    dob: '',
+    nationality: '',
+    profilePhoto: '',
+    profilePhotoFile: null,
+    profilePhotoPreview: '',
+    address: '',
+    // employment / academic
+    staffId: '',
+    staffType: '',
+    position: '',
+    employmentStatus: '',
+    dateJoined: '',
+    programme: '',
+    programmeType: '',
+    level: '',
+    academicSession: '',
+    admissionDate: '',
+    studentStatus: '',
+    // account
     email: inviteEmail,
     password: '',
     phone: '',
@@ -109,7 +133,7 @@ export default function Register() {
       return Boolean(form.title);
     }
     if (step === 2) {
-      return Boolean(form.name && form.email && form.password.length >= 6);
+      return Boolean((form.name || (form.firstName && form.lastName)) && form.email && form.password.length >= 6);
     }
     return false;
   }, [form, isStudent, step, inviteMode]);
@@ -137,24 +161,83 @@ export default function Register() {
             password: form.password,
           }
         : {
-            email: form.email,
-            password: form.password,
-            name: form.name,
-            role: form.role,
-            institutionId: form.institutionId || undefined,
-            facultyName: form.facultyName || undefined,
-            departmentName: form.departmentName || undefined,
-            studentNumber: form.studentNumber || undefined,
-            admissionYear: form.admissionYear ? Number(form.admissionYear) : undefined,
-            phone: form.phone || undefined,
-            profile: isStaff ? { title: form.title || undefined } : undefined,
-          };
+          // account
+          email: form.email,
+          password: form.password,
+          name: form.name || `${form.firstName || ''} ${form.middleName || ''} ${form.lastName || ''}`.trim(),
+          role: form.role,
+          institutionId: form.institutionId || undefined,
+          // affiliation
+          facultyName: form.facultyName || undefined,
+          departmentName: form.departmentName || undefined,
+          // student-specific
+          studentNumber: form.studentNumber || undefined,
+          admissionYear: form.admissionYear ? Number(form.admissionYear) : undefined,
+          admissionDate: form.admissionDate || undefined,
+          programme: form.programme || undefined,
+          programmeType: form.programmeType || undefined,
+          level: form.level || undefined,
+          academicSession: form.academicSession || undefined,
+          studentStatus: form.studentStatus || undefined,
+          // staff/employment
+          staffId: form.staffId || undefined,
+          staffType: form.staffType || undefined,
+          position: form.position || undefined,
+          employmentStatus: form.employmentStatus || undefined,
+          dateJoined: form.dateJoined || undefined,
+          // personal
+          firstName: form.firstName || undefined,
+          middleName: form.middleName || undefined,
+          lastName: form.lastName || undefined,
+          gender: form.gender || undefined,
+          dob: form.dob || undefined,
+          nationality: form.nationality || undefined,
+          address: form.address || undefined,
+          profilePhoto: form.profilePhoto || undefined,
+          phone: form.phone || undefined,
+          profile: isStaff ? { title: form.title || undefined } : undefined,
+            };
       const resp = await fetch(buildApiUrl(`/api/auth${endpoint}`), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
         body: JSON.stringify(bodyPayload),
       });
+      // if a photo file is present, upload it separately as base64 before continuing
+      if (form.profilePhotoFile && !form.profilePhoto) {
+        try {
+          const toBase64 = (file) => new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = reject;
+            reader.readAsDataURL(file);
+          });
+          const base64 = await toBase64(form.profilePhotoFile);
+          // attach and resend payload with profilePhotoBase64
+          bodyPayload.profilePhotoBase64 = base64;
+          const resp2 = await fetch(buildApiUrl(`/api/auth${endpoint}`), {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
+            body: JSON.stringify(bodyPayload),
+          });
+          const body2 = await resp2.json();
+          if (!body2.success) {
+            setError(body2.message || 'Registration failed');
+            return;
+          }
+          const { user, accessToken } = body2.data;
+          if (accessToken) {
+            localStorage.setItem('accessToken', accessToken);
+            user.accessToken = accessToken;
+          }
+          login(user);
+          router.push('/dashboard');
+          return;
+        } catch (err) {
+          console.error('photo upload failed', err);
+        }
+      }
       const body = await resp.json();
       if (!body.success) {
         setError(body.message || 'Registration failed');
@@ -175,6 +258,13 @@ export default function Register() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-[var(--background)] px-4 py-8 sm:px-6 lg:px-8">
       <div className="w-full max-w-lg">
+        <div className="mb-6 flex items-center gap-3">
+          <img src="/urmis.png" alt="URMIS logo" className="h-12 w-auto rounded-lg bg-[var(--color-surface)] p-1 shadow-sm" />
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.35em] text-[var(--color-primary)]">URMIS</p>
+            <h2 className="text-xl font-semibold text-[var(--color-text)]">Create your account</h2>
+          </div>
+        </div>
         <Card title="Create account">
           <div className="mb-4 rounded-2xl bg-[var(--surface)] px-4 py-3 text-sm text-[var(--color-muted-text)] shadow-sm">
             <div className="font-semibold text-[var(--color-text)]">{inviteMode ? 'Invitation registration' : `Step ${step + 1} of ${steps.length}`}</div>
@@ -310,12 +400,43 @@ export default function Register() {
 
                 {step === 2 && (
                   <>
-                    <Input
-                      label="Full name"
-                      value={form.name}
-                      onChange={(e) => setForm({ ...form, name: e.target.value })}
-                      required
-                    />
+                    <div className="grid gap-4 md:grid-cols-3">
+                      <Input
+                        label="First name"
+                        value={form.firstName}
+                        onChange={(e) => setForm({ ...form, firstName: e.target.value })}
+                        required
+                      />
+                      <Input
+                        label="Middle name"
+                        value={form.middleName}
+                        onChange={(e) => setForm({ ...form, middleName: e.target.value })}
+                      />
+                      <Input
+                        label="Last name"
+                        value={form.lastName}
+                        onChange={(e) => setForm({ ...form, lastName: e.target.value })}
+                        required
+                      />
+                    </div>
+                    <div className="grid gap-4 md:grid-cols-3">
+                      <Input
+                        label="Gender"
+                        value={form.gender}
+                        onChange={(e) => setForm({ ...form, gender: e.target.value })}
+                      />
+                      <Input
+                        label="Date of birth"
+                        type="date"
+                        value={form.dob}
+                        onChange={(e) => setForm({ ...form, dob: e.target.value })}
+                      />
+                      <Input
+                        label="Nationality"
+                        value={form.nationality}
+                        onChange={(e) => setForm({ ...form, nationality: e.target.value })}
+                      />
+                    </div>
                     <Input
                       label="Email"
                       type="email"
@@ -330,6 +451,28 @@ export default function Register() {
                       onChange={(e) => setForm({ ...form, password: e.target.value })}
                       required
                     />
+                    <Input
+                      label="Address"
+                      value={form.address}
+                      onChange={(e) => setForm({ ...form, address: e.target.value })}
+                    />
+                    <div>
+                      <label className="block text-sm font-medium text-[var(--color-text)]">Profile photo</label>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) => {
+                          const f = e.target.files && e.target.files[0];
+                          if (f) {
+                            setForm({ ...form, profilePhotoFile: f, profilePhotoPreview: URL.createObjectURL(f) });
+                          }
+                        }}
+                        className="mt-2"
+                      />
+                      {form.profilePhotoPreview && (
+                        <img src={form.profilePhotoPreview} alt="preview" className="mt-2 h-24 w-24 rounded-md object-cover" />
+                      )}
+                    </div>
                   </>
                 )}
               </>

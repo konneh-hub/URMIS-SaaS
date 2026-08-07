@@ -45,7 +45,56 @@ export async function login(req, res, next) {
 
 export async function register(req, res, next) {
   try {
-    const { email, password, name, role, institutionId, facultyId, facultyName, departmentId, departmentName, studentNumber, admissionYear, phone, profile } = req.body;
+    const {
+      email,
+      password,
+      name,
+      role,
+      institutionId,
+      facultyId,
+      facultyName,
+      departmentId,
+      departmentName,
+      studentNumber,
+      admissionYear,
+      phone,
+      profile,
+      // personal
+      firstName,
+      middleName,
+      lastName,
+      gender,
+      dob,
+      nationality,
+      address,
+      profilePhoto,
+      // staff/employment
+      staffId,
+      staffType,
+      position,
+      employmentStatus,
+      dateJoined,
+      // academic
+      admissionDate,
+      programme,
+      programmeType,
+      level,
+      academicSession,
+      studentStatus,
+    } = req.body;
+
+    // if client sent base64 image, save it to uploads and set profilePhoto path
+    let profilePhotoPath = undefined;
+    if (req.body.profilePhotoBase64) {
+      try {
+        const { saveBase64Image } = await import('../utils/file.js');
+        profilePhotoPath = await saveBase64Image(req.body.profilePhotoBase64, 'profile');
+      } catch (imgErr) {
+        // continue without photo
+        console.error('profile image save failed', imgErr);
+      }
+    }
+
     const user = await registerUser({
       email,
       password,
@@ -60,6 +109,25 @@ export async function register(req, res, next) {
       admissionYear,
       phone,
       profile,
+      firstName,
+      middleName,
+      lastName,
+      gender,
+      dob,
+      nationality,
+      address,
+      profilePhoto: profilePhotoPath || profilePhoto,
+      staffId,
+      staffType,
+      position,
+      employmentStatus,
+      dateJoined,
+      admissionDate,
+      programme,
+      programmeType,
+      level,
+      academicSession,
+      studentStatus,
     });
     const accessToken = signAccessToken(user);
     const refreshToken = signRefreshToken(user);

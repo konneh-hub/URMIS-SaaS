@@ -53,6 +53,28 @@ export async function registerUser({
   studentNumber = null,
   admissionYear = null,
   profile = {},
+  // personal
+  firstName = null,
+  middleName = null,
+  lastName = null,
+  gender = null,
+  dob = null,
+  nationality = null,
+  address = null,
+  profilePhoto = null,
+  // staff/employment
+  staffId = null,
+  staffType = null,
+  position = null,
+  employmentStatus = null,
+  dateJoined = null,
+  // academic
+  admissionDate = null,
+  programme = null,
+  programmeType = null,
+  level = null,
+  academicSession = null,
+  studentStatus = null,
 }) {
   const hashed = await hashPassword(password);
   const normalizedRole = role || 'STUDENT';
@@ -69,9 +91,9 @@ export async function registerUser({
     },
   });
 
-  const parsedName = (name || '').trim().split(/\s+/);
-  const firstName = parsedName[0] || '';
-  const lastName = parsedName.slice(1).join(' ') || '';
+  const nameParts = (name || '').trim().split(/\s+/);
+  const derivedFirstName = firstName || nameParts[0] || '';
+  const derivedLastName = lastName || nameParts.slice(1).join(' ') || '';
   const resolvedFacultyId = await resolveFacultyId({ facultyId, facultyName, institutionId: institution });
   const resolvedDepartmentId = await resolveDepartmentId({ departmentId, departmentName, institutionId: institution, facultyId: resolvedFacultyId });
 
@@ -85,14 +107,14 @@ export async function registerUser({
     await prisma.student.create({
       data: {
         studentNumber: studentNumber || `STU-${Date.now()}`,
-        firstName,
-        lastName,
+        firstName: derivedFirstName,
+        lastName: derivedLastName,
         email,
         phone,
         admissionYear: admissionYear ? Number(admissionYear) : new Date().getFullYear(),
         institutionId: institution,
         departmentId: resolvedDepartmentId,
-        profile: { userId: user.id, ...(profile || {}) },
+        profile: { userId: user.id, ...(profile || {}), address, nationality, dob, profilePhoto, programme, programmeType, level, academicSession, studentStatus },
       },
     });
   }
@@ -104,7 +126,9 @@ export async function registerUser({
       facultyId: resolvedFacultyId || undefined,
       title: profile.title || normalizedRole,
       bio: profile.bio || undefined,
-      employmentDate: profile.employmentDate || undefined,
+      employmentDate: profile.employmentDate || dateJoined || undefined,
+      dateOfBirth: dob || undefined,
+      profilePhoto: profilePhoto || undefined,
     };
     await prisma.staffProfile.create({ data: profileData });
     await prisma.employmentInformation.create({
@@ -112,10 +136,10 @@ export async function registerUser({
         userId: user.id,
         departmentId: resolvedDepartmentId || undefined,
         facultyId: resolvedFacultyId || undefined,
-        position: profile.position || normalizedRole,
+        position: profile.position || position || normalizedRole,
         rank: profile.rank || undefined,
-        contractType: profile.contractType || undefined,
-        startDate: profile.startDate ? new Date(profile.startDate) : undefined,
+        contractType: profile.contractType || employmentStatus || undefined,
+        startDate: profile.startDate ? new Date(profile.startDate) : dateJoined ? new Date(dateJoined) : undefined,
         endDate: profile.endDate ? new Date(profile.endDate) : undefined,
         salary: profile.salary ? Number(profile.salary) : undefined,
       },
