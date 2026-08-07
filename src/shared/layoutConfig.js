@@ -58,6 +58,7 @@ export const layoutConfigByRole = {
       'Messages',
       'Academic Calendar',
       'Quick Actions',
+      'Help',
       'Profile',
       'University Settings',
       'Logout',

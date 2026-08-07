@@ -15,8 +15,10 @@ const API_BASE = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost:5000';
 function statusTone(status) {
   switch (status) {
     case 'PUBLISHED': return 'success';
-    case 'APPROVED':
+    case 'DEAN_APPROVED':
+    case 'HOD_APPROVED':
     case 'VERIFIED': return 'info';
+    case 'SUBMITTED':
     case 'PENDING': return 'warning';
     case 'REJECTED': return 'danger';
     default: return 'neutral';
@@ -54,14 +56,14 @@ export default function ResultApproval() {
         method: 'POST',
         headers: { Authorization: `Bearer ${token}` },
       });
-      setResults((prev) => prev.map((r) => (r.id === id ? { ...r, status: 'APPROVED' } : r)));
+      setResults((prev) => prev.map((r) => (r.id === id ? { ...r, status: 'HOD_APPROVED' } : r)));
     } catch (e) {
       setError('Could not approve selected result.');
     }
   }
 
-  const pending = results.filter((r) => r.status === 'PENDING').length;
-  const approved = results.filter((r) => r.status === 'APPROVED').length;
+  const pending = results.filter((r) => r.status === 'SUBMITTED').length;
+  const approved = results.filter((r) => r.status === 'HOD_APPROVED').length;
   const published = results.filter((r) => r.status === 'PUBLISHED').length;
 
   return (
@@ -94,9 +96,13 @@ export default function ResultApproval() {
                 { header: 'Grade', accessor: 'grade', render: (value) => <Badge tone="info">{value || '—'}</Badge> },
                 { header: 'Status', accessor: 'status', render: (value) => <Badge tone={statusTone(value)}>{value || 'PENDING'}</Badge> },
                 { header: 'Action', accessor: 'id', render: (value, row) => (
-                  <Button variant={row.status === 'PENDING' ? 'primary' : 'secondary'} size="sm" onClick={() => approveResult(value)}>
-                    {row.status === 'PENDING' ? 'Approve' : 'Approved'}
-                  </Button>
+                  row.status === 'SUBMITTED' ? (
+                    <Button variant="primary" size="sm" onClick={() => approveResult(value)}>
+                      Approve
+                    </Button>
+                  ) : (
+                    <span className="text-sm text-[var(--color-muted-text)]">No action</span>
+                  )
                 ) },
               ]}
               rows={results}

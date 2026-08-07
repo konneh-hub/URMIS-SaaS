@@ -18,14 +18,14 @@ const API_BASE = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost:5000';
 function deanStatusTone(status) {
   switch (status) {
     case 'PUBLISHED':
-    case 'SENT':
       return 'success';
-    case 'APPROVED':
-    case 'READ':
+    case 'DEAN_APPROVED':
+    case 'HOD_APPROVED':
+    case 'VERIFIED':
       return 'info';
+    case 'SUBMITTED':
     case 'PENDING':
       return 'warning';
-    case 'FAILED':
     case 'REJECTED':
       return 'danger';
     default:
@@ -106,8 +106,8 @@ export function DeanDashboard() {
           departments: departments.length,
           lecturers: staff.filter((member) => member.role === 'LECTURER' || member.role === 'DEAN' || member.role === 'HOD').length,
           students: students.length,
-          pendingResults: results.filter((result) => result.status === 'PENDING').length,
-          approvedResults: results.filter((result) => result.status === 'APPROVED').length,
+          pendingResults: results.filter((result) => result.status === 'HOD_APPROVED').length,
+          approvedResults: results.filter((result) => result.status === 'DEAN_APPROVED').length,
         });
         setRows(results.slice(0, 5));
       } catch (e) {
@@ -375,7 +375,7 @@ export function DeanResultApproval() {
   };
 
   return (
-    <SectionShell eyebrow="Result approval" title="Result Approval" description="Review submitted results and approve faculty outcomes before publication." badge={<Badge tone="info">{results.length} records</Badge>}>
+    <SectionShell eyebrow="Result approval" title="Result Approval" description="Review approved department results and advance them to examination officer verification." badge={<Badge tone="info">{results.length} records</Badge>}>
       {error ? <Alert title="Error" tone="danger">{error}</Alert> : null}
       <Card title="Dean approval queue" description="Faculty result reviews that require approval.">
         {loading ? <p className="text-sm text-[var(--color-muted-text)]">Loading result queue...</p> : (
@@ -387,8 +387,8 @@ export function DeanResultApproval() {
               { header: 'Grade', accessor: 'grade', render: (value) => <Badge tone="info">{value || '—'}</Badge> },
               { header: 'Status', accessor: 'status', render: (value) => <Badge tone={deanStatusTone(value)}>{value || 'PENDING'}</Badge> },
               { header: 'Action', accessor: 'id', render: (value, row) => (
-                <Button variant={row.status === 'PENDING' ? 'primary' : 'secondary'} size="sm" onClick={() => approveResult(value)}>
-                  {row.status === 'PENDING' ? 'Approve' : 'Reviewed'}
+                <Button variant={row.status === 'HOD_APPROVED' ? 'primary' : 'secondary'} size="sm" onClick={() => approveResult(value)}>
+                  {row.status === 'HOD_APPROVED' ? 'Approve' : 'Reviewed'}
                 </Button>
               ) },
             ]}

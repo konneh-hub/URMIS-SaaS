@@ -15,7 +15,10 @@ const API_BASE = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost:5000';
 function statusTone(status) {
   switch (status) {
     case 'PENDING': return 'warning';
-    case 'APPROVED': return 'info';
+    case 'SUBMITTED':
+    case 'HOD_APPROVED':
+    case 'DEAN_APPROVED':
+    case 'VERIFIED': return 'info';
     case 'PUBLISHED': return 'success';
     default: return 'neutral';
   }
@@ -62,7 +65,7 @@ export default function ResultPublication() {
     }
   }
 
-  const approved = results.filter((r) => r.status === 'APPROVED').length;
+  const approved = results.filter((r) => r.status === 'VERIFIED').length;
   const published = results.filter((r) => r.status === 'PUBLISHED').length;
 
   return (
@@ -98,7 +101,7 @@ export default function ResultPublication() {
                   header: 'Action',
                   accessor: 'id',
                   render: (_value, row) => (
-                    row.status === 'APPROVED' ? <Button variant="success" size="sm" onClick={() => handlePublish(row.id)}>Publish</Button> : <span className="text-sm text-[var(--color-muted-text)]">No action</span>
+                    row.status === 'VERIFIED' ? <Button variant="success" size="sm" onClick={() => handlePublish(row.id)}>Publish</Button> : <span className="text-sm text-[var(--color-muted-text)]">No action</span>
                   ),
                 },
               ]}

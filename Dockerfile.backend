@@ -1,0 +1,42 @@
+# =====================================================
+# URMIS - Backend API production image
+# Runs the Express backend (backend/src/server.js) on port 5000.
+# Depends on the root node_modules (shared package.json).
+# =====================================================
+
+FROM node:24-alpine AS deps
+WORKDIR /usr/src/app
+
+# Install root dependencies (backend uses root package.json)
+COPY package.json package-lock.json* ./
+RUN npm ci
+
+# =====================================================
+FROM node:24-alpine AS runner
+WORKDIR /usr/src/app
+
+ENV NODE_ENV=production
+
+# node:alpine already provides a non-root "node" user.
+
+# Copy installed dependencies
+COPY --from=deps /usr/src/app/node_modules ./node_modules
+
+# Copy backend source + Prisma schema + migrations
+COPY package.json package-lock.json* ./
+COPY backend ./backend
+COPY prisma ./prisma
+
+# Generate Prisma client
+RUN npx prisma generate
+
+USER node
+
+EXPOSE 5000
+
+ENV PORT=5000
+
+# Migration strategy: non-destructive deploy is run by the entrypoint
+# before starting the server (see compose command). The server command below
+# is the real project backend start script.
+CMD ["npm", "run", "backend:start"]

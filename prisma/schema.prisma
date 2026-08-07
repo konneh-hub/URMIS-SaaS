@@ -563,7 +563,10 @@ model Result {
 
 enum ResultStatus {
   PENDING
-  APPROVED
+  SUBMITTED
+  HOD_APPROVED
+  DEAN_APPROVED
+  VERIFIED
   PUBLISHED
   REJECTED
 }

@@ -15,7 +15,10 @@ const API_BASE = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost:5000';
 function statusTone(status) {
   switch (status) {
     case 'PUBLISHED': return 'success';
-    case 'APPROVED': return 'info';
+    case 'SUBMITTED':
+    case 'HOD_APPROVED':
+    case 'DEAN_APPROVED':
+    case 'VERIFIED': return 'info';
     case 'PENDING': return 'warning';
     case 'REJECTED': return 'danger';
     default: return 'neutral';
@@ -75,8 +78,12 @@ export default function ResultApprovalWorkflow() {
   }
 
   const pending = results.filter((r) => r.status === 'PENDING').length;
-  const approved = results.filter((r) => r.status === 'APPROVED').length;
+  const submitted = results.filter((r) => r.status === 'SUBMITTED').length;
+  const hodApproved = results.filter((r) => r.status === 'HOD_APPROVED').length;
+  const deanApproved = results.filter((r) => r.status === 'DEAN_APPROVED').length;
+  const verified = results.filter((r) => r.status === 'VERIFIED').length;
   const published = results.filter((r) => r.status === 'PUBLISHED').length;
+  const approved = submitted + hodApproved + deanApproved + verified;
 
   return (
     <DashboardLayout>
@@ -109,8 +116,22 @@ export default function ResultApprovalWorkflow() {
                 { header: 'Status', accessor: 'status', render: (value) => <Badge tone={statusTone(value)}>{value}</Badge> },
                 { header: 'Actions', accessor: 'actions', render: (_v, row) => (
                   <div className="flex flex-wrap gap-2">
-                    {row.status === 'PENDING' ? <Button variant="success" size="sm" onClick={() => transitionResult(row.id, 'approve')}>Approve</Button> : null}
-                    {row.status === 'APPROVED' ? <Button variant="primary" size="sm" onClick={() => transitionResult(row.id, 'publish')}>Publish</Button> : null}
+                    {['PENDING', 'SUBMITTED', 'HOD_APPROVED', 'DEAN_APPROVED'].includes(row.status) ? (
+                      <Button variant="success" size="sm" onClick={() => transitionResult(row.id, 'approve')}>
+                        {row.status === 'PENDING'
+                          ? 'Submit'
+                          : row.status === 'SUBMITTED'
+                          ? 'Verify'
+                          : row.status === 'HOD_APPROVED'
+                          ? 'Approve'
+                          : 'Verify'}
+                      </Button>
+                    ) : null}
+                    {row.status === 'VERIFIED' ? (
+                      <Button variant="primary" size="sm" onClick={() => transitionResult(row.id, 'publish')}>
+                        Publish
+                      </Button>
+                    ) : null}
                   </div>
                 ) },
               ]}

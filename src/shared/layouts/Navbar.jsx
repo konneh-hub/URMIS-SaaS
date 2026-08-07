@@ -163,34 +163,6 @@ export default function Navbar({ onMenuToggle }) {
         </div>
 
         <div className="flex items-center gap-3">
-          <button
-            type="button"
-            onClick={() => handleAction('Notifications')}
-            className="relative inline-flex h-11 items-center gap-2 rounded-xl border border-[var(--color-border)] bg-[var(--color-background)] px-4 text-sm text-[var(--color-text)] transition hover:bg-[var(--color-muted)]"
-          >
-            Notifications
-            {notificationCount > 0 ? (
-              <span className="inline-flex h-6 min-w-[1.5rem] items-center justify-center rounded-full bg-rose-500 px-2 text-xs font-semibold text-white">
-                {notificationCount}
-              </span>
-            ) : null}
-          </button>
-
-          <button
-            type="button"
-            onClick={() => handleAction('Messages')}
-            className="inline-flex h-11 items-center gap-2 rounded-xl border border-[var(--color-border)] bg-[var(--color-background)] px-4 text-sm text-[var(--color-text)] transition hover:bg-[var(--color-muted)]"
-          >
-            Messages
-          </button>
-
-          <button
-            type="button"
-            onClick={() => handleAction('Help')}
-            className="inline-flex h-11 items-center gap-2 rounded-xl border border-[var(--color-border)] bg-[var(--color-background)] px-4 text-sm text-[var(--color-text)] transition hover:bg-[var(--color-muted)]"
-          >
-            Help
-          </button>
 
           <div className="relative">
             <button

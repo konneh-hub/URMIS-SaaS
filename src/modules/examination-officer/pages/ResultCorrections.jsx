@@ -70,7 +70,7 @@ export default function ResultCorrections() {
     }
   }
 
-  const needingCorrection = results.filter((r) => r.status === 'PUBLISHED' || r.status === 'APPROVED').length;
+  const needingCorrection = results.filter((r) => ['PUBLISHED', 'VERIFIED', 'DEAN_APPROVED', 'HOD_APPROVED', 'SUBMITTED'].includes(r.status)).length;
 
   return (
     <DashboardLayout>

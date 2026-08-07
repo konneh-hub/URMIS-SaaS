@@ -15,8 +15,11 @@ const API_BASE = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost:5000';
 function statusTone(status) {
   switch (status) {
     case 'PENDING': return 'warning';
-    case 'APPROVED': return 'info';
-    case 'PUBLISHED': return 'success';
+    case 'SUBMITTED':
+    case 'HOD_APPROVED':
+    case 'DEAN_APPROVED':
+    case 'VERIFIED': return 'info';
+    case 'PUBLISHED':
     case 'CORRECTED': return 'success';
     default: return 'neutral';
   }
@@ -56,10 +59,10 @@ export default function ResultProcessing() {
         headers: { Authorization: `Bearer ${token}` },
       });
       const body = await resp.json();
-      if (!body.success) throw new Error(body.message || 'Approval failed');
+      if (!body.success) throw new Error(body.message || 'Verification failed');
       loadResults();
     } catch (err) {
-      setError(err.message || 'Approval failed');
+      setError(err.message || 'Verification failed');
     }
   }
 
@@ -78,8 +81,8 @@ export default function ResultProcessing() {
     }
   }
 
-  const pending = results.filter((r) => r.status === 'PENDING').length;
-  const approved = results.filter((r) => r.status === 'APPROVED').length;
+  const pending = results.filter((r) => r.status === 'DEAN_APPROVED' || r.status === 'VERIFIED').length;
+  const approved = results.filter((r) => r.status === 'DEAN_APPROVED').length;
   const published = results.filter((r) => r.status === 'PUBLISHED').length;
 
   return (
@@ -116,10 +119,10 @@ export default function ResultProcessing() {
                   accessor: 'id',
                   render: (_value, row) => (
                     <div className="flex flex-wrap gap-2">
-                      {row.status === 'PENDING' ? (
-                        <Button variant="primary" size="sm" onClick={() => handleApprove(row.id)}>Approve</Button>
+                      {row.status === 'DEAN_APPROVED' ? (
+                        <Button variant="primary" size="sm" onClick={() => handleApprove(row.id)}>Verify</Button>
                       ) : null}
-                      {row.status === 'APPROVED' ? (
+                      {row.status === 'VERIFIED' ? (
                         <Button variant="success" size="sm" onClick={() => handlePublish(row.id)}>Publish</Button>
                       ) : null}
                     </div>

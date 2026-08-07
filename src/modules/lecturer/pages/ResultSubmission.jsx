@@ -46,14 +46,14 @@ export default function ResultSubmission() {
         method: 'POST',
         headers: { Authorization: `Bearer ${token}` },
       });
-      setResults((prev) => prev.map((r) => (r.id === id ? { ...r, status: 'APPROVED' } : r)));
+      setResults((prev) => prev.map((r) => (r.id === id ? { ...r, status: 'SUBMITTED' } : r)));
     } catch (e) {
       setError('Could not submit result for approval.');
     }
   }
 
   const pending = results.filter((r) => r.status === 'PENDING').length;
-  const submitted = results.filter((r) => r.status === 'APPROVED' || r.status === 'SUBMITTED').length;
+  const submitted = results.filter((r) => r.status === 'SUBMITTED').length;
 
   return (
     <DashboardLayout>
@@ -85,9 +85,13 @@ export default function ResultSubmission() {
                 { header: 'Grade', accessor: 'grade', render: (value) => <Badge tone="info">{value || '—'}</Badge> },
                 { header: 'Status', accessor: 'status', render: (value) => <Badge tone={value === 'PENDING' ? 'warning' : 'success'}>{value || 'PENDING'}</Badge> },
                 { header: 'Action', accessor: 'id', render: (value, row) => (
-                  <Button variant={row.status === 'PENDING' ? 'primary' : 'secondary'} size="sm" onClick={() => submitResult(value)}>
-                    {row.status === 'PENDING' ? 'Submit' : 'Submitted'}
-                  </Button>
+                  row.status === 'PENDING' ? (
+                    <Button variant="primary" size="sm" onClick={() => submitResult(value)}>
+                      Submit
+                    </Button>
+                  ) : (
+                    <span className="text-sm text-[var(--color-muted-text)]">No action</span>
+                  )
                 ) },
               ]}
               rows={results}

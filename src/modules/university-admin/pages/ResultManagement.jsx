@@ -14,7 +14,10 @@ const API_BASE = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost:5000';
 function statusTone(status) {
   switch (status) {
     case 'PUBLISHED': return 'success';
-    case 'APPROVED': return 'info';
+    case 'SUBMITTED':
+    case 'HOD_APPROVED':
+    case 'DEAN_APPROVED':
+    case 'VERIFIED': return 'info';
     case 'PENDING': return 'warning';
     case 'REJECTED': return 'danger';
     default: return 'neutral';
@@ -49,8 +52,12 @@ export default function ResultManagement() {
   }, []);
 
   const pending = results.filter((r) => r.status === 'PENDING').length;
-  const approved = results.filter((r) => r.status === 'APPROVED').length;
+  const submitted = results.filter((r) => r.status === 'SUBMITTED').length;
+  const hodApproved = results.filter((r) => r.status === 'HOD_APPROVED').length;
+  const deanApproved = results.filter((r) => r.status === 'DEAN_APPROVED').length;
+  const verified = results.filter((r) => r.status === 'VERIFIED').length;
   const published = results.filter((r) => r.status === 'PUBLISHED').length;
+  const approved = submitted + hodApproved + deanApproved + verified;
 
   return (
     <DashboardLayout>

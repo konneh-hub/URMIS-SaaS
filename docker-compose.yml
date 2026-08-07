@@ -1,31 +1,81 @@
+# =====================================================
+# URMIS - Production Docker Compose
+# Services: db (PostgreSQL), backend (API on :5000),
+#           frontend (Next.js on :3000)
+# =====================================================
+
 services:
   db:
     image: postgres:16-alpine
     restart: unless-stopped
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: urmis_dev
-    ports:
-      - '5432:5432'
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      POSTGRES_DB: ${POSTGRES_DB:-urmis_dev}
     volumes:
       - db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U ${POSTGRES_USER:-postgres} -d ${POSTGRES_DB:-urmis_dev}']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+    # PostgreSQL only needs to be reachable on the internal network.
+    # Uncomment only if you need direct host access:
+    # ports:
+    #   - '5432:5432'
 
-  app:
-    build: .
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
     restart: unless-stopped
     environment:
-      DATABASE_URL: postgres://postgres:postgres@db:5432/urmis_dev?schema=public
-      NODE_ENV: development
-      JWT_SECRET: supersecret
+      NODE_ENV: production
+      PORT: 5000
+      # Inside the container network, PostgreSQL is reached via the "db" host.
+      # The host `.env` DATABASE_URL (127.0.0.1) is for local, non-Docker dev only.
+      DATABASE_URL: postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@db:5432/${POSTGRES_DB:-urmis_dev}?schema=public
+      JWT_SECRET: ${JWT_SECRET:-change-me-in-production}
+      JWT_ACCESS_EXPIRES: ${JWT_ACCESS_EXPIRES:-15m}
+      JWT_REFRESH_EXPIRES: ${JWT_REFRESH_EXPIRES:-7d}
     ports:
-      - '3000:3000'
       - '5000:5000'
     depends_on:
-      - db
-    volumes:
-      - .:/usr/src/app
-    command: sh -c "npm install && npx prisma generate && npm run backend:start"
+      db:
+        condition: service_healthy
+    # Run non-destructive migrations, then start the backend.
+    command: sh -c "npx prisma generate && npx prisma migrate deploy && npm run backend:start"
+    healthcheck:
+      test: ['CMD', 'node', '-e', "fetch('http://localhost:5000/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        # Browser-facing API base URL (published backend port on host).
+        NEXT_PUBLIC_API_BASE: ${NEXT_PUBLIC_API_BASE:-http://localhost:5000}
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      NEXT_PUBLIC_API_BASE: ${NEXT_PUBLIC_API_BASE:-http://localhost:5000}
+    ports:
+      - '3000:3000'
+    depends_on:
+      backend:
+        condition: service_healthy
+    healthcheck:
+      test: ['CMD', 'node', '-e', "fetch('http://localhost:3000').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
 
 volumes:
   db_data:

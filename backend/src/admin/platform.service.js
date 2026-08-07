@@ -20,6 +20,16 @@ function calculateCgpa(results) {
   return calculateGpa(results);
 }
 
+const ADMIN_ROLES = ['SYSTEM_ADMIN', 'UNIVERSITY_ADMIN'];
+
+const RESULT_WORKFLOW_TRANSITIONS = {
+  PENDING: { nextStatus: 'SUBMITTED', allowedRoles: ['LECTURER'] },
+  SUBMITTED: { nextStatus: 'HOD_APPROVED', allowedRoles: ['HOD'] },
+  HOD_APPROVED: { nextStatus: 'DEAN_APPROVED', allowedRoles: ['DEAN'] },
+  DEAN_APPROVED: { nextStatus: 'VERIFIED', allowedRoles: ['EXAM_OFFICER'] },
+  VERIFIED: { nextStatus: 'PUBLISHED', allowedRoles: ['EXAM_OFFICER'] },
+};
+
 function buildCsv(headers, rows) {
   const csvRows = [headers.join(',')];
   rows.forEach((row) => {
@@ -145,7 +155,7 @@ export async function createResult(data, user) {
     throw err;
   }
 
-  const institutionId = data.institutionId || user.institutionId;
+  const institutionId = user.institutionId || data.institutionId;
   if (!institutionId) {
     const err = new Error('Institution is required');
     err.status = 400;
@@ -195,11 +205,33 @@ export async function approveResult(resultId, user) {
     throw err;
   }
   if (existing.status === 'PUBLISHED') {
-    const err = new Error('Result is already published');
+    const err = new Error('Published results cannot be advanced');
     err.status = 400;
     throw err;
   }
-  return prisma.result.update({ where: { id: resultId }, data: { status: 'APPROVED', approvedById: user.id, approvedAt: new Date() } });
+
+  const transition = RESULT_WORKFLOW_TRANSITIONS[existing.status];
+  if (!transition) {
+    const err = new Error('Result cannot be advanced from its current status');
+    err.status = 400;
+    throw err;
+  }
+
+  const allowedRoles = [...transition.allowedRoles, ...ADMIN_ROLES];
+  if (!allowedRoles.includes(user.role)) {
+    const err = new Error('Forbidden: role cannot advance this result');
+    err.status = 403;
+    throw err;
+  }
+
+  return prisma.result.update({
+    where: { id: resultId },
+    data: {
+      status: transition.nextStatus,
+      approvedById: user.id,
+      approvedAt: new Date(),
+    },
+  });
 }
 
 export async function publishResult(resultId, user) {
@@ -215,11 +247,14 @@ export async function publishResult(resultId, user) {
     err.status = 400;
     throw err;
   }
-  if (existing.status !== 'APPROVED') {
-    const err = new Error('Only approved results can be published');
+
+  if (existing.status !== 'VERIFIED') {
+    const err = new Error('Only verified results can be published');
     err.status = 400;
     throw err;
   }
+
+  // Both exam officers and platform admins may publish verified results.
   return prisma.result.update({ where: { id: resultId }, data: { status: 'PUBLISHED' } });
 }
 
@@ -247,9 +282,14 @@ export async function correctResult(resultId, data, user) {
     err.status = 404;
     throw err;
   }
-  if (existing.locked || existing.status === 'PUBLISHED') {
-    const err = new Error('Cannot correct a locked or published result');
+  if (existing.locked) {
+    const err = new Error('Result is locked');
     err.status = 400;
+    throw err;
+  }
+  if (existing.status === 'PUBLISHED' && !['EXAM_OFFICER', ...ADMIN_ROLES].includes(user.role)) {
+    const err = new Error('Only examination officers can correct published results');
+    err.status = 403;
     throw err;
   }
   if (data.score !== undefined) {

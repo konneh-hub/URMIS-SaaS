@@ -16,8 +16,10 @@ const API_BASE = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost:5000';
 function statusTone(status) {
   switch (status) {
     case 'PUBLISHED': return 'success';
-    case 'APPROVED':
+    case 'HOD_APPROVED':
+    case 'DEAN_APPROVED':
     case 'VERIFIED': return 'info';
+    case 'SUBMITTED':
     case 'PENDING': return 'warning';
     case 'REJECTED': return 'danger';
     default: return 'neutral';
@@ -59,14 +61,14 @@ export default function ResultVerification() {
         method: 'POST',
         headers: { Authorization: `Bearer ${token}` },
       });
-      setResults((prev) => prev.map((r) => (r.id === id ? { ...r, status: 'APPROVED' } : r)));
+      setResults((prev) => prev.map((r) => (r.id === id ? { ...r, status: 'HOD_APPROVED' } : r)));
     } catch (e) {
       setError('Could not verify selected result.');
     }
   }
 
-  const pending = results.filter((r) => r.status === 'PENDING').length;
-  const verified = results.filter((r) => r.status === 'APPROVED' || r.status === 'VERIFIED').length;
+  const pending = results.filter((r) => r.status === 'SUBMITTED').length;
+  const verified = results.filter((r) => r.status === 'HOD_APPROVED').length;
 
   return (
     <DashboardLayout>
@@ -98,9 +100,13 @@ export default function ResultVerification() {
                 { header: 'Grade', accessor: 'grade', render: (value) => <Badge tone="info">{value || '—'}</Badge> },
                 { header: 'Status', accessor: 'status', render: (value) => <Badge tone={statusTone(value)}>{value || 'PENDING'}</Badge> },
                 { header: 'Action', accessor: 'id', render: (value, row) => (
-                  <Button variant={row.status === 'PENDING' ? 'primary' : 'secondary'} size="sm" onClick={() => verifyResult(value)}>
-                    {row.status === 'PENDING' ? 'Verify' : 'Verified'}
-                  </Button>
+                  row.status === 'SUBMITTED' ? (
+                    <Button variant="primary" size="sm" onClick={() => verifyResult(value)}>
+                      Verify
+                    </Button>
+                  ) : (
+                    <span className="text-sm text-[var(--color-muted-text)]">No action</span>
+                  )
                 ) },
               ]}
               rows={results}

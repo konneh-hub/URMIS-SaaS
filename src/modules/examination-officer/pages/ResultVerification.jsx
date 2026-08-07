@@ -14,10 +14,17 @@ const API_BASE = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost:5000';
 
 function statusTone(status) {
   switch (status) {
-    case 'PENDING': return 'warning';
-    case 'APPROVED': return 'info';
-    case 'PUBLISHED': return 'success';
-    default: return 'neutral';
+    case 'PENDING':
+    case 'SUBMITTED':
+    case 'HOD_APPROVED':
+      return 'warning';
+    case 'DEAN_APPROVED':
+    case 'VERIFIED':
+      return 'info';
+    case 'PUBLISHED':
+      return 'success';
+    default:
+      return 'neutral';
   }
 }
 
@@ -62,8 +69,8 @@ export default function ResultVerification() {
     }
   }
 
-  const pending = results.filter((r) => r.status === 'PENDING').length;
-  const verified = results.filter((r) => r.status === 'APPROVED').length;
+  const pending = results.filter((r) => r.status === 'DEAN_APPROVED').length;
+  const verified = results.filter((r) => r.status === 'VERIFIED').length;
 
   return (
     <DashboardLayout>
@@ -98,7 +105,7 @@ export default function ResultVerification() {
                   header: 'Action',
                   accessor: 'id',
                   render: (_value, row) => (
-                    row.status === 'PENDING' ? <Button variant="primary" size="sm" onClick={() => handleVerify(row.id)}>Verify</Button> : <span className="text-sm text-[var(--color-muted-text)]">No action</span>
+                    row.status === 'DEAN_APPROVED' ? <Button variant="primary" size="sm" onClick={() => handleVerify(row.id)}>Verify</Button> : <span className="text-sm text-[var(--color-muted-text)]">No action</span>
                   ),
                 },
               ]}

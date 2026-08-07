@@ -1,25 +1,13 @@
-# Student Pages Implementation TODO
+# Docker Setup Implementation TODO
 
-## Step 1: Create student page files
-- [x] Dashboard.jsx (rewrite)
-- [x] MyProfile.jsx
-- [x] CourseRegistration.jsx
-- [x] RegisteredCourses.jsx
-- [x] Assessments.jsx
-- [x] Results.jsx (rewrite)
-- [x] TranscriptRequests.jsx
-- [x] AcademicHistory.jsx
-- [x] FeeStatus.jsx
-- [x] Documents.jsx
-- [x] Notifications.jsx
-- [x] Support.jsx
-- [x] ProfileSettings.jsx
-- [x] Logout.jsx
-
-## Step 2: Update exports
-- [x] Update src/modules/student/pages/index.js
-
-## Step 3: Wire into routing
-- [x] Add sectionMeta entries in app/dashboard/[slug]/page.tsx
-- [x] Add studentSlugComponents map in app/dashboard/[slug]/page.tsx
-- [x] Add STUDENT routing condition
+## Steps
+- [x] 1. Inspect repository (package.json, backend, prisma, next.config, docker files, env)
+- [x] 2. Create `.env.example` documenting required environment variables
+- [x] 3. Update `.dockerignore` with build-excluded files
+- [x] 4. Update `Dockerfile` (frontend) - remove `COPY app ./app`, multi-stage build on port 3000
+- [x] 5. Create `Dockerfile.backend` - backend image on port 5000
+- [x] 6. Replace `docker-compose.yml` - db/backend/frontend with healthchecks, no source volume
+- [x] 7. Create `docker-compose.dev.yml` - dev variant with hot reload
+- [x] 8. Validate: `docker compose config`
+- [ ] 9. Build: `docker compose build --no-cache`
+- [ ] 10. Start: `docker compose up` and verify frontend/backend/db
