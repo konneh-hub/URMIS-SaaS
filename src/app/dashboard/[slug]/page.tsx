@@ -1,60 +1,60 @@
-"use client";
+﻿"use client";
 
 import React from 'react';
 import { useParams } from 'next/navigation';
-import { useAuth } from '../../../src/shared/auth/AuthProvider';
-import DashboardLayout from '../../../src/shared/layouts/DashboardLayout';
-import { getMenuForRole } from '../../../src/shared/layouts/sidebarConfig';
-import PageHeader from '../../../src/shared/components/ui/PageHeader';
-import Card from '../../../src/shared/components/ui/Card';
-import Button from '../../../src/shared/components/ui/Button';
-import Badge from '../../../src/shared/components/ui/Badge';
-import Tabs from '../../../src/shared/components/ui/Tabs';
-import Table from '../../../src/shared/components/ui/Table';
+import { useAuth } from '../../../shared/auth/AuthProvider';
+import DashboardLayout from '../../../shared/layouts/DashboardLayout';
+import { getMenuForRole } from '../../../shared/layouts/sidebarConfig';
+import PageHeader from '../../../shared/components/ui/PageHeader';
+import Card from '../../../shared/components/ui/Card';
+import Button from '../../../shared/components/ui/Button';
+import Badge from '../../../shared/components/ui/Badge';
+import Tabs from '../../../shared/components/ui/Tabs';
+import Table from '../../../shared/components/ui/Table';
 
-import UniversityManagement from '../../../src/modules/system-admin/pages/UniversityManagement';
-import UniversityAdministrators from '../../../src/modules/system-admin/pages/UniversityAdministrators';
-import PlatformUsers from '../../../src/modules/system-admin/pages/PlatformUsers';
-import RolesPermissions from '../../../src/modules/system-admin/pages/RolesPermissions';
-import SubscriptionManagement from '../../../src/modules/system-admin/pages/SubscriptionManagement';
-import BillingPayments from '../../../src/modules/system-admin/pages/BillingPayments';
-import ReportsAnalytics from '../../../src/modules/system-admin/pages/ReportsAnalytics';
-import Monitoring from '../../../src/modules/system-admin/pages/Monitoring';
-import AuditLogs from '../../../src/modules/system-admin/pages/AuditLogs';
-import SecurityCenter from '../../../src/modules/system-admin/pages/SecurityCenter';
-import SystemNotifications from '../../../src/modules/system-admin/pages/Notifications';
-import Backups from '../../../src/modules/system-admin/pages/Backups';
-import GlobalSettings from '../../../src/modules/system-admin/pages/GlobalSettings';
-import Integrations from '../../../src/modules/system-admin/pages/Integrations';
-import HelpDocumentation from '../../../src/modules/system-admin/pages/HelpDocumentation';
-import Profile from '../../../src/modules/system-admin/pages/Profile';
-import Logout from '../../../src/modules/system-admin/pages/Logout';
+import UniversityManagement from '../../../modules/system-admin/pages/UniversityManagement';
+import UniversityAdministrators from '../../../modules/system-admin/pages/UniversityAdministrators';
+import PlatformUsers from '../../../modules/system-admin/pages/PlatformUsers';
+import RolesPermissions from '../../../modules/system-admin/pages/RolesPermissions';
+import SubscriptionManagement from '../../../modules/system-admin/pages/SubscriptionManagement';
+import BillingPayments from '../../../modules/system-admin/pages/BillingPayments';
+import ReportsAnalytics from '../../../modules/system-admin/pages/ReportsAnalytics';
+import Monitoring from '../../../modules/system-admin/pages/Monitoring';
+import AuditLogs from '../../../modules/system-admin/pages/AuditLogs';
+import SecurityCenter from '../../../modules/system-admin/pages/SecurityCenter';
+import SystemNotifications from '../../../modules/system-admin/pages/Notifications';
+import Backups from '../../../modules/system-admin/pages/Backups';
+import GlobalSettings from '../../../modules/system-admin/pages/GlobalSettings';
+import Integrations from '../../../modules/system-admin/pages/Integrations';
+import HelpDocumentation from '../../../modules/system-admin/pages/HelpDocumentation';
+import Profile from '../../../modules/system-admin/pages/Profile';
+import Logout from '../../../modules/system-admin/pages/Logout';
 
-import UniversityAdminFacultyManagement from '../../../src/modules/university-admin/pages/FacultyManagement';
-import UniversityAdminDepartmentManagement from '../../../src/modules/university-admin/pages/DepartmentManagement';
-import UniversityAdminProgrammeManagement from '../../../src/modules/university-admin/pages/ProgrammeManagement';
-import UniversityAdminCourseManagement from '../../../src/modules/university-admin/pages/CourseManagement';
-import UniversityAdminAcademicSessions from '../../../src/modules/university-admin/pages/AcademicSessions';
-import UniversityAdminSemesters from '../../../src/modules/university-admin/pages/Semesters';
-import UniversityAdminLevels from '../../../src/modules/university-admin/pages/Levels';
-import UniversityAdminStudentManagement from '../../../src/modules/university-admin/pages/StudentManagement';
-import UniversityAdminStaffManagement from '../../../src/modules/university-admin/pages/StaffManagement';
-import UniversityAdminUserManagement from '../../../src/modules/university-admin/pages/UserManagement';
-import UniversityAdminRoleManagement from '../../../src/modules/university-admin/pages/RoleManagement';
-import UniversityAdminCourseRegistration from '../../../src/modules/university-admin/pages/CourseRegistration';
-import UniversityAdminAssessmentManagement from '../../../src/modules/university-admin/pages/AssessmentManagement';
-import UniversityAdminResultManagement from '../../../src/modules/university-admin/pages/ResultManagement';
-import UniversityAdminResultApprovalWorkflow from '../../../src/modules/university-admin/pages/ResultApprovalWorkflow';
-import UniversityAdminTranscriptManagement from '../../../src/modules/university-admin/pages/TranscriptManagement';
-import UniversityAdminGraduationManagement from '../../../src/modules/university-admin/pages/GraduationManagement';
-import UniversityAdminReports from '../../../src/modules/university-admin/pages/Reports';
-import UniversityAdminDocuments from '../../../src/modules/university-admin/pages/Documents';
-import UniversityAdminCommunication from '../../../src/modules/university-admin/pages/Communication';
-import UniversityAdminNotifications from '../../../src/modules/university-admin/pages/Notifications';
-import UniversityAdminUniversitySettings from '../../../src/modules/university-admin/pages/UniversitySettings';
-import UniversityAdminAuditLogs from '../../../src/modules/university-admin/pages/AuditLogs';
-import UniversityAdminProfile from '../../../src/modules/university-admin/pages/Profile';
-import UniversityAdminLogout from '../../../src/modules/university-admin/pages/Logout';
+import UniversityAdminFacultyManagement from '../../../modules/university-admin/pages/FacultyManagement';
+import UniversityAdminDepartmentManagement from '../../../modules/university-admin/pages/DepartmentManagement';
+import UniversityAdminProgrammeManagement from '../../../modules/university-admin/pages/ProgrammeManagement';
+import UniversityAdminCourseManagement from '../../../modules/university-admin/pages/CourseManagement';
+import UniversityAdminAcademicSessions from '../../../modules/university-admin/pages/AcademicSessions';
+import UniversityAdminSemesters from '../../../modules/university-admin/pages/Semesters';
+import UniversityAdminLevels from '../../../modules/university-admin/pages/Levels';
+import UniversityAdminStudentManagement from '../../../modules/university-admin/pages/StudentManagement';
+import UniversityAdminStaffManagement from '../../../modules/university-admin/pages/StaffManagement';
+import UniversityAdminUserManagement from '../../../modules/university-admin/pages/UserManagement';
+import UniversityAdminRoleManagement from '../../../modules/university-admin/pages/RoleManagement';
+import UniversityAdminCourseRegistration from '../../../modules/university-admin/pages/CourseRegistration';
+import UniversityAdminAssessmentManagement from '../../../modules/university-admin/pages/AssessmentManagement';
+import UniversityAdminResultManagement from '../../../modules/university-admin/pages/ResultManagement';
+import UniversityAdminResultApprovalWorkflow from '../../../modules/university-admin/pages/ResultApprovalWorkflow';
+import UniversityAdminTranscriptManagement from '../../../modules/university-admin/pages/TranscriptManagement';
+import UniversityAdminGraduationManagement from '../../../modules/university-admin/pages/GraduationManagement';
+import UniversityAdminReports from '../../../modules/university-admin/pages/Reports';
+import UniversityAdminDocuments from '../../../modules/university-admin/pages/Documents';
+import UniversityAdminCommunication from '../../../modules/university-admin/pages/Communication';
+import UniversityAdminNotifications from '../../../modules/university-admin/pages/Notifications';
+import UniversityAdminUniversitySettings from '../../../modules/university-admin/pages/UniversitySettings';
+import UniversityAdminAuditLogs from '../../../modules/university-admin/pages/AuditLogs';
+import UniversityAdminProfile from '../../../modules/university-admin/pages/Profile';
+import UniversityAdminLogout from '../../../modules/university-admin/pages/Logout';
 
 import {
   DeanDashboard,
@@ -71,7 +71,7 @@ import {
   DeanNotifications,
   DeanProfile,
   DeanLogout,
-} from '../../../src/modules/dean/pages';
+} from '../../../modules/dean/pages';
 
 import {
   LecturerDashboard,
@@ -87,7 +87,7 @@ import {
   Notifications as LecturerNotifications,
   Profile as LecturerProfile,
   Logout as LecturerLogout,
-} from '../../../src/modules/lecturer/pages';
+} from '../../../modules/lecturer/pages';
 
 import {
   HodDashboard,
@@ -104,22 +104,22 @@ import {
   Notifications as HodNotifications,
   Profile as HodProfile,
   Logout as HodLogout,
-} from '../../../src/modules/hod/pages';
+} from '../../../modules/hod/pages';
 
-import ExaminationOfficerDashboard from '../../../src/modules/examination-officer/pages/Dashboard';
-import AcademicRecords from '../../../src/modules/examination-officer/pages/AcademicRecords';
-import ExamOfficerAuditLogs from '../../../src/modules/examination-officer/pages/AuditLogs';
-import ExamOfficerCommunication from '../../../src/modules/examination-officer/pages/Communication';
-import ExamOfficerNotifications from '../../../src/modules/examination-officer/pages/Notifications';
-import ResultCorrections from '../../../src/modules/examination-officer/pages/ResultCorrections';
-import ResultProcessing from '../../../src/modules/examination-officer/pages/ResultProcessing';
-import ResultPublication from '../../../src/modules/examination-officer/pages/ResultPublication';
-import TranscriptRequests from '../../../src/modules/examination-officer/pages/TranscriptRequests';
-import ResultVerification from '../../../src/modules/examination-officer/pages/ResultVerification';
-import ExamOfficerReports from '../../../src/modules/examination-officer/pages/Reports';
-import GraduationClearance from '../../../src/modules/examination-officer/pages/GraduationClearance';
-import ExamOfficerProfile from '../../../src/modules/examination-officer/pages/Profile';
-import ExamOfficerLogout from '../../../src/modules/examination-officer/pages/Logout';
+import ExaminationOfficerDashboard from '../../../modules/examination-officer/pages/Dashboard';
+import AcademicRecords from '../../../modules/examination-officer/pages/AcademicRecords';
+import ExamOfficerAuditLogs from '../../../modules/examination-officer/pages/AuditLogs';
+import ExamOfficerCommunication from '../../../modules/examination-officer/pages/Communication';
+import ExamOfficerNotifications from '../../../modules/examination-officer/pages/Notifications';
+import ResultCorrections from '../../../modules/examination-officer/pages/ResultCorrections';
+import ResultProcessing from '../../../modules/examination-officer/pages/ResultProcessing';
+import ResultPublication from '../../../modules/examination-officer/pages/ResultPublication';
+import TranscriptRequests from '../../../modules/examination-officer/pages/TranscriptRequests';
+import ResultVerification from '../../../modules/examination-officer/pages/ResultVerification';
+import ExamOfficerReports from '../../../modules/examination-officer/pages/Reports';
+import GraduationClearance from '../../../modules/examination-officer/pages/GraduationClearance';
+import ExamOfficerProfile from '../../../modules/examination-officer/pages/Profile';
+import ExamOfficerLogout from '../../../modules/examination-officer/pages/Logout';
 
 import {
   StudentDashboard,
@@ -136,7 +136,7 @@ Results as StudentResults,
   Support,
   ProfileSettings,
   Logout as StudentLogout,
-} from '../../../src/modules/student/pages';
+} from '../../../modules/student/pages';
 
 const sectionMeta: Record<string, { title: string; description: string }> = {
   dashboard: { title: 'Dashboard Overview', description: 'Overview of the current academic workspace.' },
@@ -481,3 +481,4 @@ if ((normalizedRole === 'EXAM_OFFICER' || normalizedRole === 'EXAMINATION_OFFICE
     </DashboardLayout>
   );
 }
+

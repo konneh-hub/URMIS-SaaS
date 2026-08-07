@@ -1,23 +1,23 @@
-"use client";
+﻿"use client";
 
 import React, { useState } from 'react';
-import { useAuth } from '../../src/shared/auth/AuthProvider';
-import ProtectedRoute from '../../src/shared/auth/ProtectedRoute';
-import DashboardLayout from '../../src/shared/layouts/DashboardLayout';
-import PermissionGuard from '../../src/shared/guards/PermissionGuard';
-import SystemAdminWidgets from '../../src/modules/dashboard/components/SystemAdminWidgets';
-import UniversityAdminWidgets from '../../src/modules/dashboard/components/UniversityAdminWidgets';
-import LecturerWidgets from '../../src/modules/dashboard/components/LecturerWidgets';
-import StudentWidgets from '../../src/modules/dashboard/components/StudentWidgets';
-import { getLayoutConfig } from '../../src/shared/layoutConfig';
-import PageHeader from '../../src/shared/components/ui/PageHeader';
-import Card from '../../src/shared/components/ui/Card';
-import Button from '../../src/shared/components/ui/Button';
-import Badge from '../../src/shared/components/ui/Badge';
-import Dialog from '../../src/shared/components/ui/Dialog';
-import Tabs from '../../src/shared/components/ui/Tabs';
-import Table from '../../src/shared/components/ui/Table';
-import NotificationPanel from '../../src/shared/components/ui/NotificationPanel';
+import { useAuth } from '../../shared/auth/AuthProvider';
+import ProtectedRoute from '../../shared/auth/ProtectedRoute';
+import DashboardLayout from '../../shared/layouts/DashboardLayout';
+import PermissionGuard from '../../shared/guards/PermissionGuard';
+import SystemAdminWidgets from '../../modules/dashboard/components/SystemAdminWidgets';
+import UniversityAdminWidgets from '../../modules/dashboard/components/UniversityAdminWidgets';
+import LecturerWidgets from '../../modules/dashboard/components/LecturerWidgets';
+import StudentWidgets from '../../modules/dashboard/components/StudentWidgets';
+import { getLayoutConfig } from '../../shared/layoutConfig';
+import PageHeader from '../../shared/components/ui/PageHeader';
+import Card from '../../shared/components/ui/Card';
+import Button from '../../shared/components/ui/Button';
+import Badge from '../../shared/components/ui/Badge';
+import Dialog from '../../shared/components/ui/Dialog';
+import Tabs from '../../shared/components/ui/Tabs';
+import Table from '../../shared/components/ui/Table';
+import NotificationPanel from '../../shared/components/ui/NotificationPanel';
 
 export default function DashboardPage() {
   const { user } = useAuth() as {
@@ -36,7 +36,7 @@ export default function DashboardPage() {
           <PageHeader
             eyebrow="URMIS Dashboard"
             title={`Welcome back, ${user?.name || 'User'}`}
-            description={`Role: ${role} · Institution: ${user?.institution_id || 'N/A'}`}
+            description={`Role: ${role} ┬╖ Institution: ${user?.institution_id || 'N/A'}`}
             badge={<Badge tone="info">{role.replace(/_/g, ' ')}</Badge>}
             actions={(
               <Button variant="secondary" size="sm" onClick={() => setIsHelpOpen(true)}>
@@ -159,3 +159,4 @@ export default function DashboardPage() {
     </ProtectedRoute>
   );
 }
+
