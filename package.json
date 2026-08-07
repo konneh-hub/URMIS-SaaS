@@ -13,9 +13,9 @@
     "prisma:generate": "prisma generate",
     "prisma:fix": "node ./scripts/prisma-fix.js"
   },
-  "postinstall": "npm run prisma:generate && npm run prisma:fix",
+  "postinstall": "echo skip",
   "dependencies": {
-    "@prisma/client": "^7.9.1",
+    "@prisma/client": "^4.16.2",
     "@prisma/adapter-pg": "^7.9.1",
     "@tailwindcss/forms": "^0.5.11",
     "@tailwindcss/typography": "^0.5.20",
@@ -48,7 +48,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.3.0",
-    "prisma": "^7.9.1",
+    "prisma": "^4.16.2",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

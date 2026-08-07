@@ -1,0 +1,1666 @@
+{
+  "frontend": {
+    "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/src/modules/dean/pages/index.js": [
+      "${API_BASE}/api/admin/platform/results/${id}/approve"
+    ],
+    "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/src/auth/pages/Login.jsx": [
+      "${base}/api/auth/login"
+    ],
+    "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/src/auth/pages/Register.jsx": [
+      "${API_BASE}/api/auth${endpoint}",
+      "${API_BASE}/api/institutions"
+    ],
+    "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/src/modules/examination-officer/pages/AcademicRecords.jsx": [
+      "${API_BASE}/api/admin/platform/results"
+    ],
+    "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/src/modules/examination-officer/pages/AuditLogs.jsx": [
+      "${API_BASE}/api/admin/platform/graduation-clearances",
+      "${API_BASE}/api/admin/platform/results",
+      "${API_BASE}/api/admin/platform/transcript-requests"
+    ],
+    "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/src/modules/examination-officer/pages/Communication.jsx": [
+      "${API_BASE}/api/admin/platform/notifications"
+    ],
+    "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/src/modules/examination-officer/pages/GraduationClearance.jsx": [
+      "${API_BASE}/api/admin/platform/graduation-clearances",
+      "${API_BASE}/api/admin/platform/graduation-lists"
+    ],
+    "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/src/modules/examination-officer/pages/Notifications.jsx": [
+      "${API_BASE}/api/admin/platform/notifications"
+    ],
+    "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/src/modules/examination-officer/pages/ResultCorrections.jsx": [
+      "${API_BASE}/api/admin/platform/results",
+      "${API_BASE}/api/admin/platform/results/${id}/correct"
+    ],
+    "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/src/modules/examination-officer/pages/ResultProcessing.jsx": [
+      "${API_BASE}/api/admin/platform/results",
+      "${API_BASE}/api/admin/platform/results/${id}/approve",
+      "${API_BASE}/api/admin/platform/results/${id}/publish"
+    ],
+    "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/src/modules/examination-officer/pages/ResultPublication.jsx": [
+      "${API_BASE}/api/admin/platform/results",
+      "${API_BASE}/api/admin/platform/results/${id}/publish"
+    ],
+    "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/src/modules/examination-officer/pages/ResultVerification.jsx": [
+      "${API_BASE}/api/admin/platform/results",
+      "${API_BASE}/api/admin/platform/results/${id}/approve"
+    ],
+    "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/src/modules/examination-officer/pages/TranscriptRequests.jsx": [
+      "${API_BASE}/api/admin/platform/transcript-requests",
+      "${API_BASE}/api/admin/platform/transcript-requests/${id}/${action}"
+    ],
+    "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/src/modules/hod/pages/AssessmentReview.jsx": [
+      "${API_BASE}/api/admin/platform/assessments"
+    ],
+    "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/src/modules/hod/pages/Communication.jsx": [
+      "${API_BASE}/api/admin/platform/notifications"
+    ],
+    "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/src/modules/hod/pages/CourseAllocation.jsx": [
+      "${API_BASE}/api/admin/academic/allocations"
+    ],
+    "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/src/modules/hod/pages/Courses.jsx": [
+      "${API_BASE}/api/admin/academic/curricula",
+      "${API_BASE}/api/admin/academic/programmes"
+    ],
+    "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/src/modules/hod/pages/Dashboard.jsx": [
+      "${API_BASE}/api/admin/academic/curricula",
+      "${API_BASE}/api/admin/platform/assessments",
+      "${API_BASE}/api/admin/platform/results",
+      "${API_BASE}/api/admin/staff",
+      "${API_BASE}/api/admin/students"
+    ],
+    "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/src/modules/hod/pages/DepartmentOverview.jsx": [
+      "${API_BASE}/api/admin/academic/departments"
+    ],
+    "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/src/modules/hod/pages/DepartmentReports.jsx": [
+      "${API_BASE}/api/admin/platform/reports/academic",
+      "${API_BASE}/api/admin/platform/results"
+    ],
+    "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/src/modules/hod/pages/Lecturers.jsx": [
+      "${API_BASE}/api/admin/staff"
+    ],
+    "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/src/modules/hod/pages/Notifications.jsx": [
+      "${API_BASE}/api/admin/platform/notifications"
+    ],
+    "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/src/modules/hod/pages/ResultApproval.jsx": [
+      "${API_BASE}/api/admin/platform/results",
+      "${API_BASE}/api/admin/platform/results/${id}/approve"
+    ],
+    "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/src/modules/hod/pages/ResultVerification.jsx": [
+      "${API_BASE}/api/admin/platform/results",
+      "${API_BASE}/api/admin/platform/results/${id}/approve"
+    ],
+    "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/src/modules/hod/pages/Students.jsx": [
+      "${API_BASE}/api/admin/students"
+    ],
+    "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/src/modules/lecturer/pages/AssessmentManagement.jsx": [
+      "${API_BASE}/api/admin/platform/assessment-types",
+      "${API_BASE}/api/admin/platform/assessments"
+    ],
+    "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/src/modules/lecturer/pages/Attendance.jsx": [
+      "${API_BASE}/api/admin/students"
+    ],
+    "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/src/modules/lecturer/pages/Communication.jsx": [
+      "${API_BASE}/api/admin/platform/notifications"
+    ],
+    "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/src/modules/lecturer/pages/CourseAllocation.jsx": [
+      "${API_BASE}/api/admin/academic/allocations",
+      "${API_BASE}/api/admin/staff"
+    ],
+    "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/src/modules/lecturer/pages/Dashboard.jsx": [
+      "${API_BASE}/api/admin/staff",
+      "${API_BASE}/api/admin/staff/${current.id}/assignments",
+      "${API_BASE}/api/admin/students"
+    ],
+    "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/src/modules/lecturer/pages/MyCourses.jsx": [
+      "${API_BASE}/api/admin/staff",
+      "${API_BASE}/api/admin/staff/${current.id}/assignments"
+    ],
+    "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/src/modules/lecturer/pages/Notifications.jsx": [
+      "${API_BASE}/api/admin/platform/notifications"
+    ],
+    "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/src/modules/lecturer/pages/Reports.jsx": [
+      "${API_BASE}/api/admin/platform/results",
+      "${API_BASE}/api/admin/staff",
+      "${API_BASE}/api/admin/staff/${current.id}/assignments"
+    ],
+    "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/src/modules/lecturer/pages/ResultSubmission.jsx": [
+      "${API_BASE}/api/admin/platform/results",
+      "${API_BASE}/api/admin/platform/results/${id}/approve"
+    ],
+    "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/src/modules/lecturer/pages/ScoreEntry.jsx": [
+      "${API_BASE}/api/admin/platform/assessments",
+      "${API_BASE}/api/admin/students"
+    ],
+    "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/src/modules/lecturer/pages/StudentLists.jsx": [
+      "${API_BASE}/api/admin/students"
+    ],
+    "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/src/modules/student/pages/AcademicHistory.jsx": [
+      "${API_BASE}/api/institution/student/academic-history"
+    ],
+    "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/src/modules/student/pages/Assessments.jsx": [
+      "${API_BASE}/api/institution/student/assessments"
+    ],
+    "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/src/modules/student/pages/CourseRegistration.jsx": [
+      "${API_BASE}/api/institution/student/courses/${courseId}",
+      "${API_BASE}/api/student/courses",
+      "${API_BASE}/api/student/registered-courses"
+    ],
+    "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/src/modules/student/pages/Dashboard.jsx": [
+      "${API_BASE}/api/student/notifications",
+      "${API_BASE}/api/student/registered-courses",
+      "${API_BASE}/api/student/results"
+    ],
+    "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/src/modules/student/pages/Documents.jsx": [
+      "${API_BASE}/api/institution/student/documents"
+    ],
+    "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/src/modules/student/pages/FeeStatus.jsx": [
+      "${API_BASE}/api/institution/student/fees"
+    ],
+    "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/src/modules/student/pages/MyProfile.jsx": [
+      "${API_BASE}/api/student/profile"
+    ],
+    "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/src/modules/student/pages/Notifications.jsx": [
+      "${API_BASE}/api/admin/platform/notifications"
+    ],
+    "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/src/modules/student/pages/ProfileSettings.jsx": [
+      "${API_BASE}/api/auth/change-password",
+      "${API_BASE}/api/auth/profile"
+    ],
+    "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/src/modules/student/pages/RegisteredCourses.jsx": [
+      "${API_BASE}/api/institution/student/courses"
+    ],
+    "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/src/modules/student/pages/Results.jsx": [
+      "${API_BASE}/api/institution/student/results"
+    ],
+    "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/src/modules/student/pages/Support.jsx": [
+      "${API_BASE}/api/institution/student/support-tickets"
+    ],
+    "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/src/modules/student/pages/TranscriptRequests.jsx": [
+      "${API_BASE}/api/institution/student/transcript-requests"
+    ],
+    "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/src/modules/system-admin/pages/AuditLogs.jsx": [
+      "${API_BASE}/api/admin/users",
+      "${API_BASE}/api/institutions"
+    ],
+    "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/src/modules/system-admin/pages/Backups.jsx": [
+      "${API_BASE}/api/institutions",
+      "${API_BASE}/api/institutions/${institutionId}/backups"
+    ],
+    "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/src/modules/system-admin/pages/BillingPayments.jsx": [
+      "${API_BASE}/api/admin/platform/invoices",
+      "${API_BASE}/api/admin/platform/payments"
+    ],
+    "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/src/modules/system-admin/pages/CreateInstitution.jsx": [
+      "${API_BASE}/api/institutions"
+    ],
+    "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/src/modules/system-admin/pages/Dashboard.jsx": [
+      "${API_BASE}/api/admin/users",
+      "${API_BASE}/api/institutions"
+    ],
+    "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/src/modules/system-admin/pages/GlobalSettings.jsx": [
+      "${API_BASE}/api/institutions",
+      "${API_BASE}/api/institutions/${inst.id}/settings"
+    ],
+    "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/src/modules/system-admin/pages/Institutions.jsx": [
+      "${API_BASE}/api/institutions"
+    ],
+    "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/src/modules/system-admin/pages/Monitoring.jsx": [
+      "${API_BASE}/api/admin/platform/health-checks"
+    ],
+    "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/src/modules/system-admin/pages/Notifications.jsx": [
+      "${API_BASE}/api/admin/platform/notification-templates",
+      "${API_BASE}/api/admin/platform/notifications"
+    ],
+    "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/src/modules/system-admin/pages/PlatformUsers.jsx": [
+      "${API_BASE}/api/admin/users",
+      "${API_BASE}/api/admin/users/${user.id}/active",
+      "${API_BASE}/api/admin/users/${user.id}/reset-password"
+    ],
+    "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/src/modules/system-admin/pages/Reports.jsx": [
+      "${API_BASE}/api/admin/platform/reports/academic",
+      "${API_BASE}/api/institutions"
+    ],
+    "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/src/modules/system-admin/pages/ReportsAnalytics.jsx": [
+      "${API_BASE}/api/admin/platform/reports/academic",
+      "${API_BASE}/api/institutions"
+    ],
+    "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/src/modules/system-admin/pages/RolesPermissions.jsx": [
+      "${API_BASE}/api/admin/rbac/permissions",
+      "${API_BASE}/api/admin/rbac/roles"
+    ],
+    "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/src/modules/system-admin/pages/SecurityCenter.jsx": [
+      "${API_BASE}/api/admin/platform/security-alerts",
+      "${API_BASE}/api/admin/platform/security-alerts/${id}/resolve",
+      "${API_BASE}/api/admin/platform/sessions",
+      "${API_BASE}/api/admin/platform/sessions/${id}"
+    ],
+    "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/src/modules/system-admin/pages/SubscriptionManagement.jsx": [
+      "${API_BASE}/api/admin/platform/coupons",
+      "${API_BASE}/api/admin/platform/plans"
+    ],
+    "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/src/modules/system-admin/pages/UniversityAdministrators.jsx": [
+      "${API_BASE}/api/admin/university-admins",
+      "${API_BASE}/api/admin/university-admins/${admin.id}/${action}",
+      "${API_BASE}/api/institutions"
+    ],
+    "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/src/modules/system-admin/pages/UniversityManagement.jsx": [
+      "${API_BASE}/api/institutions",
+      "${API_BASE}/api/institutions/${id}/status"
+    ],
+    "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/src/modules/system-admin/pages/Users.jsx": [
+      "${API_BASE}/api/admin/users"
+    ],
+    "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/src/modules/university-admin/pages/AcademicSessions.jsx": [
+      "${API_BASE}/api/admin/academic/sessions"
+    ],
+    "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/src/modules/university-admin/pages/AssessmentManagement.jsx": [
+      "${API_BASE}/api/admin/platform/assessment-types",
+      "${API_BASE}/api/admin/platform/assessments"
+    ],
+    "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/src/modules/university-admin/pages/AuditLogs.jsx": [
+      "${API_BASE}/api/institutions",
+      "${API_BASE}/api/institutions/${inst.id}/audit-logs"
+    ],
+    "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/src/modules/university-admin/pages/Communication.jsx": [
+      "${API_BASE}/api/admin/platform/notification-templates",
+      "${API_BASE}/api/admin/platform/notifications"
+    ],
+    "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/src/modules/university-admin/pages/CourseManagement.jsx": [
+      "${API_BASE}/api/admin/academic/curricula",
+      "${API_BASE}/api/admin/academic/programmes"
+    ],
+    "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/src/modules/university-admin/pages/CourseRegistration.jsx": [
+      "${API_BASE}/api/admin/platform/registration-windows",
+      "${API_BASE}/api/admin/platform/registration-windows/${id}/${status}"
+    ],
+    "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/src/modules/university-admin/pages/Dashboard.jsx": [
+      "${API_BASE}/api/admin/academic/faculties",
+      "${API_BASE}/api/admin/platform/results",
+      "${API_BASE}/api/admin/staff",
+      "${API_BASE}/api/admin/students"
+    ],
+    "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/src/modules/university-admin/pages/DepartmentManagement.jsx": [
+      "${API_BASE}/api/admin/academic/departments",
+      "${API_BASE}/api/admin/academic/faculties"
+    ],
+    "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/src/modules/university-admin/pages/Documents.jsx": [
+      "${API_BASE}/api/admin/students"
+    ],
+    "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/src/modules/university-admin/pages/FacultyManagement.jsx": [
+      "${API_BASE}/api/admin/academic/faculties"
+    ],
+    "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/src/modules/university-admin/pages/GraduationManagement.jsx": [
+      "${API_BASE}/api/admin/platform/graduation-clearances",
+      "${API_BASE}/api/admin/platform/graduation-lists"
+    ],
+    "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/src/modules/university-admin/pages/Levels.jsx": [
+      "${API_BASE}/api/admin/academic/levels"
+    ],
+    "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/src/modules/university-admin/pages/Notifications.jsx": [
+      "${API_BASE}/api/admin/platform/notification-templates",
+      "${API_BASE}/api/admin/platform/notifications"
+    ],
+    "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/src/modules/university-admin/pages/ProgrammeManagement.jsx": [
+      "${API_BASE}/api/admin/academic/departments",
+      "${API_BASE}/api/admin/academic/faculties",
+      "${API_BASE}/api/admin/academic/levels",
+      "${API_BASE}/api/admin/academic/programmes"
+    ],
+    "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/src/modules/university-admin/pages/Reports.jsx": [
+      "${API_BASE}/api/admin/platform/reports/academic",
+      "${API_BASE}/api/admin/platform/reports/results"
+    ],
+    "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/src/modules/university-admin/pages/ResultApprovalWorkflow.jsx": [
+      "${API_BASE}/api/admin/platform/results",
+      "${API_BASE}/api/admin/platform/results/${id}/${action}"
+    ],
+    "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/src/modules/university-admin/pages/ResultManagement.jsx": [
+      "${API_BASE}/api/admin/platform/results"
+    ],
+    "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/src/modules/university-admin/pages/RoleManagement.jsx": [
+      "${API_BASE}/api/admin/rbac/permissions",
+      "${API_BASE}/api/admin/rbac/roles"
+    ],
+    "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/src/modules/university-admin/pages/Semesters.jsx": [
+      "${API_BASE}/api/admin/academic/curricula",
+      "${API_BASE}/api/admin/academic/sessions"
+    ],
+    "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/src/modules/university-admin/pages/StaffManagement.jsx": [
+      "${API_BASE}/api/admin/academic/departments",
+      "${API_BASE}/api/admin/staff"
+    ],
+    "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/src/modules/university-admin/pages/StudentManagement.jsx": [
+      "${API_BASE}/api/admin/academic/departments",
+      "${API_BASE}/api/admin/students"
+    ],
+    "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/src/modules/university-admin/pages/TranscriptManagement.jsx": [
+      "${API_BASE}/api/admin/platform/transcript-requests",
+      "${API_BASE}/api/admin/platform/transcript-requests/${id}/${action}"
+    ],
+    "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/src/modules/university-admin/pages/UniversitySettings.jsx": [
+      "${API_BASE}/api/institutions",
+      "${API_BASE}/api/institutions/${institutionId}/settings"
+    ],
+    "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/src/modules/university-admin/pages/UserManagement.jsx": [
+      "${API_BASE}/api/admin/users",
+      "${API_BASE}/api/admin/users/${user.id}/active"
+    ],
+    "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/src/shared/auth/AuthProvider.jsx": [
+      "${base}/api/auth/logout",
+      "${base}/api/auth/me"
+    ]
+  },
+  "backend": [
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/academic.routes.js",
+      "line": 34,
+      "text": "router.get('/faculties', ctrl.listFaculties);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/academic.routes.js",
+      "line": 35,
+      "text": "router.post('/faculties', createFacultyValidation, requestValidator, ctrl.createFaculty);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/academic.routes.js",
+      "line": 36,
+      "text": "router.put('/faculties/:facultyId', facultyIdParam, updateFacultyValidation, requestValidator, ctrl.updateFaculty);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/academic.routes.js",
+      "line": 37,
+      "text": "router.delete('/faculties/:facultyId', facultyIdParam, requestValidator, ctrl.deleteFaculty);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/academic.routes.js",
+      "line": 40,
+      "text": "router.get('/departments', ctrl.listDepartments);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/academic.routes.js",
+      "line": 41,
+      "text": "router.post('/departments', createDepartmentValidation, requestValidator, ctrl.createDepartment);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/academic.routes.js",
+      "line": 42,
+      "text": "router.put('/departments/:departmentId', departmentIdParam, updateDepartmentValidation, requestValidator, ctrl.updateDepartment);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/academic.routes.js",
+      "line": 43,
+      "text": "router.delete('/departments/:departmentId', departmentIdParam, requestValidator, ctrl.deleteDepartment);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/academic.routes.js",
+      "line": 46,
+      "text": "router.get('/levels', ctrl.listLevels);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/academic.routes.js",
+      "line": 47,
+      "text": "router.post('/levels', createLevelValidation, requestValidator, ctrl.createLevel);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/academic.routes.js",
+      "line": 48,
+      "text": "router.put('/levels/:levelId', levelIdParam, updateLevelValidation, requestValidator, ctrl.updateLevel);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/academic.routes.js",
+      "line": 49,
+      "text": "router.delete('/levels/:levelId', levelIdParam, requestValidator, ctrl.deleteLevel);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/academic.routes.js",
+      "line": 52,
+      "text": "router.get('/programmes', ctrl.listProgrammes);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/academic.routes.js",
+      "line": 53,
+      "text": "router.post('/programmes', createProgrammeValidation, requestValidator, ctrl.createProgramme);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/academic.routes.js",
+      "line": 54,
+      "text": "router.put('/programmes/:programmeId', programmeIdParam, updateProgrammeValidation, requestValidator, ctrl.updateProgramme);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/academic.routes.js",
+      "line": 55,
+      "text": "router.delete('/programmes/:programmeId', programmeIdParam, requestValidator, ctrl.deleteProgramme);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/academic.routes.js",
+      "line": 58,
+      "text": "router.get('/sessions', ctrl.listAcademicSessions);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/academic.routes.js",
+      "line": 59,
+      "text": "router.post('/sessions', createAcademicSessionValidation, requestValidator, ctrl.createAcademicSession);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/academic.routes.js",
+      "line": 60,
+      "text": "router.put('/sessions/:sessionId', sessionIdParam, updateAcademicSessionValidation, requestValidator, ctrl.updateAcademicSession);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/academic.routes.js",
+      "line": 61,
+      "text": "router.delete('/sessions/:sessionId', sessionIdParam, requestValidator, ctrl.deleteAcademicSession);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/academic.routes.js",
+      "line": 64,
+      "text": "router.get('/curricula', ctrl.listCurricula);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/academic.routes.js",
+      "line": 65,
+      "text": "router.post('/curricula', createCurriculumValidation, requestValidator, ctrl.createCurriculum);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/academic.routes.js",
+      "line": 66,
+      "text": "router.put('/curricula/:curriculumId', curriculumIdParam, updateCurriculumValidation, requestValidator, ctrl.updateCurriculum);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/academic.routes.js",
+      "line": 67,
+      "text": "router.delete('/curricula/:curriculumId', curriculumIdParam, requestValidator, ctrl.deleteCurriculum);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/academic.routes.js",
+      "line": 70,
+      "text": "router.get('/allocations', ctrl.listCourseAllocations);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/academic.routes.js",
+      "line": 71,
+      "text": "router.post('/allocations', createCourseAllocationValidation, requestValidator, ctrl.createCourseAllocation);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/academic.routes.js",
+      "line": 72,
+      "text": "router.put('/allocations/:allocationId', allocationIdParam, updateCourseAllocationValidation, requestValidator, ctrl.updateCourseAllocation);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/academic.routes.js",
+      "line": 73,
+      "text": "router.delete('/allocations/:allocationId', allocationIdParam, requestValidator, ctrl.deleteCourseAllocation);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/platform.routes.js",
+      "line": 43,
+      "text": "router.get('/assessment-types', adminOnly, ctrl.listAssessmentTypes);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/platform.routes.js",
+      "line": 44,
+      "text": "router.post('/assessment-types', adminOnly, assessmentTypeValidation, requestValidator, ctrl.createAssessmentType);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/platform.routes.js",
+      "line": 45,
+      "text": "router.put('/assessment-types/:typeId', adminOnly, assessmentTypeUpdateValidation, requestValidator, ctrl.updateAssessmentType);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/platform.routes.js",
+      "line": 46,
+      "text": "router.delete('/assessment-types/:typeId', adminOnly, ctrl.deleteAssessmentType);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/platform.routes.js",
+      "line": 48,
+      "text": "router.get('/assessments', adminOnly, ctrl.listAssessments);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/platform.routes.js",
+      "line": 49,
+      "text": "router.post('/assessments', adminOnly, assessmentValidation, requestValidator, ctrl.createAssessment);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/platform.routes.js",
+      "line": 50,
+      "text": "router.put('/assessments/:assessmentId', adminOnly, assessmentUpdateValidation, requestValidator, ctrl.updateAssessment);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/platform.routes.js",
+      "line": 51,
+      "text": "router.delete('/assessments/:assessmentId', adminOnly, ctrl.deleteAssessment);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/platform.routes.js",
+      "line": 53,
+      "text": "router.get('/assessments/:assessmentId/scores', adminOnly, ctrl.listAssessmentScores);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/platform.routes.js",
+      "line": 54,
+      "text": "router.post('/assessments/:assessmentId/scores', adminOnly, assessmentScoreValidation, requestValidator, ctrl.createAssessmentScore);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/platform.routes.js",
+      "line": 55,
+      "text": "router.put('/scores/:scoreId', adminOnly, assessmentScoreValidation, requestValidator, ctrl.updateAssessmentScore);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/platform.routes.js",
+      "line": 56,
+      "text": "router.delete('/scores/:scoreId', adminOnly, ctrl.deleteAssessmentScore);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/platform.routes.js",
+      "line": 58,
+      "text": "router.get('/registration-windows', adminOnly, ctrl.listRegistrationWindows);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/platform.routes.js",
+      "line": 59,
+      "text": "router.post('/registration-windows', adminOnly, registrationWindowValidation, requestValidator, ctrl.createRegistrationWindow);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/platform.routes.js",
+      "line": 60,
+      "text": "router.put('/registration-windows/:windowId', adminOnly, registrationWindowUpdateValidation, requestValidator, ctrl.updateRegistrationWindow);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/platform.routes.js",
+      "line": 61,
+      "text": "router.delete('/registration-windows/:windowId', adminOnly, ctrl.deleteRegistrationWindow);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/platform.routes.js",
+      "line": 62,
+      "text": "router.post('/registration-windows/:windowId/open', adminOnly, ctrl.openRegistrationWindow);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/platform.routes.js",
+      "line": 63,
+      "text": "router.post('/registration-windows/:windowId/close', adminOnly, ctrl.closeRegistrationWindow);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/platform.routes.js",
+      "line": 65,
+      "text": "router.get('/results', staffRoles, ctrl.listResults);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/platform.routes.js",
+      "line": 66,
+      "text": "router.post('/results', lecturerRoles, resultValidation, requestValidator, ctrl.createResult);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/platform.routes.js",
+      "line": 67,
+      "text": "router.put('/results/:resultId', staffRoles, resultUpdateValidation, requestValidator, ctrl.updateResult);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/platform.routes.js",
+      "line": 68,
+      "text": "router.post('/results/:resultId/approve', staffRoles, ctrl.approveResult);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/platform.routes.js",
+      "line": 69,
+      "text": "router.post('/results/:resultId/publish', publicationRoles, ctrl.publishResult);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/platform.routes.js",
+      "line": 70,
+      "text": "router.post('/results/:resultId/lock', publicationRoles, ctrl.lockResult);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/platform.routes.js",
+      "line": 71,
+      "text": "router.post('/results/:resultId/correct', staffRoles, resultUpdateValidation, requestValidator, ctrl.correctResult);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/platform.routes.js",
+      "line": 72,
+      "text": "router.get('/results/summary/:studentId/:sessionId?', staffRoles, ctrl.getAcademicSummary);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/platform.routes.js",
+      "line": 74,
+      "text": "router.get('/transcript-requests', ctrl.listTranscriptRequests);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/platform.routes.js",
+      "line": 75,
+      "text": "router.post('/transcript-requests', transcriptRequestValidation, requestValidator, ctrl.createTranscriptRequest);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/platform.routes.js",
+      "line": 76,
+      "text": "router.post('/transcript-requests/:requestId/approve', transcriptRequestIdParamValidation, requestValidator, ctrl.approveTranscriptRequest);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/platform.routes.js",
+      "line": 77,
+      "text": "router.post('/transcript-requests/:requestId/reject', transcriptRequestIdParamValidation, requestValidator, ctrl.rejectTranscriptRequest);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/platform.routes.js",
+      "line": 78,
+      "text": "router.post('/transcript-requests/:requestId/generate', transcriptRequestIdParamValidation, requestValidator, ctrl.generateTranscript);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/platform.routes.js",
+      "line": 79,
+      "text": "router.get('/transcript-requests/:requestId/verify', transcriptRequestIdParamValidation, requestValidator, ctrl.verifyTranscript);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/platform.routes.js",
+      "line": 81,
+      "text": "router.get('/graduation-clearances', ctrl.listGraduationClearances);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/platform.routes.js",
+      "line": 82,
+      "text": "router.post('/graduation-clearances', graduationClearanceValidation, requestValidator, ctrl.createGraduationClearance);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/platform.routes.js",
+      "line": 83,
+      "text": "router.put('/graduation-clearances/:clearanceId', graduationClearanceUpdateValidation, requestValidator, ctrl.updateGraduationClearance);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/platform.routes.js",
+      "line": 84,
+      "text": "router.get('/graduation-lists', ctrl.listGraduationLists);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/platform.routes.js",
+      "line": 85,
+      "text": "router.post('/graduation-lists', graduationListValidation, requestValidator, ctrl.createGraduationList);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/platform.routes.js",
+      "line": 86,
+      "text": "router.get('/certificates', ctrl.listCertificates);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/platform.routes.js",
+      "line": 87,
+      "text": "router.post('/certificates', certificateValidation, requestValidator, ctrl.createCertificate);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/platform.routes.js",
+      "line": 88,
+      "text": "router.get('/graduation-eligibility/:studentId', ctrl.calculateGraduationEligibility);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/platform.routes.js",
+      "line": 90,
+      "text": "router.get('/notification-templates', ctrl.listNotificationTemplates);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/platform.routes.js",
+      "line": 91,
+      "text": "router.post('/notification-templates', notificationTemplateValidation, requestValidator, ctrl.createNotificationTemplate);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/platform.routes.js",
+      "line": 92,
+      "text": "router.put('/notification-templates/:templateId', notificationTemplateUpdateValidation, requestValidator, ctrl.updateNotificationTemplate);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/platform.routes.js",
+      "line": 93,
+      "text": "router.delete('/notification-templates/:templateId', ctrl.deleteNotificationTemplate);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/platform.routes.js",
+      "line": 94,
+      "text": "router.get('/notifications', ctrl.listNotifications);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/platform.routes.js",
+      "line": 95,
+      "text": "router.post('/notifications', notificationValidation, requestValidator, ctrl.sendNotification);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/platform.routes.js",
+      "line": 96,
+      "text": "router.get('/scheduled-notifications', ctrl.listScheduledNotifications);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/platform.routes.js",
+      "line": 97,
+      "text": "router.post('/scheduled-notifications', scheduleNotificationValidation, requestValidator, ctrl.scheduleNotification);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/platform.routes.js",
+      "line": 99,
+      "text": "router.get('/plans', ctrl.listPlans);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/platform.routes.js",
+      "line": 100,
+      "text": "router.post('/plans', planValidation, requestValidator, ctrl.createPlan);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/platform.routes.js",
+      "line": 101,
+      "text": "router.put('/plans/:planId', planValidation, requestValidator, ctrl.updatePlan);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/platform.routes.js",
+      "line": 102,
+      "text": "router.get('/coupons', ctrl.listCoupons);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/platform.routes.js",
+      "line": 103,
+      "text": "router.post('/coupons', couponValidation, requestValidator, ctrl.createCoupon);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/platform.routes.js",
+      "line": 104,
+      "text": "router.get('/invoices', ctrl.listInvoices);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/platform.routes.js",
+      "line": 105,
+      "text": "router.post('/invoices', invoiceValidation, requestValidator, ctrl.createInvoice);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/platform.routes.js",
+      "line": 106,
+      "text": "router.get('/payments', ctrl.listPayments);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/platform.routes.js",
+      "line": 107,
+      "text": "router.post('/payments', paymentValidation, requestValidator, ctrl.createPayment);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/platform.routes.js",
+      "line": 109,
+      "text": "router.get('/health-checks', ctrl.listHealthChecks);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/platform.routes.js",
+      "line": 110,
+      "text": "router.post('/health-checks', healthCheckValidation, requestValidator, ctrl.createHealthCheck);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/platform.routes.js",
+      "line": 111,
+      "text": "router.get('/security-alerts', ctrl.listSecurityAlerts);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/platform.routes.js",
+      "line": 112,
+      "text": "router.post('/security-alerts', securityAlertValidation, requestValidator, ctrl.createSecurityAlert);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/platform.routes.js",
+      "line": 113,
+      "text": "router.post('/security-alerts/:alertId/resolve', ctrl.resolveSecurityAlert);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/platform.routes.js",
+      "line": 114,
+      "text": "router.get('/sessions', sessionQueryValidation, requestValidator, ctrl.listUserSessions);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/platform.routes.js",
+      "line": 115,
+      "text": "router.delete('/sessions/:sessionId', ctrl.revokeSession);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/platform.routes.js",
+      "line": 116,
+      "text": "router.get('/login-history', sessionQueryValidation, requestValidator, ctrl.listLoginHistory);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/platform.routes.js",
+      "line": 118,
+      "text": "router.get('/reports/academic', ctrl.getAcademicReport);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/platform.routes.js",
+      "line": 119,
+      "text": "router.get('/reports/student', ctrl.getStudentReport);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/platform.routes.js",
+      "line": 120,
+      "text": "router.get('/reports/staff', ctrl.getStaffReport);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/platform.routes.js",
+      "line": 121,
+      "text": "router.get('/reports/results', ctrl.getResultReport);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/platform.routes.js",
+      "line": 122,
+      "text": "router.get('/reports/institution', ctrl.getInstitutionReport);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/platform.routes.js",
+      "line": 123,
+      "text": "router.get('/reports/analytics', ctrl.getAnalyticsReport);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/platform.routes.js",
+      "line": 124,
+      "text": "router.get('/export/:type', reportTypeValidation, requestValidator, ctrl.exportReport);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/rbac.routes.js",
+      "line": 22,
+      "text": "router.get('/roles', ctrl.listRoles);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/rbac.routes.js",
+      "line": 23,
+      "text": "router.post('/roles', createRoleValidation, requestValidator, ctrl.createRole);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/rbac.routes.js",
+      "line": 24,
+      "text": "router.get('/roles/:roleId', roleIdParam, requestValidator, ctrl.getRole);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/rbac.routes.js",
+      "line": 25,
+      "text": "router.put('/roles/:roleId', roleIdParam, updateRoleValidation, requestValidator, ctrl.updateRole);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/rbac.routes.js",
+      "line": 26,
+      "text": "router.delete('/roles/:roleId', roleIdParam, requestValidator, ctrl.deleteRole);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/rbac.routes.js",
+      "line": 27,
+      "text": "router.post('/roles/:roleId/permissions', roleIdParam, assignPermissionToRoleValidation, requestValidator, ctrl.assignPermissionToRole);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/rbac.routes.js",
+      "line": 28,
+      "text": "router.delete('/roles/:roleId/permissions/:permissionId', roleIdParam, permissionIdParam, requestValidator, ctrl.removePermissionFromRole);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/rbac.routes.js",
+      "line": 30,
+      "text": "router.get('/permissions', ctrl.listPermissions);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/rbac.routes.js",
+      "line": 31,
+      "text": "router.post('/permissions', createPermissionValidation, requestValidator, ctrl.createPermission);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/rbac.routes.js",
+      "line": 32,
+      "text": "router.get('/permissions/:permissionId', permissionIdParam, requestValidator, ctrl.getPermission);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/rbac.routes.js",
+      "line": 33,
+      "text": "router.put('/permissions/:permissionId', permissionIdParam, updatePermissionValidation, requestValidator, ctrl.updatePermission);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/rbac.routes.js",
+      "line": 34,
+      "text": "router.delete('/permissions/:permissionId', permissionIdParam, requestValidator, ctrl.deletePermission);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/rbac.routes.js",
+      "line": 36,
+      "text": "router.post('/users/:id/roles', userIdParam, assignRoleToUserValidation, requestValidator, ctrl.assignRoleToUser);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/rbac.routes.js",
+      "line": 37,
+      "text": "router.delete('/users/:id/roles/:roleId', userIdParam, roleIdParam, requestValidator, ctrl.removeRoleFromUser);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/rbac.routes.js",
+      "line": 38,
+      "text": "router.get('/matrix', ctrl.getRoleMatrix);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/staff.routes.js",
+      "line": 19,
+      "text": "router.get('/', listStaffQuery, requestValidator, ctrl.listStaff);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/staff.routes.js",
+      "line": 20,
+      "text": "router.get('/:id', idParam, requestValidator, ctrl.getStaff);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/staff.routes.js",
+      "line": 21,
+      "text": "router.post('/', createStaffValidation, requestValidator, ctrl.createStaff);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/staff.routes.js",
+      "line": 22,
+      "text": "router.put('/:id', idParam, updateStaffValidation, requestValidator, ctrl.updateStaff);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/staff.routes.js",
+      "line": 23,
+      "text": "router.delete('/:id', idParam, requestValidator, ctrl.deleteStaff);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/staff.routes.js",
+      "line": 25,
+      "text": "router.get('/:id/assignments', idParam, requestValidator, ctrl.listStaffAssignments);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/staff.routes.js",
+      "line": 26,
+      "text": "router.post('/:id/assignments', idParam, createAssignmentValidation, requestValidator, ctrl.createStaffAssignment);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/staff.routes.js",
+      "line": 27,
+      "text": "router.put('/assignments/:assignmentId', assignmentIdParam, updateAssignmentValidation, requestValidator, ctrl.updateStaffAssignment);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/staff.routes.js",
+      "line": 28,
+      "text": "router.delete('/assignments/:assignmentId', assignmentIdParam, requestValidator, ctrl.deleteStaffAssignment);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/student.routes.js",
+      "line": 27,
+      "text": "router.get('/', studentQueryValidation, requestValidator, ctrl.listStudents);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/student.routes.js",
+      "line": 28,
+      "text": "router.get('/:studentId', studentIdParamValidation, requestValidator, ctrl.getStudent);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/student.routes.js",
+      "line": 29,
+      "text": "router.post('/', createStudentValidation, requestValidator, ctrl.createStudent);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/student.routes.js",
+      "line": 30,
+      "text": "router.put('/:studentId', studentIdParamValidation, updateStudentValidation, requestValidator, ctrl.updateStudent);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/student.routes.js",
+      "line": 31,
+      "text": "router.delete('/:studentId', studentIdParamValidation, requestValidator, ctrl.deleteStudent);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/student.routes.js",
+      "line": 33,
+      "text": "router.get('/:studentId/registrations', studentIdParamValidation, requestValidator, ctrl.listRegistrations);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/student.routes.js",
+      "line": 34,
+      "text": "router.post('/:studentId/registrations', studentIdParamValidation, registrationValidation, requestValidator, ctrl.createRegistration);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/student.routes.js",
+      "line": 35,
+      "text": "router.put('/registrations/:registrationId', registrationIdParamValidation, registrationUpdateValidation, requestValidator, ctrl.updateRegistration);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/student.routes.js",
+      "line": 36,
+      "text": "router.post('/registrations/:registrationId/approve', registrationIdParamValidation, approveRegistrationValidation, requestValidator, ctrl.approveRegistration);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/student.routes.js",
+      "line": 37,
+      "text": "router.post('/registrations/:registrationId/drop', registrationIdParamValidation, requestValidator, ctrl.dropRegistration);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/student.routes.js",
+      "line": 38,
+      "text": "router.post('/registrations/:registrationId/add', registrationIdParamValidation, registrationValidation, requestValidator, ctrl.addRegistration);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/student.routes.js",
+      "line": 40,
+      "text": "router.get('/:studentId/guardians', studentIdParamValidation, requestValidator, ctrl.listGuardians);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/student.routes.js",
+      "line": 41,
+      "text": "router.post('/:studentId/guardians', studentIdParamValidation, guardianValidation, requestValidator, ctrl.createGuardian);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/student.routes.js",
+      "line": 42,
+      "text": "router.put('/guardians/:guardianId', guardianIdParamValidation, guardianValidation, requestValidator, ctrl.updateGuardian);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/student.routes.js",
+      "line": 43,
+      "text": "router.delete('/guardians/:guardianId', guardianIdParamValidation, requestValidator, ctrl.deleteGuardian);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/student.routes.js",
+      "line": 45,
+      "text": "router.get('/:studentId/medical-records', studentIdParamValidation, requestValidator, ctrl.listMedicalRecords);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/student.routes.js",
+      "line": 46,
+      "text": "router.post('/:studentId/medical-records', studentIdParamValidation, medicalRecordValidation, requestValidator, ctrl.createMedicalRecord);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/student.routes.js",
+      "line": 47,
+      "text": "router.put('/medical-records/:medicalRecordId', medicalRecordIdParamValidation, medicalRecordValidation, requestValidator, ctrl.updateMedicalRecord);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/student.routes.js",
+      "line": 48,
+      "text": "router.delete('/medical-records/:medicalRecordId', medicalRecordIdParamValidation, requestValidator, ctrl.deleteMedicalRecord);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/student.routes.js",
+      "line": 50,
+      "text": "router.get('/:studentId/documents', studentIdParamValidation, requestValidator, ctrl.listDocuments);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/student.routes.js",
+      "line": 51,
+      "text": "router.post('/:studentId/documents', studentIdParamValidation, documentValidation, requestValidator, ctrl.createDocument);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/student.routes.js",
+      "line": 52,
+      "text": "router.put('/documents/:documentId', documentIdParamValidation, documentValidation, requestValidator, ctrl.updateDocument);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/student.routes.js",
+      "line": 53,
+      "text": "router.delete('/documents/:documentId', documentIdParamValidation, requestValidator, ctrl.deleteDocument);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/student.routes.js",
+      "line": 55,
+      "text": "router.get('/:studentId/academic-history', studentIdParamValidation, requestValidator, ctrl.listAcademicHistory);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/student.routes.js",
+      "line": 56,
+      "text": "router.post('/:studentId/academic-history', studentIdParamValidation, academicHistoryValidation, requestValidator, ctrl.createAcademicHistory);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/student.routes.js",
+      "line": 58,
+      "text": "router.get('/:studentId/graduation-status', studentIdParamValidation, requestValidator, ctrl.getGraduationStatus);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/system.routes.js",
+      "line": 10,
+      "text": "router.post('/institutions', auth, authorize(['SYSTEM_ADMIN']), createInstitutionValidation, requestValidator, createInstitution);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/system.routes.js",
+      "line": 11,
+      "text": "router.post('/users/system-admin', auth, authorize(['SYSTEM_ADMIN']), createSystemAdminValidation, requestValidator, createSystemAdmin);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/university-admin.routes.js",
+      "line": 30,
+      "text": "router.get('/', auth, authorize(['SYSTEM_ADMIN']), listUniversityAdmins);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/university-admin.routes.js",
+      "line": 31,
+      "text": "router.post('/', auth, authorize(['SYSTEM_ADMIN']), createUniversityAdminValidation, requestValidator, createUniversityAdmin);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/university-admin.routes.js",
+      "line": 32,
+      "text": "router.put('/:userId', auth, authorize(['SYSTEM_ADMIN']), userIdParamValidation, updateUniversityAdminValidation, requestValidator, updateUniversityAdmin);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/university-admin.routes.js",
+      "line": 33,
+      "text": "router.delete('/:userId', auth, authorize(['SYSTEM_ADMIN']), userIdParamValidation, requestValidator, deleteUniversityAdmin);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/university-admin.routes.js",
+      "line": 34,
+      "text": "router.patch('/:userId/assign-institution', auth, authorize(['SYSTEM_ADMIN']), userIdParamValidation, assignInstitutionValidation, requestValidator, assignInstitution);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/university-admin.routes.js",
+      "line": 35,
+      "text": "router.patch('/:userId/remove-institution', auth, authorize(['SYSTEM_ADMIN']), userIdParamValidation, requestValidator, removeInstitution);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/university-admin.routes.js",
+      "line": 36,
+      "text": "router.patch('/:userId/activate', auth, authorize(['SYSTEM_ADMIN']), userIdParamValidation, requestValidator, activateUniversityAdmin);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/university-admin.routes.js",
+      "line": 37,
+      "text": "router.patch('/:userId/deactivate', auth, authorize(['SYSTEM_ADMIN']), userIdParamValidation, requestValidator, deactivateUniversityAdmin);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/university-admin.routes.js",
+      "line": 38,
+      "text": "router.post('/:userId/reset-password', auth, authorize(['SYSTEM_ADMIN']), userIdParamValidation, requestValidator, resetUniversityAdminPassword);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/university-admin.routes.js",
+      "line": 39,
+      "text": "router.get('/:userId/login-history', auth, authorize(['SYSTEM_ADMIN']), userIdParamValidation, requestValidator, getUniversityAdminLoginHistory);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/university-admin.routes.js",
+      "line": 40,
+      "text": "router.get('/:userId/audit-logs', auth, authorize(['SYSTEM_ADMIN']), userIdParamValidation, requestValidator, getUniversityAdminAuditLogs);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/university-admin.routes.js",
+      "line": 41,
+      "text": "router.get('/:userId/profile', auth, authorize(['SYSTEM_ADMIN', 'UNIVERSITY_ADMIN']), userIdParamValidation, requestValidator, getUniversityAdminProfile);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/university-admin.routes.js",
+      "line": 42,
+      "text": "router.patch('/:userId/permissions', auth, authorize(['SYSTEM_ADMIN']), userIdParamValidation, updateUniversityAdminPermissionsValidation, requestValidator, updateUniversityAdminPermissions);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/users.routes.js",
+      "line": 19,
+      "text": "router.post('/', auth, authorize(['SYSTEM_ADMIN']), createUserValidation, requestValidator, ctrl.createUser);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/users.routes.js",
+      "line": 20,
+      "text": "router.get('/', auth, authorize(['SYSTEM_ADMIN']), ctrl.listUsers);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/users.routes.js",
+      "line": 21,
+      "text": "router.get('/:id', auth, authorize(['SYSTEM_ADMIN']), userIdParamValidation, requestValidator, ctrl.getUser);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/users.routes.js",
+      "line": 22,
+      "text": "router.put('/:id', auth, authorize(['SYSTEM_ADMIN']), userIdParamValidation, updateUserValidation, requestValidator, ctrl.updateUser);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/users.routes.js",
+      "line": 23,
+      "text": "router.delete('/:id', auth, authorize(['SYSTEM_ADMIN']), userIdParamValidation, requestValidator, ctrl.deleteUser);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/users.routes.js",
+      "line": 25,
+      "text": "router.post('/:id/roles', auth, authorize(['SYSTEM_ADMIN']), userIdParamValidation, assignRoleValidation, requestValidator, ctrl.assignRole);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/users.routes.js",
+      "line": 26,
+      "text": "router.delete('/:id/roles', auth, authorize(['SYSTEM_ADMIN']), userIdParamValidation, removeRoleValidation, requestValidator, ctrl.removeRole);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/users.routes.js",
+      "line": 28,
+      "text": "router.put('/:id/permissions', auth, authorize(['SYSTEM_ADMIN']), userIdParamValidation, updatePermissionsValidation, requestValidator, ctrl.updatePermissions);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/users.routes.js",
+      "line": 29,
+      "text": "router.put('/:id/active', auth, authorize(['SYSTEM_ADMIN']), userIdParamValidation, setActiveValidation, requestValidator, ctrl.setActive);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/users.routes.js",
+      "line": 30,
+      "text": "router.post('/:id/reset-password', auth, authorize(['SYSTEM_ADMIN']), userIdParamValidation, requestValidator, ctrl.resetPassword);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/users.routes.js",
+      "line": 32,
+      "text": "router.get('/:id/login-history', auth, authorize(['SYSTEM_ADMIN']), userIdParamValidation, requestValidator, ctrl.getLoginHistory);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/admin/users.routes.js",
+      "line": 33,
+      "text": "router.get('/:id/audit-logs', auth, authorize(['SYSTEM_ADMIN']), userIdParamValidation, requestValidator, ctrl.getAuditLogs);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/app.js",
+      "line": 24,
+      "text": "app.use(pinoHttp({ logger }));"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/app.js",
+      "line": 25,
+      "text": "app.use(cors({ origin: true, credentials: true }));"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/app.js",
+      "line": 26,
+      "text": "app.use(cookieParser());"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/app.js",
+      "line": 27,
+      "text": "app.use(bodyParser.json());"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/app.js",
+      "line": 28,
+      "text": "app.use(bodyParser.urlencoded({ extended: true }));"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/app.js",
+      "line": 30,
+      "text": "app.use('/api/auth', authRoutes);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/app.js",
+      "line": 31,
+      "text": "app.use('/api/admin', adminRoutes);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/app.js",
+      "line": 32,
+      "text": "app.use('/api/admin/university-admins', universityAdminRoutes);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/app.js",
+      "line": 33,
+      "text": "app.use('/api/admin/users', usersRoutes);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/app.js",
+      "line": 34,
+      "text": "app.use('/api/admin/rbac', rbacRoutes);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/app.js",
+      "line": 35,
+      "text": "app.use('/api/admin/academic', academicRoutes);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/app.js",
+      "line": 36,
+      "text": "app.use('/api/admin/staff', staffRoutes);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/app.js",
+      "line": 37,
+      "text": "app.use('/api/admin/students', studentRoutes);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/app.js",
+      "line": 38,
+      "text": "app.use('/api/admin/platform', platformRoutes);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/app.js",
+      "line": 39,
+      "text": "app.use('/api/university', universityRoutes);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/app.js",
+      "line": 40,
+      "text": "app.use('/api/institutions', institutionRoutes);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/app.js",
+      "line": 41,
+      "text": "app.use('/api/institution', institutionRoutes);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/app.js",
+      "line": 42,
+      "text": "app.use('/api/student', studentPortalRoutes);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/app.js",
+      "line": 48,
+      "text": "app.use(errorHandler);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/auth/auth.routes.js",
+      "line": 10,
+      "text": "router.post('/login', [body('email').isEmail(), body('password').isLength({ min: 6 }), requestValidator], login);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/auth/auth.routes.js",
+      "line": 11,
+      "text": "router.post("
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/auth/auth.routes.js",
+      "line": 31,
+      "text": "router.post('/logout', logout);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/auth/auth.routes.js",
+      "line": 32,
+      "text": "router.post('/accept-invite', [body('token').isString(), body('password').isLength({ min: 6 }), requestValidator], acceptInvite);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/auth/auth.routes.js",
+      "line": 34,
+      "text": "router.get('/me', authMiddleware, me);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/auth/auth.routes.js",
+      "line": 35,
+      "text": "router.put('/profile', authMiddleware, updateProfileHandler);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/auth/auth.routes.js",
+      "line": 36,
+      "text": "router.post('/change-password', authMiddleware, changePasswordHandler);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/auth/auth.routes.js",
+      "line": 37,
+      "text": "router.post('/refresh', refresh);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/institution/backup.routes.js",
+      "line": 18,
+      "text": "router.get('/', ctrl.listBackups);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/institution/backup.routes.js",
+      "line": 19,
+      "text": "router.post('/', createBackupValidation, requestValidator, ctrl.createBackup);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/institution/backup.routes.js",
+      "line": 20,
+      "text": "router.get('/:backupId', backupIdParamValidation, requestValidator, ctrl.getBackup);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/institution/backup.routes.js",
+      "line": 21,
+      "text": "router.put('/:backupId', backupIdParamValidation, updateBackupValidation, requestValidator, ctrl.updateBackup);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/institution/backup.routes.js",
+      "line": 22,
+      "text": "router.delete('/:backupId', backupIdParamValidation, requestValidator, ctrl.deleteBackup);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/institution/backup.routes.js",
+      "line": 23,
+      "text": "router.post('/:backupId/restore', backupIdParamValidation, requestValidator, ctrl.restoreBackup);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/institution/backup.routes.js",
+      "line": 24,
+      "text": "router.get('/:backupId/download', backupIdParamValidation, requestValidator, ctrl.downloadBackup);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/institution/backup.routes.js",
+      "line": 26,
+      "text": "router.get('/schedules', ctrl.listBackupSchedules);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/institution/backup.routes.js",
+      "line": 27,
+      "text": "router.post('/schedules', createBackupScheduleValidation, requestValidator, ctrl.createBackupSchedule);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/institution/backup.routes.js",
+      "line": 28,
+      "text": "router.put('/schedules/:scheduleId', scheduleIdParamValidation, updateBackupScheduleValidation, requestValidator, ctrl.updateBackupSchedule);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/institution/backup.routes.js",
+      "line": 29,
+      "text": "router.delete('/schedules/:scheduleId', scheduleIdParamValidation, requestValidator, ctrl.deleteBackupSchedule);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/institution/institution.routes.js",
+      "line": 50,
+      "text": "router.get('/', getInstitutions);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/institution/institution.routes.js",
+      "line": 51,
+      "text": "router.get('/courses', auth, authorize(['STUDENT']), async (req, res, next) => { try { await listInstitutionCourses(req, res, next); } catch (err) { next(err); } });"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/institution/institution.routes.js",
+      "line": 52,
+      "text": "router.get('/student/courses', auth, authorize(['STUDENT']), async (req, res, next) => { try { await listStudentCourses(req, res, next); } catch (err) { next(err); } });"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/institution/institution.routes.js",
+      "line": 53,
+      "text": "router.post('/student/courses', auth, authorize(['STUDENT']), async (req, res, next) => { try { await registerStudentCourse(req, res, next); } catch (err) { next(err); } });"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/institution/institution.routes.js",
+      "line": 54,
+      "text": "router.delete('/student/courses/:courseId', auth, authorize(['STUDENT']), async (req, res, next) => { try { await dropStudentCourse(req, res, next); } catch (err) { next(err); } });"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/institution/institution.routes.js",
+      "line": 55,
+      "text": "router.get('/student/assessments', auth, authorize(['STUDENT']), async (req, res, next) => { try { await listStudentAssessments(req, res, next); } catch (err) { next(err); } });"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/institution/institution.routes.js",
+      "line": 56,
+      "text": "router.get('/student/academic-history', auth, authorize(['STUDENT']), async (req, res, next) => { try { await listStudentAcademicHistory(req, res, next); } catch (err) { next(err); } });"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/institution/institution.routes.js",
+      "line": 57,
+      "text": "router.get('/student/documents', auth, authorize(['STUDENT']), async (req, res, next) => { try { await listStudentDocuments(req, res, next); } catch (err) { next(err); } });"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/institution/institution.routes.js",
+      "line": 58,
+      "text": "router.get('/student/fees', auth, authorize(['STUDENT']), async (req, res, next) => { try { await getStudentFeeStatus(req, res, next); } catch (err) { next(err); } });"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/institution/institution.routes.js",
+      "line": 59,
+      "text": "router.get('/student/support-tickets', auth, authorize(['STUDENT']), async (req, res, next) => { try { await listStudentSupportTickets(req, res, next); } catch (err) { next(err); } });"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/institution/institution.routes.js",
+      "line": 60,
+      "text": "router.post('/student/support-tickets', auth, authorize(['STUDENT']), async (req, res, next) => { try { await createStudentSupportTicket(req, res, next); } catch (err) { next(err); } });"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/institution/institution.routes.js",
+      "line": 61,
+      "text": "router.get('/student/transcript-requests', auth, authorize(['STUDENT']), async (req, res, next) => { try { await listStudentTranscriptRequests(req, res, next); } catch (err) { next(err); } });"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/institution/institution.routes.js",
+      "line": 62,
+      "text": "router.post('/student/transcript-requests', auth, authorize(['STUDENT']), async (req, res, next) => { try { await createStudentTranscriptRequest(req, res, next); } catch (err) { next(err); } });"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/institution/institution.routes.js",
+      "line": 63,
+      "text": "router.get('/student/results', auth, authorize(['STUDENT']), async (req, res, next) => { try { await getStudentResults(req, res, next); } catch (err) { next(err); } });"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/institution/institution.routes.js",
+      "line": 64,
+      "text": "router.get('/:institutionId', auth, authorize(['SYSTEM_ADMIN', 'UNIVERSITY_ADMIN']), institutionIdParamValidation, requestValidator, requireTenantAccess, getInstitutionById);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/institution/institution.routes.js",
+      "line": 65,
+      "text": "router.post('/', auth, authorize(['SYSTEM_ADMIN']), createInstitutionValidation, requestValidator, createInstitution);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/institution/institution.routes.js",
+      "line": 66,
+      "text": "router.put('/:institutionId', auth, authorize(['SYSTEM_ADMIN']), institutionIdParamValidation, updateInstitutionValidation, requestValidator, requireTenantAccess, updateInstitution);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/institution/institution.routes.js",
+      "line": 67,
+      "text": "router.delete('/:institutionId', auth, authorize(['SYSTEM_ADMIN']), institutionIdParamValidation, requestValidator, requireTenantAccess, deleteInstitution);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/institution/institution.routes.js",
+      "line": 68,
+      "text": "router.post('/:institutionId/restore', auth, authorize(['SYSTEM_ADMIN']), institutionIdParamValidation, requestValidator, requireTenantAccess, restoreInstitution);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/institution/institution.routes.js",
+      "line": 69,
+      "text": "router.get('/:institutionId/settings', auth, authorize(['SYSTEM_ADMIN', 'UNIVERSITY_ADMIN']), institutionIdParamValidation, requestValidator, requireTenantAccess, getInstitutionSettings);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/institution/institution.routes.js",
+      "line": 70,
+      "text": "router.put('/:institutionId/settings', auth, authorize(['SYSTEM_ADMIN', 'UNIVERSITY_ADMIN']), institutionIdParamValidation, updateInstitutionSettingsValidation, requestValidator, requireTenantAccess, updateInstitutionSettings);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/institution/institution.routes.js",
+      "line": 71,
+      "text": "router.get('/:institutionId/statistics', auth, authorize(['SYSTEM_ADMIN', 'UNIVERSITY_ADMIN']), institutionIdParamValidation, requestValidator, requireTenantAccess, getInstitutionStatistics);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/institution/institution.routes.js",
+      "line": 72,
+      "text": "router.patch('/:institutionId/status', auth, authorize(['SYSTEM_ADMIN']), institutionIdParamValidation, updateInstitutionStatusValidation, requestValidator, requireTenantAccess, updateInstitutionStatus);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/institution/institution.routes.js",
+      "line": 73,
+      "text": "router.get('/:institutionId/profile', auth, authorize(['SYSTEM_ADMIN', 'UNIVERSITY_ADMIN']), institutionIdParamValidation, requestValidator, requireTenantAccess, getInstitutionProfile);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/institution/institution.routes.js",
+      "line": 74,
+      "text": "router.get('/:institutionId/subscription', auth, authorize(['SYSTEM_ADMIN', 'UNIVERSITY_ADMIN']), institutionIdParamValidation, requestValidator, requireTenantAccess, getInstitutionSubscription);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/institution/institution.routes.js",
+      "line": 75,
+      "text": "router.get('/:institutionId/storage', auth, authorize(['SYSTEM_ADMIN', 'UNIVERSITY_ADMIN']), institutionIdParamValidation, requestValidator, requireTenantAccess, getInstitutionStorage);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/institution/institution.routes.js",
+      "line": 76,
+      "text": "router.get('/:institutionId/activity-logs', auth, authorize(['SYSTEM_ADMIN', 'UNIVERSITY_ADMIN']), institutionIdParamValidation, requestValidator, requireTenantAccess, getInstitutionActivityLogs);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/institution/institution.routes.js",
+      "line": 77,
+      "text": "router.get('/:institutionId/audit-logs', auth, authorize(['SYSTEM_ADMIN', 'UNIVERSITY_ADMIN']), institutionIdParamValidation, requestValidator, requireTenantAccess, getInstitutionAuditLogs);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/institution/institution.routes.js",
+      "line": 78,
+      "text": "router.post('/:institutionId/clone', auth, authorize(['SYSTEM_ADMIN']), institutionIdParamValidation, cloneInstitutionConfigurationValidation, requestValidator, requireTenantAccess, cloneInstitutionConfiguration);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/institution/institution.routes.js",
+      "line": 79,
+      "text": "router.post('/:institutionId/reset', auth, authorize(['SYSTEM_ADMIN']), institutionIdParamValidation, requestValidator, requireTenantAccess, resetInstitution);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/student/student.routes.js",
+      "line": 34,
+      "text": "router.get('/profile', getProfile);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/student/student.routes.js",
+      "line": 35,
+      "text": "router.get('/courses', getCourses);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/student/student.routes.js",
+      "line": 36,
+      "text": "router.get('/registered-courses', getRegisteredCourses);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/student/student.routes.js",
+      "line": 37,
+      "text": "router.post('/courses', registerCourseValidation, requestValidator, registerCourse);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/student/student.routes.js",
+      "line": 38,
+      "text": "router.delete('/courses/:courseId', dropCourseValidation, requestValidator, dropCourse);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/student/student.routes.js",
+      "line": 39,
+      "text": "router.get('/assessments', getAssessments);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/student/student.routes.js",
+      "line": 40,
+      "text": "router.get('/results', getResults);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/student/student.routes.js",
+      "line": 41,
+      "text": "router.get('/transcript-requests', getTranscriptRequests);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/student/student.routes.js",
+      "line": 42,
+      "text": "router.post('/transcript-requests', transcriptRequestValidation, requestValidator, createTranscriptRequest);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/student/student.routes.js",
+      "line": 43,
+      "text": "router.get('/academic-history', getAcademicHistory);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/student/student.routes.js",
+      "line": 44,
+      "text": "router.get('/fees', getFeeStatus);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/student/student.routes.js",
+      "line": 45,
+      "text": "router.get('/documents', getDocuments);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/student/student.routes.js",
+      "line": 46,
+      "text": "router.get('/notifications', getNotifications);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/student/student.routes.js",
+      "line": 47,
+      "text": "router.get('/support-tickets', getSupportTickets);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/student/student.routes.js",
+      "line": 48,
+      "text": "router.post('/support-tickets', supportTicketValidation, requestValidator, createSupportTicket);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/university/university.routes.js",
+      "line": 13,
+      "text": "router.post('/:institutionId/invite', auth, authorize(['UNIVERSITY_ADMIN']), institutionIdParamValidation, inviteValidation, requestValidator, requireTenantAccess, inviteStaffOrStudent);"
+    },
+    {
+      "file": "C:/Users/DELL/Desktop/Result app/URMIS DOCUMENT/urmis/backend/src/university/university.routes.js",
+      "line": 14,
+      "text": "router.post('/:institutionId/bulk-upload', auth, authorize(['UNIVERSITY_ADMIN']), institutionIdParamValidation, upload.single('file'), requestValidator, requireTenantAccess, bulkUploadUsers);"
+    }
+  ]
+}

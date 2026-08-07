@@ -4,7 +4,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL", "postgresql://postgres:postgres@127.0.0.1:5432/urmis_dev?schema=public")
+  url      = env("DATABASE_URL")
 }
 
 model Institution {
@@ -27,6 +27,20 @@ model Institution {
   programmes  Programme[]
   levels      Level[]
   courseAllocations CourseAllocation[]
+  assessmentTypes AssessmentType[]
+  assessments Assessment[]
+  registrationWindows RegistrationWindow[]
+  transcriptRequests TranscriptRequest[]
+  graduationClearances GraduationClearance[]
+  graduationLists GraduationList[]
+  notifications Notification[]
+  invoices Invoice[]
+  payments Payment[]
+  healthChecks HealthCheck[]
+  securityAlerts SecurityAlert[]
+  backupJobs BackupJob[]
+  backupSchedules BackupSchedule[]
+  notificationTemplates NotificationTemplate[]
 
   status                 InstitutionStatus @default(PENDING)
   deletedAt              DateTime?
@@ -144,6 +158,13 @@ model User {
   staffProfile    StaffProfile?
   employmentInformation EmploymentInformation?
   assignments     StaffAssignment[]
+  sessions        UserSession[]
+  approvedCourseRegistrations CourseRegistration[]
+  requestedTranscriptRequests TranscriptRequest[]
+  clearedGraduationClearances GraduationClearance[]
+  notifications    Notification[]
+  securityAlerts   SecurityAlert[]
+  initiatedBackupJobs BackupJob[]
 }
 
 model UserLoginHistory {
@@ -192,6 +213,9 @@ model Faculty {
   departments Department[]
   courses     Course[]
   programmes  Programme[]
+  staffProfiles StaffProfile[]
+  employmentInformations EmploymentInformation[]
+  staffAssignments StaffAssignment[]
 }
 
 model Department {
@@ -208,6 +232,9 @@ model Department {
   courses     Course[]
   students    Student[]
   programmes  Programme[]
+  staffProfiles StaffProfile[]
+  employmentInformations EmploymentInformation[]
+  staffAssignments StaffAssignment[]
 }
 
 model AcademicSession {
@@ -225,6 +252,9 @@ model AcademicSession {
   results     Result[]
   registrations CourseRegistration[]
   courseAllocations CourseAllocation[]
+  academicHistories AcademicHistory[]
+  assessments Assessment[]
+  graduationLists GraduationList[]
 }
 
 model Programme {
@@ -413,6 +443,8 @@ model Semester {
   results       Result[]
   curricula     Curriculum[]
   courseAllocations CourseAllocation[]
+  academicHistories AcademicHistory[]
+  assessments Assessment[]
 }
 
 model Course {
@@ -434,6 +466,8 @@ model Course {
   results       Result[]
   curricula     Curriculum[]
   allocations   CourseAllocation[]
+  assessments   Assessment[]
+  staffAssignments StaffAssignment[]
 }
 
 model Student {
@@ -462,6 +496,8 @@ model Student {
   graduationClearances GraduationClearance[]
   degreeClassifications DegreeClassification[]
   certificates  Certificate[]
+  assessmentScores AssessmentScore[]
+  notifications Notification[]
 }
 
 model CourseRegistration {
@@ -675,6 +711,7 @@ model GraduationList {
 
   institution Institution @relation(fields: [institutionId], references: [id], onDelete: Cascade)
   session     AcademicSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  certificates Certificate[]
 }
 
 model Certificate {
@@ -770,6 +807,8 @@ model Coupon {
   usageLimit  Int?     
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+
+  invoices Invoice[]
 }
 
 model Invoice {
