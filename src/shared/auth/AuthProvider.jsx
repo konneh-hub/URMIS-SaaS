@@ -1,6 +1,7 @@
 "use client";
 
 import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import { getUserPermissions } from '../permissions/permissions';
 
 const AuthContext = createContext(null);
 const API_BASE = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost:5000';
@@ -22,10 +23,7 @@ export function AuthProvider({ children }) {
   const [isLoading, setIsLoading] = useState(true);
 
   const refresh = useCallback(async () => {
-    const response = await fetch(`${API_BASE}/api/auth/refresh`, {
-      method: 'POST',
-      credentials: 'include',
-    });
+    const response = await fetch(`${API_BASE}/api/auth/refresh`, { method: 'POST', credentials: 'include' });
     const body = await parseResponse(response);
     setAccessToken(body.data.accessToken);
     return body.data.accessToken;
@@ -33,31 +31,21 @@ export function AuthProvider({ children }) {
 
   const request = useCallback(async (path, options = {}, retry = true) => {
     const headers = new Headers(options.headers || {});
-    headers.set('Content-Type', 'application/json');
+    if (options.body && !headers.has('Content-Type')) headers.set('Content-Type', 'application/json');
     if (accessToken) headers.set('Authorization', `Bearer ${accessToken}`);
 
-    let response = await fetch(`${API_BASE}${path}`, {
-      ...options,
-      headers,
-      credentials: 'include',
-    });
-
+    let response = await fetch(`${API_BASE}${path}`, { ...options, headers, credentials: 'include' });
     if (response.status === 401 && retry) {
       try {
         const token = await refresh();
         headers.set('Authorization', `Bearer ${token}`);
-        response = await fetch(`${API_BASE}${path}`, {
-          ...options,
-          headers,
-          credentials: 'include',
-        });
+        response = await fetch(`${API_BASE}${path}`, { ...options, headers, credentials: 'include' });
       } catch {
         setUser(null);
         setAccessToken(null);
         setIsAuthenticated(false);
       }
     }
-
     return response;
   }, [accessToken, refresh]);
 
@@ -108,16 +96,12 @@ export function AuthProvider({ children }) {
   }, [refresh]);
 
   const hasRole = useCallback((roles) => {
-    const list = Array.isArray(roles) ? roles : [roles];
-    const normalized = list.filter(Boolean).map((role) => String(role).toUpperCase());
-    return normalized.includes(String(user?.role || '').toUpperCase())
-      || (user?.assignedRoles || []).some((role) => normalized.includes(String(role).toUpperCase()));
+    const list = (Array.isArray(roles) ? roles : [roles]).filter(Boolean).map((role) => String(role).toUpperCase());
+    return list.includes(String(user?.role || '').toUpperCase())
+      || (user?.assignedRoles || []).some((role) => list.includes(String(role).toUpperCase()));
   }, [user]);
 
-  const hasPermission = useCallback((permission) => {
-    if (!permission) return true;
-    return (user?.permissions || []).includes(permission);
-  }, [user]);
+  const hasPermission = useCallback((permission) => getUserPermissions(user).includes(permission), [user]);
 
   const value = useMemo(() => ({
     user,
