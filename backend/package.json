@@ -4,9 +4,20 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "node src/server.js"
+    "dev": "node src/server.js",
+    "start": "node src/server.js",
+    "prisma:generate": "prisma generate --schema=../prisma/schema.prisma"
   },
   "dependencies": {
-    "express": "^4.19.0"
+    "@prisma/client": "^4.16.2",
+    "body-parser": "^1.20.2",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^17.4.2",
+    "express": "^4.19.0",
+    "express-validator": "^7.0.1",
+    "jsonwebtoken": "^9.0.0",
+    "pino": "^8.14.0",
+    "pino-http": "^8.5.0"
   }
 }
