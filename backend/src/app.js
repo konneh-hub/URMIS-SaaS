@@ -18,14 +18,16 @@ import institutionRoutes from './institution/institution.routes.js';
 import studentPortalRoutes from './student/student.routes.js';
 import errorHandler from './middleware/errorHandler.js';
 import { ensureDefaultDemoUsers, ensureDefaultSystemAdmin } from './admin/system.service.js';
+import { FRONTEND_URL } from './config/index.js';
 
 const app = express();
 
+app.disable('x-powered-by');
 app.use(pinoHttp({ logger }));
-app.use(cors({ origin: true, credentials: true }));
+app.use(cors({ origin: FRONTEND_URL, credentials: true, methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'] }));
 app.use(cookieParser());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json({ limit: '2mb' }));
+app.use(bodyParser.urlencoded({ extended: true, limit: '2mb' }));
 
 app.use('/api/auth', authRoutes);
 app.use('/api/admin', adminRoutes);
